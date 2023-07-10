@@ -1,34 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
+import { COLORS, icons, images, SIZES } from "../constants";
+// import LinearGradient from 'react-native-linear-gradient'
+import { LinearGradient } from 'expo-linear-gradient';
+import {View, Image, Text, ScrollView, SafeAreaView} from "react-native";
 
-export default function Page() {
+const SlashScreen = () => {
     return (
-        <View style={styles.container}>
-            <View style={styles.main}>
-                <Text style={styles.title}>Hello World</Text>
-                <Text style={styles.subtitle} className="text-lg">This is the first page of your app.</Text>
-            </View>
-        </View>
-    );
+        <SafeAreaView className={"flex-1"}>
+            <LinearGradient className={"flex-1"} colors={['white', COLORS.primary]}>
+                <View className={"flex-1 justify-center bg-gradient from-[#FFFFFF] to-[#000000]"}>
+                    <Image
+                        source={images.appName}
+                        resizeMode="contain"
+                        className={"mx-auto"}/>
+                    <Image
+                        source={images.logo}
+                        resizeMode="contain"
+                        className={"w-80 h-80 mx-auto"}/>
+                </View>
+            </LinearGradient>
+        </SafeAreaView>
+  );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        padding: 24,
-    },
-    main: {
-        flex: 1,
-        justifyContent: "center",
-        maxWidth: 960,
-        marginHorizontal: "auto",
-    },
-    title: {
-        fontSize: 64,
-        fontWeight: "bold",
-    },
-    subtitle: {
-        fontSize: 36,
-        color: "#38434D",
-    },
-});
+export default SlashScreen;
