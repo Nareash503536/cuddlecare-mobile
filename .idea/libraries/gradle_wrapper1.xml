@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="gradle-wrapper1">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/.yarn/unplugged/react-native-virtual-c36c1b143f/node_modules/react-native/template/android/gradle/wrapper/gradle-wrapper.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
