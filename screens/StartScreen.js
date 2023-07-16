@@ -8,20 +8,20 @@ import {Image, View} from "react-native";
 
 export function StartScreen() {
     let navigation = useNavigation();
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         navigation.navigate("Home");
-    //     },2000);
-    // }, []);
+    useEffect(() => {
+        setTimeout(() => {
+            navigation.navigate("Register");
+        },2000);
+    }, []);
 
     return (
         <SafeAreaView className={"flex-1"}>
             <LinearGradient className={"flex-1"} colors={['white', COLORS.primary]}>
-                <View className={"flex-1 justify-center bg-gradient from-[#FFFFFF] to-[#000000] border"}>
+                <View className={"flex-1 justify-center bg-gradient from-[#FFFFFF] to-[#000000]"}>
                     <Image
                         source={images.appName}
                         resizeMode="contain"
-                        className={"w-80 h-80 mx-auto border"}/>
+                        className={"mx-auto"}/>
                     <Image
                         source={images.logo}
                         resizeMode="contain"
