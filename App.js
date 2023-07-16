@@ -1,6 +1,9 @@
+import { NativeBaseProvider } from "native-base";
 import {Navigation} from "./navigation/navigation";
 export default function App() {
   return (
-    <Navigation/>
+    <NativeBaseProvider>
+      <Navigation />
+    </NativeBaseProvider>
   );
 }

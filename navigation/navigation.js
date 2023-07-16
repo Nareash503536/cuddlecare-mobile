@@ -2,7 +2,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {StartScreen} from "../screens/StartScreen";
 import {HomeScreen} from "../screens/HomeScreen";
-import {BabyScreen} from "../screens/BabyScreen";
+import { BabyScreen } from "../screens/BabyScreen";
+import { RegisterScreen } from "../screens/Registration/RegisterScreen";
 const Stack = createNativeStackNavigator();
 export function Navigation() {
     return (
@@ -11,6 +12,7 @@ export function Navigation() {
                 <Stack.Screen name="Start" component={StartScreen} />
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Baby" component={BabyScreen} />
+                <Stack.Screen name="Register" component={RegisterScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
