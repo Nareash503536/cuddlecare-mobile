@@ -2,13 +2,15 @@ import {Dimensions, Platform, TouchableOpacity, Image, Text, View} from "react-n
 import {themeColors} from "../theme";
 import {mainFeatures} from "../constants";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 const ios = Platform.OS==='android';
 const {width, height} = Dimensions.get('window');
 
 export function Features({item}) {
+    const navigation = useNavigation();
     return (
         <TouchableOpacity
-            // onPress={() => navigation.navigate('Baby')}
+            onPress={() => navigation.navigate(item.location)}
           style={{
               borderRadius: 40,
               width: width*0.5,
