@@ -1,6 +1,8 @@
 export const themeColors = {
 
     bgColor: opacity=> `rgba(112, 66, 20, ${opacity})`,
+    bgInput: opacity=> `rgba(112, 170, 186, ${opacity})`,
+    bgInputDager: opacity=> `rgba(255, 0, 0, ${opacity})`,
     bgLight: '#d4a574',
     bgDark: '#8c5319',
     text: '#3C2A21',
