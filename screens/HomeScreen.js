@@ -1,4 +1,4 @@
-import {Text, View, Image, Platform} from "react-native";
+import {Text, View, Image, Platform, Button} from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BellIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline'
 import {themeColors} from "../theme";
@@ -8,6 +8,7 @@ import {babyDetails} from "../constants";
 import BabyCard from "../components/babyCard";
 import {useNavigation} from "@react-navigation/native";
 import {Carousel} from "react-native-snap-carousel";
+import RemindersButton from "../components/RemindersButton";
 
 
 const ios = Platform.OS==='android';
@@ -66,6 +67,10 @@ export function HomeScreen() {
                     </View>
 
                 </View>
+                
+                   <View>
+                        <RemindersButton/>
+                   </View>
 
             </SafeAreaView>
         </View>
