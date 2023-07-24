@@ -18,8 +18,8 @@ export function Navigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown:false}}>
-                {/*<Stack.Screen name="Start" component={StartScreen} />*/}
-                {/*<Stack.Screen name="Home" component={HomeScreen} />*/}
+                <Stack.Screen name="Start" component={StartScreen} />
+                <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Baby" component={BabyScreen} />
 
                 <Stack.Screen name="RemindersList" component={RemindersList}/>
