@@ -9,20 +9,11 @@ export const growthSlice = createSlice({
   initialState,
   reducers: {
     setGrowth: (state, action) => { // action.payload is an array of objects
-    //   state.growth = action.payload;
-        const inverted = action.payload.reverse();
         state.growth = action.payload;
-
     },
     addGrowth: (state, action) => {
         state.growth =  [action.payload, ...state.growth]
     //   state.growth.push(action.payload);
-    },
-    deleteGrowth: (state, action) => {
-      const index = state.growth.findIndex((item) => item.id === action.payload);
-      if (index !== -1) {
-        state.growth.splice(index, 1);
-      }
     },
     updateGrowth: (state, action) => {
         const { id, measurement } = action.payload;
