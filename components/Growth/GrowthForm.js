@@ -5,6 +5,8 @@ import React, {useState} from "react";
 import Button from "../UI/Button";
 import {GlobalStyles} from "../../constants/styles";
 import {useNavigation} from "@react-navigation/native";
+import DateTimePicker from "../Form Component/DateTimePicker";
+import {getFormattedDate, getFormattedTime} from "../../util/date";
 
 export default function GrowthForm({onCancel,onSubmit}) {
     let navigation = useNavigation();
@@ -19,6 +21,10 @@ export default function GrowthForm({onCancel,onSubmit}) {
             isValid: true,
         },
         headCircumference: {
+            value: '',
+            isValid: true,
+        },
+        date:{
             value: '',
             isValid: true,
         },
@@ -42,8 +48,12 @@ export default function GrowthForm({onCancel,onSubmit}) {
             weight:+inputs.weight.value,
             height:+inputs.height.value,
             headCircumference:+inputs.headCircumference.value,
+            date:getFormattedTime(inputs.date.value),
             description:inputs.description.value,
+            // date:inputs.date.value,
+
         }
+        // console.log("date",getFormattedDate(inputs.date.value)); //test
 
         const heightIsValid = !isNaN(growthData.height) && growthData.height > 0;
         const weightIsValid = !isNaN(growthData.weight)&& growthData.weight > 0
@@ -110,6 +120,12 @@ const formIsValid =
 
                 }}
             />
+            <DateTimePicker
+                mode='time'
+                lable={"Date"}
+                inputHandler={inputChangedHandler}
+            />
+
             <Input
                 label="Description"
                 invalid ={!inputs.description.isValid}

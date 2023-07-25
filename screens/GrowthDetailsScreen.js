@@ -8,6 +8,7 @@ import {themeColors} from "../theme";
 import GrowthMeasurementList from "../components/Growth/GrowthMeasurementList";
 import {useDispatch, useSelector} from "react-redux";
 import {selectGrowth, setGrowth} from "../slices/growthSlice";
+import {getFormattedDate} from "../util/date";
 
 const DUMMY_GROWTH =[
     {
@@ -16,6 +17,7 @@ const DUMMY_GROWTH =[
         height: 10,
         headCircumference: 15,
         description: 'Eat more',
+        date: getFormattedDate(new Date(2022, 10, 12)),
     },
     {
         id: 'e2',
@@ -23,6 +25,7 @@ const DUMMY_GROWTH =[
         height: 20,
         headCircumference: 25,
         description: 'Eat less',
+        date: getFormattedDate(new Date(2022, 10, 12)),
     },
     {
         id: 'e3',
@@ -30,6 +33,7 @@ const DUMMY_GROWTH =[
         height: 30,
         headCircumference: 35,
         description: 'eat samaposha',
+        date: getFormattedDate(new Date(2022, 10, 12)),
     },
     {
         id: 'e4',
@@ -37,6 +41,7 @@ const DUMMY_GROWTH =[
         height: 40,
         headCircumference: 45,
         description: 'eat more',
+        date: getFormattedDate(new Date(2022, 10, 12))
     }
 ];
 export function GrowthDetailsScreen() {

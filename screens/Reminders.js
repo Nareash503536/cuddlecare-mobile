@@ -16,17 +16,23 @@ export function Reminders() {
     const [date, setDate] = useState(new Date());
     const [showPicker, setShowPicker] = useState(false);
     const navigation = useNavigation();
+    const [isVisibleDropdown, setVisibleDropdown] = useState(false);
 
-    
 
-  
     //const [showPicker, setShowPicker] = useState(false);
 
     const [selectedOption,setSelectedOption] = useState('once');
 
     const handleRadioChange = (value) => {
-      setSelectedOption(value)
+      // setSelectedOption(value)
+        setVisibleDropdown(value);
     }
+    const object = [
+        {key:'1', value:'Daily'},
+        {key:'2', value:'Once a week'},
+        {key:'3', value:'Once a month'},
+        {key:'4', value:'Once a year'}
+    ]
 
     return (
    <SafeAreaView className={"p-5"}>
@@ -90,7 +96,7 @@ export function Reminders() {
         </View>
 
               <View className={"border border-teal-300"}>
-                     <Dropdown />
+                     <Dropdown data={object} />
                 </View>
         
         <View className = "p- m-5">
@@ -98,14 +104,11 @@ export function Reminders() {
                <RadioBtn selectedOption={selectedOption} handleRadioChange={handleRadioChange}/>
         </View>
 
-
-
-        <View>
-           <Dropdown enabled={selectedOption === "repeat"} />
-        </View>
-
-
-
+       {isVisibleDropdown&&
+           <View>
+               <Dropdown data={object}  enabled={selectedOption === "repeat"} />
+           </View>
+       }
 
         <View className="p-10">
                {/* <Button class= "py-3 px-2 text-black bg-teal-500 font-bold" title='Set Reminder'></Button>  */}

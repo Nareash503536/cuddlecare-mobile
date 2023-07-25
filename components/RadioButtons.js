@@ -3,7 +3,7 @@ import { View,Text } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 // import Dropdown from './Dropdown';
 
-const RadioBtn = () => {
+const RadioBtn = ({handleRadioChange}) => {
   const [selected, setSelected] = React.useState('once');
 
 
@@ -14,7 +14,11 @@ const RadioBtn = () => {
         value="once"
         label = "once"
         status={ selected === 'once' ? 'checked' : 'unchecked' }
-        onPress={() => setSelected('once')}/>
+        onPress={() => {
+            setSelected('once')
+            handleRadioChange(false)}
+        }
+        />
 
           <Text>Once</Text>
 
@@ -25,7 +29,10 @@ const RadioBtn = () => {
         <RadioButton
         value="repeat"
         status={ selected === 'repeat' ? 'checked' : 'unchecked' }
-        onPress={() => setSelected('repeat')}
+        onPress={() => {
+            setSelected('repeat')
+            handleRadioChange(true)}
+        }
       />
       <Text>Repeat</Text>
         </View>
