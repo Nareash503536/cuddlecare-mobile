@@ -10,9 +10,6 @@ import React from 'react';
 import {GrowthDetailsScreen} from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
 
-
-import { BabyScreen } from "../screens/BabyScreen";
-
 const Stack = createNativeStackNavigator();
 export function Navigation() {
     return (

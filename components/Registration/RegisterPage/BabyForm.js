@@ -9,19 +9,19 @@ import {handleNavigateContext} from "../../../screens/Registration/RegisterPage"
 
 export function BabyForm() {
 
-    const { registrationInfo, setRegistrationInfo, BabyName, setBabyName } = useContext(handleNavigateContext);
-    // const [registrationInfo, setRegistrationInfo] = useState({
-    //     BabyName: "",
-    //     BabyGender: null,
-    //     BabyDOB: null,
-    //     BabyRelationship: null,
-    //     ParentName: null,
-    //     ParentPhoneNumber: null,
-    //     ParentDOB: null,
-    //     ParentEmail: null,
-    //     ParentPassword: null,
-    //     ParentConfirmPassword: null
-    // })
+    // const { registrationInfo, setRegistrationInfo, BabyName, setBabyName } = useContext(handleNavigateContext);
+    const [registrationInfo, setRegistrationInfo] = useState({
+        BabyName: "",
+        BabyGender: null,
+        BabyDOB: null,
+        BabyRelationship: null,
+        ParentName: null,
+        ParentPhoneNumber: null,
+        ParentDOB: null,
+        ParentEmail: null,
+        ParentPassword: null,
+        ParentConfirmPassword: null
+    })
 
     const genderLabels = [
         {label: 'Male', value: 'male'},
@@ -35,9 +35,6 @@ export function BabyForm() {
 
     const [value, setValue] = useState('');
 
-    const onChangeBabyName = (BabyName) => {
-        setRegistrationInfo({ ...registrationInfo, BabyName: BabyName })
-    }
 
     return (
         <>
@@ -57,8 +54,8 @@ export function BabyForm() {
                             keyboardType='default'
                             style={styles.textInput}
                             placeholder="Name"
-                            value={BabyName}
-                            onChangeText={onChangeBabyName}
+                            value={registrationInfo.BabyName}
+                            onChangeText={(BabyName) => setRegistrationInfo({ ...registrationInfo, BabyName: BabyName })}
                             // onChangeText={(BabyName) => setBabyName(BabyName)}
                         />
                         <Text>
