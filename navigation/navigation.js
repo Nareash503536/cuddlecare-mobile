@@ -11,7 +11,7 @@ import {GrowthDetailsScreen} from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
 
 
-
+import { BabyScreen } from "../screens/BabyScreen";
 
 const Stack = createNativeStackNavigator();
 export function Navigation() {
@@ -21,8 +21,6 @@ export function Navigation() {
                 <Stack.Screen name="Start" component={StartScreen} />
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Baby" component={BabyScreen} />
-
-
                 <Stack.Screen name="RemindersList" component={RemindersList}/>
                 <Stack.Screen name="Reminders" component={Reminders}/>
                 <Stack.Screen name="ReminderDetails" component={ReminderDetails}/>
@@ -30,7 +28,6 @@ export function Navigation() {
                 {/* Growth feature screens */}
                 <Stack.Screen name="GrowthDetails" component={GrowthDetailsScreen} />
                 <Stack.Screen name="GrowhtManage" component={GrowhtManageScreen} />
-
             </Stack.Navigator>
         </NavigationContainer>
     )
