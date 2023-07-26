@@ -48,10 +48,8 @@ export default function GrowthForm({onCancel,onSubmit}) {
             weight:+inputs.weight.value,
             height:+inputs.height.value,
             headCircumference:+inputs.headCircumference.value,
-            date:getFormattedTime(inputs.date.value),
+            date:getFormattedDate(inputs.date.value),
             description:inputs.description.value,
-            // date:inputs.date.value,
-
         }
         // console.log("date",getFormattedDate(inputs.date.value)); //test
 
@@ -121,7 +119,7 @@ const formIsValid =
                 }}
             />
             <DateTimePicker
-                mode='time'
+                mode='date'
                 lable={"Date"}
                 inputHandler={inputChangedHandler}
             />

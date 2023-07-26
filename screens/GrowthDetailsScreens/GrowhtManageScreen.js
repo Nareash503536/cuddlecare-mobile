@@ -7,6 +7,9 @@ import {useNavigation} from "@react-navigation/native";
 import {themeColors} from "../../theme";
 import {useDispatch} from "react-redux";
 import {addGrowth} from "../../slices/growthSlice";
+import {storeGrowth} from "../../util/http";
+import {useState} from "react";
+import ErrorOverlay from "../../components/UI/ErrorOverlay";
 
 
 //generate array of objects including dummy values for growth
@@ -14,6 +17,7 @@ import {addGrowth} from "../../slices/growthSlice";
 export default function GrowhtManageScreen() {
     let navigation = useNavigation();
     const dispatch = useDispatch();
+    const [error, setError] = useState();
     function deleteExpenseHandler() {
         // expensesCtx.deleteExpense(editedExpenseId);
         navigation.goBack();
@@ -23,24 +27,22 @@ export default function GrowhtManageScreen() {
         navigation.goBack();
     }
 
-    function confirmHandler(growthData) {
-        console.log(growthData)
-        growthData.id = 'e5';
-        // if (isEditing) {
-        //     expensesCtx.updateExpense(
-        //         editedExpenseId,
-        //         {
-        //             description: 'Test!!!!',
-        //             amount: 29.99,
-        //             date: new Date('2022-05-20'),
-        //         }
-        //     );
-        // } else {
-        dispatch(addGrowth(growthData));
-        console.log("growthData",growthData)
-
-        // }
+    async function confirmHandler(growthData) {
+        try{
+            const id = await storeGrowth(growthData);
+            dispatch(addGrowth({...growthData,id:id}));
+        }catch (error) {
+            setError('Netword Error');
+        }
         navigation.goBack();
+    }
+
+    function errorHandler(){
+        setError(null);
+    }
+
+    if(error){
+        return <ErrorOverlay message={error} onConfirm={errorHandler}/>
     }
 
     return (
@@ -54,8 +56,6 @@ export default function GrowhtManageScreen() {
                 onCancel={cancelHandler}
                 onSubmit={confirmHandler}
             />
-
-
 
         </SafeAreaView>
     )
