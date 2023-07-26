@@ -12,7 +12,7 @@ import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScre
 
 
 import { BabyScreen } from "../screens/BabyScreen";
-import { RegisterScreen } from "../screens/Registration/RegisterScreen";
+
 const Stack = createNativeStackNavigator();
 export function Navigation() {
     return (
@@ -28,7 +28,6 @@ export function Navigation() {
                 {/* Growth feature screens */}
                 <Stack.Screen name="GrowthDetails" component={GrowthDetailsScreen} />
                 <Stack.Screen name="GrowhtManage" component={GrowhtManageScreen} />
-                <Stack.Screen name="Register" component={RegisterScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

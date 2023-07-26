@@ -1,13 +1,14 @@
 import { Provider } from "react-redux";
-import { NativeBaseProvider } from "native-base";
-import {Navigation} from "./navigation/navigation";
+import { AuthProvider } from "./Context/AuthContext";
+import AppNav from "./navigation/AppNav";
+import React from "react";
 import { store } from "./store/store";
 export default function App() {
   return (
     <Provider store={store}>
-      <NativeBaseProvider>
-        <Navigation />
-      </NativeBaseProvider>
+      <AuthProvider>
+        <AppNav />
+      </AuthProvider>
     </Provider>
   );
 }
