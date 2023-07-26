@@ -38,7 +38,6 @@ const toastConfig = {
 const AppNav = () => {
     const { isLoading, authState} = useContext(AuthContext);
 
-    
     if(isLoading){
         return(
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -51,9 +50,10 @@ const AppNav = () => {
     return (
         <NativeBaseProvider>
             {authState?.authenticated == true ? <Navigation /> : <AuthStack />}
-            <Toast config={toastConfig}/>   
+            <Toast config={toastConfig}/>
         </NativeBaseProvider>
     )
 }
 
 export default AppNav;
+
