@@ -1,10 +1,13 @@
 import { Provider } from "react-redux";
+import { NativeBaseProvider } from "native-base";
 import {Navigation} from "./navigation/navigation";
 import { store } from "./store/store";
 export default function App() {
   return (
     <Provider store={store}>
-      <Navigation/>
+      <NativeBaseProvider>
+        <Navigation />
+      </NativeBaseProvider>
     </Provider>
   );
 }
