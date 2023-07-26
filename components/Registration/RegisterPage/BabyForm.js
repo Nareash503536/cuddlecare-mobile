@@ -35,6 +35,10 @@ export function BabyForm() {
 
     const [value, setValue] = useState('');
 
+    const onChangeBabyName = (BabyName) => {
+        setRegistrationInfo({ ...registrationInfo, BabyName: BabyName })
+    }
+
     return (
         <>
             <View>
@@ -53,8 +57,8 @@ export function BabyForm() {
                             keyboardType='default'
                             style={styles.textInput}
                             placeholder="Name"
-                            value={(BabyName)}
-                            onChangeText={(BabyName) => setRegistrationInfo({ ...registrationInfo, BabyName: BabyName })}
+                            value={BabyName}
+                            onChangeText={onChangeBabyName}
                             // onChangeText={(BabyName) => setBabyName(BabyName)}
                         />
                         <Text>
