@@ -4,5 +4,6 @@ import addCaregiver from "../assets/images/addcaregiver.png";
 import trackEverything from "../assets/images/trackEverything.png";
 import Community from "../assets/images/community.png";
 import logoDesc from "../assets/images/logoDesc.png";
+import baby from "../assets/images/Baby.png";
 
-export default {logo, appName, addCaregiver, trackEverything, Community, logoDesc};
+export default {logo, appName, addCaregiver, trackEverything, Community, logoDesc, baby};

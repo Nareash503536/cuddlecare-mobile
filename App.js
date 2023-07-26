@@ -1,9 +1,12 @@
 import { NativeBaseProvider } from "native-base";
-import {Navigation} from "./navigation/navigation";
+import { AuthProvider } from "./Context/AuthContext";
+import AppNav from "./navigation/AppNav";
+import React from "react";
+ 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <Navigation />
-    </NativeBaseProvider>
+    <AuthProvider>
+        <AppNav/>
+    </AuthProvider>
   );
 }
