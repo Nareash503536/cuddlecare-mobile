@@ -8,8 +8,8 @@ export default function GrowthMeasurementList({growthData}) {
     // console.log("growthData",growthData)
 
     return (
-        <View>
-            <View className={"flex-row justify-between px-3 py-3 items-center"}>
+        <View class>
+            <View className={"flex-row justify-between px-3 py-2 items-center "}>
                 <Text className={"w-2/5 flex-row text-center "}>Date</Text>
                 <Text className={"w-1/5 text-center"}>Weight  (kg)</Text>
                 <Text className={"w-1/5 text-center"}>Height (cm)</Text>

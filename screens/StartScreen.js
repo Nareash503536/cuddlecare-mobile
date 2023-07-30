@@ -17,11 +17,11 @@ export function StartScreen() {
     return (
         <SafeAreaView className={"flex-1"}>
             <LinearGradient className={"flex-1"} colors={['white', COLORS.primary]}>
-                <View className={"flex-1 justify-center bg-gradient from-[#FFFFFF] to-[#000000]"}>
+                <View className={"flex-1 justify-center bg-gradient from-[#FFFFFF] to-[#000000] border"}>
                     <Image
                         source={images.appName}
                         resizeMode="contain"
-                        className={"mx-auto"}/>
+                        className={"w-80 h-80 mx-auto border"}/>
                     <Image
                         source={images.logo}
                         resizeMode="contain"

@@ -9,6 +9,7 @@ import { RemindersList } from '../screens/RemindersList';
 import React from 'react';
 import {GrowthDetailsScreen} from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
+import {GrowthChartScreen} from "../screens/GrowthDetailsScreens/GrowthChartScreen";
 
 const Stack = createNativeStackNavigator();
 export function Navigation() {
@@ -25,6 +26,7 @@ export function Navigation() {
                 {/* Growth feature screens */}
                 <Stack.Screen name="GrowthDetails" component={GrowthDetailsScreen} />
                 <Stack.Screen name="GrowhtManage" component={GrowhtManageScreen} />
+                <Stack.Screen name="GrowthChart" component={GrowthChartScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

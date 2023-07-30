@@ -8,7 +8,6 @@ import {getFormattedDate, getFormattedTime} from "../../util/date";
 export function DateTimePicker ({inputHandler,mode,lable,invalid}){
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [dateTimePicker, setDateTimePicker] = useState(mode);
-
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };
@@ -42,7 +41,7 @@ export function DateTimePicker ({inputHandler,mode,lable,invalid}){
                 className={"p-2 rounded-xl text-lg"} style={inputStyles}
                 onPress={showDatePicker}
             >
-                <Text>{dateTimePicker}</Text>
+                <Text className={'text-gray-400 text-lg'}>{dateTimePicker}</Text>
             </TouchableOpacity>
 
             <DateTimePickerModal

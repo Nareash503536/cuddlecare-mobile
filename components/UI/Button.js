@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
   },
   flat: {
     backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: themeColors.colorDark,
   },
   buttonText: {
     color: 'white',

@@ -1,15 +1,16 @@
 import {SafeAreaView} from "react-native-safe-area-context";
 import GrowthForm from "../../components/Growth/GrowthForm";
 import {GlobalStyles} from "../../constants/styles";
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Button from "../../components/UI/Button";
 import {useNavigation} from "@react-navigation/native";
 import {themeColors} from "../../theme";
 import {useDispatch} from "react-redux";
 import {addGrowth} from "../../slices/growthSlice";
 import {storeGrowth} from "../../util/http";
-import {useState} from "react";
+import React, {useState} from "react";
 import ErrorOverlay from "../../components/UI/ErrorOverlay";
+import {ArrowLeftIcon} from "react-native-heroicons/outline";
 
 
 //generate array of objects including dummy values for growth
@@ -56,6 +57,13 @@ export default function GrowhtManageScreen() {
                 onCancel={cancelHandler}
                 onSubmit={confirmHandler}
             />
+            <TouchableOpacity
+                className={"absolute top-12 left-5 rounded-full p-1"}
+                style={{backgroundColor:themeColors.colorDark}}
+                onPress={() => navigation.goBack()}
+            >
+                <ArrowLeftIcon size="22" color="white"  />
+            </TouchableOpacity>
 
         </SafeAreaView>
     )

@@ -1,6 +1,8 @@
 import  React from 'react';
-import { View,Text } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import { RadioButton } from 'react-native-paper';
+import {themeColors} from "../theme";
+import {GlobalStyles} from "../constants/styles";
 // import Dropdown from './Dropdown';
 
 const RadioBtn = ({handleRadioChange}) => {
@@ -19,30 +21,30 @@ const RadioBtn = ({handleRadioChange}) => {
             handleRadioChange(false)}
         }
         />
-
-          <Text>Once</Text>
-
+          <Text style={styles.label} className={"text-xs"}>Once</Text>
 
         </View>
 
         <View>
-        <RadioButton
-        value="repeat"
-        status={ selected === 'repeat' ? 'checked' : 'unchecked' }
-        onPress={() => {
-            setSelected('repeat')
-            handleRadioChange(true)}
-        }
-      />
-      <Text>Repeat</Text>
+            <RadioButton
+                value="repeat"
+                status={ selected === 'repeat' ? 'checked' : 'unchecked' }
+                onPress={() => {
+                    setSelected('repeat')
+                    handleRadioChange(true)}
+                }
+            />
+            <Text style={styles.label} className={"text-xs"}>Repeat</Text>
         </View>
-     
-      
-      {/* <Dropdown enabled={checked === 'repeat'} /> */}
-       
     </View>
   
   );
 };
 
 export default RadioBtn
+
+const styles = StyleSheet.create({
+    label: {
+        color: themeColors.colorDark,
+    },
+});

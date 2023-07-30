@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACKEND_URL = "https://cuddle-care-default-rtdfb.firebaseio.com";
+const BACKEND_URL = "https://cuddle-care-default-rtdb.firebaseio.com";
 export async function storeGrowth(growthData) {
     const response = await axios.post(BACKEND_URL + '/growth.json', growthData);
     const id = response.data.name;

@@ -52,7 +52,7 @@ export function HomeScreen() {
                     <Text className={"text-5xl text-gray-700"} >
                         Hello<Text className={"text-5xl font-semibold text-gray-500"}> Kavi,</Text>
                     </Text>
-                    <Button title="Logout" onPress={() => logout()} />
+                    {/*<Button title="Logout" onPress={() => logout()} />*/}
                     <Text className={"text-gray-500 "}>Let's takecare of your baby!</Text>
                 </View>
 

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-const ios = Platform.OS==='android';
+import Button from "./UI/Button";
 
 const RemindersButton = () => {
   const navigation = useNavigation();
@@ -11,7 +10,10 @@ const RemindersButton = () => {
   };
 
   return (
-    <Button title="Reminders" onPress={handlePress} />
+    <Button
+        title=""
+        className={'mx-20'}
+        onPress={handlePress}>Reminders</Button>
   );
 };
 
