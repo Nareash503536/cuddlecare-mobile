@@ -66,6 +66,7 @@ export default function Form({onCancel,onSubmit}) {
             return;
 
         }
+
         onSubmit(growthData);
     }
 

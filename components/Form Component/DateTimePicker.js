@@ -5,7 +5,7 @@ import {themeColors} from "../../theme";
 import {GlobalStyles} from "../../constants/styles";
 import {getFormattedDate, getFormattedTime} from "../../util/date";
 
-export function DateTimePicker ({inputHandler,mode,lable,invalid}){
+export function DateTimePicker ({inputHandler,mode,lable,invalid,mindate=new Date('2023-07-26'),maxdate=new Date('2300-07-26')}) {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [dateTimePicker, setDateTimePicker] = useState(mode);
     const showDatePicker = () => {
@@ -49,6 +49,9 @@ export function DateTimePicker ({inputHandler,mode,lable,invalid}){
                 mode={mode}
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}
+                maximumDate={maxdate}
+                minimumDate={mindate}
+
             />
         </View>
     );
