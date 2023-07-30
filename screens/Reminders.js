@@ -73,7 +73,6 @@ export function Reminders() {
                 label="Title"
                 // invalid ={!inputs.weight.isValid}
                 textInputConfig={{
-                    keyboardType: 'decimal-pad',
                     placeholder: 'Title',
                     onChangeText: inputChangedHandler.bind(this, 'title'),
                 }}

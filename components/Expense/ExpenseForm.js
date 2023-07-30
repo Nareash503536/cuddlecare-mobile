@@ -7,7 +7,7 @@ import {GlobalStyles} from "../../constants/styles";
 import DateTimePicker from "../Form Component/DateTimePicker";
 import DropdownComponent from "./DropdownComponent";
 import {getFormattedDate} from "../../util/date";
-import {ExpenseApiPost} from "../../Api/ExpenseApi";
+// import {ExpenseApiPost} from "../../Api/ExpenseApi";
 import {SafeAreaContext} from "react-native-safe-area-context";
 import {themeColors} from "../../theme";
 import {useNavigation} from "@react-navigation/native";
