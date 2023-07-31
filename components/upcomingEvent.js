@@ -1,8 +1,10 @@
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import {themeColors} from "../theme";
 import {ClockIcon, CalendarDaysIcon, CheckIcon} from "react-native-heroicons/solid";
+import {useNavigation} from "@react-navigation/native";
 
 export function UpcomingEvent() {
+    let navigation = useNavigation();
     return (
         <View className={"flex-row rounded-xl p-3 shadow-2xl  mx-2 space-x-3"} style={{backgroundColor:themeColors.colornormal,shadowColor: "#000"}}>
             <View className={"rounded-full p-1 bg-white"}>
@@ -16,10 +18,10 @@ export function UpcomingEvent() {
                 </View>
             </View>
             <View className={"flex-row justify-center items-center space-x-3"}>
-                <TouchableOpacity className={"rounded-full p-2 border border-white"} style={{backgroundColor:themeColors.btnColorop(1)}}>
+                <TouchableOpacity className={"rounded-full p-2 border border-white"} style={{backgroundColor:themeColors.btnColorop(1)}} >
                     <CalendarDaysIcon size="27" color="white"  />
                 </TouchableOpacity>
-                <TouchableOpacity className={"rounded-full p-2 border border-white"}>
+                <TouchableOpacity className={"rounded-full p-2 border border-white"} onPress={navigation.navigate("Expense")}>
                     <CheckIcon size="27" color="white"  />
                 </TouchableOpacity>
             </View>

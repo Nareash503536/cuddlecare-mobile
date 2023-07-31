@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, View, Text, SafeAreaView} from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView} from 'react-native';
 
 import Input from '../Growth/Input';
 import React, {useState} from "react";
@@ -7,7 +7,11 @@ import {GlobalStyles} from "../../constants/styles";
 import DateTimePicker from "../Form Component/DateTimePicker";
 import DropdownComponent from "./DropdownComponent";
 import {getFormattedDate} from "../../util/date";
+
 // import {ExpenseApiPost} from "../../Api/ExpenseApi";
+
+import {ExpenseApiPost} from "../../api/ExpenseApi";
+
 import {themeColors} from "../../theme";
 import {useNavigation} from "@react-navigation/native";
 
@@ -122,7 +126,7 @@ export default function IncomeForm() {
             <View className={"flex-row justify-center my-10"}>
                 <Text className={"flex-row justify-center text-2xl text-gray-500"} style={{  color: themeColors.colorDark}}>tab bar</Text>
             </View>
-            <ScrollView >
+
                 <View >
                     <Input
                         label="Amount"
@@ -170,7 +174,7 @@ export default function IncomeForm() {
                         </Button>
                     </View>
                 </View>
-            </ScrollView>
+
 
         </SafeAreaView>
     );

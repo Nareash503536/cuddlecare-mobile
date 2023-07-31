@@ -11,10 +11,13 @@ import {Features} from "../components/features";
 import {UpcomingEvent} from "../components/upcomingEvent";
 import {Logs} from "../components/logs";
 import {HomeIcon,CalendarDaysIcon,ClipboardDocumentListIcon,PresentationChartLineIcon} from "react-native-heroicons/outline";
+import {useNavigation} from "@react-navigation/native";
 
 export function BabyScreen() {
     let baby = babyDetails[2];
     let featuresDetails = mainFeatures;
+    let navigation = useNavigation();
+
     return (
         <View className={"flex-1 relative "}>
             <StatusBar style={"light"}/>
@@ -109,7 +112,7 @@ export function BabyScreen() {
                         <TouchableOpacity className={"rounded-full p-2"}>
                             <CalendarDaysIcon size="27" color="gray" />
                         </TouchableOpacity>
-                        <TouchableOpacity className={"rounded-full p-2"}>
+                        <TouchableOpacity className={"rounded-full p-2"} >
                             <ClipboardDocumentListIcon size="27" color="gray" />
                         </TouchableOpacity>
                         <TouchableOpacity className={"rounded-full p-2"}>

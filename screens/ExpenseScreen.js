@@ -1,16 +1,23 @@
-import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 
 import React, {useEffect, useState} from 'react'
 
 import {useNavigation} from "@react-navigation/native";
+
 // import {ExpenseApi, ExpenseApiTotalExpense,ExpenseApiTotalIncome} from "../Api/ExpenseApi";
 
+import { ExpenseApiTotalExpense,ExpenseApiTotalIncome} from "../api/ExpenseApi";
+
+
 import { SafeAreaView } from 'react-native-safe-area-context';
-import FAB from 'react-native-fab'
+
 import {themeColors} from "../theme";
 import {CakeIcon, CheckIcon, PlusSmallIcon} from "react-native-heroicons/solid";
-
+import {ExpenseApi} from "../api/ExpenseApi";
+import {Bars3CenterLeftIcon} from "react-native-heroicons/mini";
+import {BellIcon} from "react-native-heroicons/outline";
+import {TopBar} from "../components/TopBar";
 export function ExpenseScreen (){
     let navigation = useNavigation();
     const [expenseDetails, setexpenseDetails] = useState(null);
@@ -52,8 +59,8 @@ export function ExpenseScreen (){
     console.log(ExpenseNames['Shopping']);
     return (
 <SafeAreaView style={{backgroundColor: '#f3f5f7'}}  className={"flex-1 relative"} >
-
-        <View className={"flex-1 relative "}>
+    <TopBar/>
+        <View className={"flex-1 relative mt-5 "}>
 
                             <View style={{
 
@@ -75,7 +82,7 @@ export function ExpenseScreen (){
                                                 Current Balance
                                             </Text>
                                             <Text style={{fontFamily:''}}></Text>
-                                            <Text style={{color:'white',fontSize: 32,fontWeight: 700}}>Rs.{TotalIncome-TotalExpense}</Text>
+                                            <Text style={{color:'white',fontSize: 32,fontWeight: 700}}>Rs.{TotalIncome-TotalExpense?TotalIncome-TotalExpense:'0.00'}</Text>
 
                                         </View>
                                         <View style={{width:'100%',flexDirection:'row',justifyContent:'space-between'}}>
@@ -91,7 +98,7 @@ export function ExpenseScreen (){
 
 
                                                         fontSize: 18,
-                                                        fontWeight: '700'}}>Rs.{TotalIncome}</Text>
+                                                        fontWeight: '700'}}>Rs.{TotalIncome?TotalIncome:'0.00'}</Text>
                                                 </View>
                                                 <View style={{ marginRight: 10}}>
                                                     <Text style={{
@@ -104,7 +111,7 @@ export function ExpenseScreen (){
                                                         color:'white',
 
                                                         fontSize: 18,
-                                                        fontWeight: '700'}}>Rs.{TotalExpense}</Text>
+                                                        fontWeight: '700'}}>Rs.{TotalExpense?TotalExpense:'0.00'}</Text>
                                                 </View>
                                         </View>
                                     </View>
@@ -145,16 +152,14 @@ export function ExpenseScreen (){
                                 keyExtractor={(item) => item.expenseID.toString()}
                                 renderItem={({ item }) => (
 
-                                        <TouchableOpacity  style={{...styles.btn}}>
-                                            <View style={{ flexDirection: 'row',gap:10}}>
-                                                <TouchableOpacity className={"rounded-full p-2 border border-white"}>
-                                                    <CakeIcon size="27" color="white"  />
-                                                </TouchableOpacity>
-                                                <View>
+                                    <TouchableOpacity  style={{...styles.btn}} className={"flex-row justify-between"}>
+                                        <View style={{ flexDirection: 'row'}}>
+                                            <TouchableOpacity className={"rounded-full p-3  "} style={{backgroundColor:'#70AABA'}}>
+                                                <CakeIcon size="27" color="white"  />
+                                            </TouchableOpacity>
+                                            <View className={"left-2"}>
                                                 <Text
                                                     style={{
-                                                        paddingTop:5,
-
                                                         fontSize: 18,
                                                         fontWeight: '700',
                                                         textAlign:'left'
@@ -162,55 +167,26 @@ export function ExpenseScreen (){
                                                 > {item.expenseName}</Text>
 
                                                 <Text style={{color:'gray',
-                                                    paddingTop:5,
+
                                                     paddingLeft:5,
                                                     width:150,
                                                     textAlign:'left',}}>{item.notes}</Text>
-                                                </View>
                                             </View>
+                                        </View>
 
-                                            <View>
-                                                <Text>Rs.{item.amount}</Text>
-                                                <Text style={{color:'gray'}}>{new Date(item.date).toLocaleDateString()}</Text>
-                                            </View>
+                                        <View className={" p-1"}>
+                                            <Text>Rs.{item.amount}</Text>
+                                            <Text style={{color:'gray'}}>{new Date(item.date).toLocaleDateString()}</Text>
+                                        </View>
 
-                                        </TouchableOpacity>
+                                    </TouchableOpacity>
                                 )}
                             />
                         )}
-                        <TouchableOpacity  style={{...styles.btn}} className={"flex-row justify-between"}>
-                            <View style={{ flexDirection: 'row'}}>
-                                <TouchableOpacity className={"rounded-full p-3  "} style={{backgroundColor:'#82AAED'}}>
-                                    <CakeIcon size="27" color="white"  />
-                                </TouchableOpacity>
-                                <View className={"left-2"}>
-                                    <Text
-                                        style={{
 
-
-                                            fontSize: 18,
-                                            fontWeight: '700',
-                                            textAlign:'left'
-                                        }}
-                                    > pizza</Text>
-
-                                    <Text style={{color:'gray',
-
-                                        paddingLeft:5,
-                                        width:150,
-                                        textAlign:'left',}}>at pizzaria</Text>
-                                </View>
-                            </View>
-
-                            <View className={" p-1"}>
-                                <Text>Rs.2500</Text>
-                                <Text style={{color:'gray'}}>3/7/2021</Text>
-                            </View>
-
-                        </TouchableOpacity>
                     <TouchableOpacity  style={{...styles.btn}} className={"flex-row justify-between"}>
                         <View style={{ flexDirection: 'row'}}>
-                            <TouchableOpacity className={"rounded-full p-3 "} style={{backgroundColor:'#82AAED'}}>
+                            <TouchableOpacity className={"rounded-full p-3 "} style={{backgroundColor:'#70AABA'}}>
                                 <CakeIcon size="27" color="white"  />
                             </TouchableOpacity>
                             <View className={"left-2"}>

@@ -26,15 +26,20 @@ export function Navigation() {
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Baby" component={BabyScreen} />
 
-                <Stack.Screen name="Expense" component={ExpenseScreen} />
+
                 <Stack.Screen name="RemindersList" component={RemindersList}/>
                 <Stack.Screen name="Reminders" component={Reminders}/>
                 <Stack.Screen name="ReminderDetails" component={ReminderDetails}/>
-                <Stack.Screen name="ExpenseForm" component= {ExpenseTabs} />
+
                 {/* Growth feature screens */}
                 <Stack.Screen name="GrowthDetails" component={GrowthDetailsScreen} />
                 <Stack.Screen name="GrowhtManage" component={GrowhtManageScreen} />
+
                 <Stack.Screen name="GrowthChart" component={GrowthChartScreen} />
+
+                <Stack.Screen name="Expense" component={ExpenseScreen} />
+                <Stack.Screen name="ExpenseForm" component= {ExpenseTabs} />
+
             </Stack.Navigator>
         </NavigationContainer>
     )
