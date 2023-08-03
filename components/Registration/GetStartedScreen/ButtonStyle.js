@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { COLORS } from "../../../constants/theme";
 
-export const styles = StyleSheet.create({
+export const ButtonStyles = StyleSheet.create({
     Button: {
         alignItems: 'center',
         backgroundColor: COLORS.secondary,

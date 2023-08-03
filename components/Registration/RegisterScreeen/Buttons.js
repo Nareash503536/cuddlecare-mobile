@@ -14,7 +14,7 @@ export function Buttons () {
         >
             <View>
                 <TouchableOpacity style={styles.Button}
-                    onPress={() => navigation.navigate("RegisterPage")}
+                    onPress={() => navigation.navigate("SelectUser")}
                     >
                     <Text>
                         Register
@@ -23,27 +23,7 @@ export function Buttons () {
                 
             </View>
             <View className={"m-2"} style={{ borderBottomColor: COLORS.primary, borderBottomWidth: 2 }} />
-            <View>
-                <TouchableOpacity className={"flex-row"} style={styles.Button}>
-                        <Image
-                        className={"w-6 h-6 mx-3"}
-                            source={icons.google}
-                            resizeMode="stretch"
-                        />
-                        <Text>
-                            Continue with Google
-                        </Text>
-                </TouchableOpacity>
-                {/* <TouchableOpacity className="flex-row" style={styles.Button}>
-                    <Image
-                        className={"w-6 h-6 mx-3"}
-                        source={icons.mail}
-                        resizeMode="stretch"
-                    />
-                    <Text>
-                        Continue with mail
-                    </Text>
-                </TouchableOpacity> */}
+                
                 <View className="text-center flex-row justify-center">
                     <Text>
                         Already have an account?
@@ -52,7 +32,6 @@ export function Buttons () {
                         Login
                     </Text>
                 </View>
-            </View>
         </View>
     );
     }

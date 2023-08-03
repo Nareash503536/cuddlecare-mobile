@@ -6,6 +6,9 @@ import { AuthContext } from "../Context/AuthContext";
 import { ActivityIndicator, View, Text } from "react-native";
 import {AuthStack} from "./AuthStack";
 import { styled } from "nativewind";
+import LottieView from 'lottie-react-native';
+import animation from '../constants/animations';
+import { COLORS } from "../constants/theme";
 
 const toastConfig = {
     error: ({ text1, text2}) => (
@@ -35,10 +38,12 @@ const toastConfig = {
 const AppNav = () => {
     const { isLoading, authState} = useContext(AuthContext);
 
+    
     if(isLoading){
         return(
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <ActivityIndicator size="large" />
+                {/* <LottieView source={animation.Spinner} autoPlay loop /> */}
+                <ActivityIndicator size="large" color={COLORS.primary} />
             </View>
         )
     }

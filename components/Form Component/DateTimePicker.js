@@ -18,7 +18,7 @@ export function DateTimePicker ({inputHandler,mode,lable,invalid,mindate=new Dat
 
     const handleConfirm = (data) => {
         if(mode =="time"){
-            setDateTimePicker(getFormattedTime(data))
+            setDateTimePicker(data)
             inputHandler('time',data);
         }else
         {
