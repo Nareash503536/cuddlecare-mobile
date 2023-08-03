@@ -8,11 +8,8 @@ import {babyDetails} from "../constants";
 import BabyCard from "../components/babyCard";
 import {useNavigation} from "@react-navigation/native";
 import {Carousel} from "react-native-snap-carousel";
-<<<<<<< HEAD
 import RemindersButton from "../components/RemindersButton";
-=======
 import {AuthContext} from "../Context/AuthContext";
->>>>>>> 854b15b (Created UI for Register user)
 
 
 const ios = Platform.OS==='android';

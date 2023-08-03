@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
             });
             setAuthState({
                 token: response.data.accessToken,
-                authenticated: true
+                authenticated: authState.authenticated
             })
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
             await SecureStore.setItemAsync(TOKEN_KEY, response.data.accessToken);
@@ -56,7 +56,6 @@ export const AuthProvider = ({ children }) => {
             token: null,
             authenticated: false
         })
-        console.log(authState.authenticated);
         axios.defaults.headers.common['Authorization'] = '';
         SecureStore.deleteItemAsync(TOKEN_KEY);
         setIsLoading(false);
@@ -86,7 +85,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     return (
-        <AuthContext.Provider value={{ register, login, logout, authState, isLoading}}>
+        <AuthContext.Provider value={{ register, login, logout, authState, setAuthState, isLoading, setIsLoading}}>
             {children}
         </AuthContext.Provider>
     )

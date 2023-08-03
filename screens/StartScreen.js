@@ -8,11 +8,11 @@ import {Image, View} from "react-native";
 
 export function StartScreen() {
     let navigation = useNavigation();
-    useEffect(() => {
-        setTimeout(() => {
-            navigation.navigate("Home");
-        },2000);
-    }, []);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         navigation.navigate("Home");
+    //     },2000);
+    // }, []);
 
     return (
         <SafeAreaView className={"flex-1"}>

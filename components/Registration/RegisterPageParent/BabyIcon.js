@@ -1,11 +1,15 @@
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import images from "../../../constants/images";
-import { styles } from "./ButtonStyle";
+import { ButtonStyles } from "./ButtonStyle";
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
+import { handleNavigateContext } from "../../../screens/Registration/RegisterPageParent";
 
 export function BabyIcon() {
 
     const navigation = useNavigation();
+
+    const { setCurrentComponent } = useContext(handleNavigateContext);
 
     return (
         <View
@@ -18,7 +22,16 @@ export function BabyIcon() {
                 resizeMode="contain"
                 className={"h-64 w-44 mx-auto"}
             />
-            
+            <TouchableOpacity
+                className={"flex-row mt-8"}
+                style={ButtonStyles.Button}
+                name="next"
+                onPress={() => setCurrentComponent("second")}
+            >
+                <Text className="text-white">
+                    Next
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 }
