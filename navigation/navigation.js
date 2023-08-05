@@ -9,12 +9,13 @@ import { RemindersList } from '../screens/RemindersList';
 import React from 'react';
 import {GrowthDetailsScreen} from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
-import {GrowthChartScreen} from "../screens/GrowthDetailsScreens/GrowthChartScreen";
 
 import {ExpenseScreen} from "../screens/ExpenseScreen";
 import ExpenseForm from "../components/Expense/ExpenseForm";
 import ExpenseTabs from "../components/Expense/ExpenseTabs";
 import ExpenseBarGraph from "../components/Expense/ExpenseBarGraph";
+import GrowthChartScreen from "../screens/GrowthDetailsScreens/GrowthChartScreen";
+
 
 
 const Stack = createNativeStackNavigator();

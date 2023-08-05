@@ -1,57 +1,95 @@
-import {Text, TouchableOpacity, View, Image, TextInput, Dimensions} from "react-native";
-import React from "react";
+import * as React from 'react';
+import { View, useWindowDimensions } from 'react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
+import {ChartGenerator} from "../../components/GrowthChart/ChartGenerator";
 
+const line_chart_Weightdata = [
+    { month: 0, value: 3.5 },
+    { month: 1, value: 4.5 },
+    { month: 2, value: 5.6 },
+    { month: 3, value: 6 },
+    { month: 4, value: 6.2 },
+    { month: 5, value: 7.9 },
+    { month: 6, value: 8.8 },
+    { month: 7, value: 10.3 },
+    { month: 8, value: 10.7 },
+    { month: 9, value: 11.4 },
+    { month: 10, value: 12 },
+];
 
-import {HeightChart} from "../../components/GrowthChart/heightChart";
-import {WeightChart} from "../../components/GrowthChart/weightChart";
-import {HeadCircumChart} from "../../components/GrowthChart/headCircumChart";
-import {Logs2} from "../../components/log2";
-import {themeColors} from "../../theme";
-import {PlusSmallIcon} from "react-native-heroicons/solid";
-import {ArrowLeftIcon} from "react-native-heroicons/outline";
-import {useNavigation} from "@react-navigation/native";
+const line_chart_Heightdata = [
+    { month: 0, value: 50 },
+    { month: 1, value: 55 },
+    { month: 2, value: 63.5 },
+    { month: 3, value: 64.2 },
+    { month: 4, value: 66.2 },
+    { month: 5, value: 68},
+    { month: 6, value: 69.5 },
+    { month: 7, value: 71 },
+    { month: 8, value: 72.1 },
+    { month: 9, value: 74.2 },
+    { month: 10, value: 79 },
+];
 
-const Charts = ["weight","height","headcircum"]
-function chartRender(chart){
-    if(chart=="weight"){
-        return <WeightChart/>
-    }if(chart=="height"){
-        <HeightChart/>
-    }
+const line_chart_Headtdata = [
+    { month: 0, value: 34.5 },
+    { month: 1, value: 35.8 },
+    { month: 2, value: 36.4 },
+    { month: 3, value: 41.5 },
+    { month: 4, value: 45.2 },
+    { month: 5, value: 43.6},
+    { month: 6, value: 44.7 },
+    { month: 7, value: 46.8 },
+    { month: 8, value: 47.2 },
+    { month: 9, value: 48.4 },
+    { month: 10, value: 50 },
+];
+
+const FirstRoute = () => (
+    <ChartGenerator
+        Gender="Boy"
+        chartType="Weight"
+        chartData={line_chart_Weightdata}
+    />
+);
+
+const SecondRoute = () => (
+    <ChartGenerator
+        Gender="Boy"
+        chartType="Height"
+        chartData={line_chart_Heightdata}
+    />
+);
+const ThirdRoute = () => (
+    <ChartGenerator
+        Gender="Boy"
+        chartType="HeadCircum"
+        chartData={line_chart_Headtdata}
+    />
+);
+
+const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+    third: ThirdRoute,
+});
+
+export default function GrowthChartScreen() {
+    const layout = useWindowDimensions();
+
+    const [index, setIndex] = React.useState(0);
+    const [routes] = React.useState([
+        { key: 'first', title: 'Weight' },
+        { key: 'second', title: 'Height' },
+        { key: 'third', title: 'Head Circum' },
+    ]);
+
     return (
-        <HeadCircumChart/>
-    )
-}
-export function GrowthChartScreen() {
-    let navigation = useNavigation();
-    return (
-        <View className={"flex flex-1 bg-white"}>
-
-            <View className={"ml-1"}>
-                <HeightChart/>
-            </View>
-
-            <View>
-                <View  className={" mt-2 "}>
-                    <View className={"flex-row justify-between  my-2"}>
-                        <Text className={"pl-2 font-semibold text-gray-500"} style={{letterSpacing:1,fontSize:16}} >Latest Measurements</Text>
-                        <TouchableOpacity>
-                            <Text className={"pr-2 text-gray-500"} style={{letterSpacing:1,}} > See More</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <Logs2/>
-                </View>
-            </View>
-
-            <TouchableOpacity
-                className={"absolute top-10 left-5 rounded-full p-1"}
-                style={{backgroundColor:themeColors.colorDark}}
-                onPress={() => navigation.goBack()}
-            >
-                <ArrowLeftIcon size="22" color="white"  />
-            </TouchableOpacity>
-
-        </View>
-
-    )
+        <TabView
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{ width: layout.width }}
+        />
+    );
 }
