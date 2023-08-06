@@ -12,7 +12,7 @@ export default function GrowthMeasurement({ weight, height, headCircumference, d
                     <View><Text className={" text-gray-500  font-semibold"} >Jun 26,2023 (1M-25D)</Text></View>
 
                     <View><Text className={" text-gray-500 py-1"} >
-                       Midwife emphasized the importance of a balanced...</Text>
+                        {description.substring(0, 60)+"..."}</Text>
                     </View>
 
                     <View className={"flex-row items-center space-x-1"}>

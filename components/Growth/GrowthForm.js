@@ -51,7 +51,6 @@ export default function GrowthForm({onCancel,onSubmit}) {
             date:getFormattedDate(inputs.date.value),
             description:inputs.description.value,
         }
-        // console.log("date",getFormattedDate(inputs.date.value)); //test
 
         const heightIsValid = !isNaN(growthData.height) && growthData.height > 0;
         const weightIsValid = !isNaN(growthData.weight)&& growthData.weight > 0
@@ -122,6 +121,7 @@ const formIsValid =
                 mode='date'
                 lable={"Date"}
                 inputHandler={inputChangedHandler}
+                maxdate={new Date()}
             />
 
             <Input

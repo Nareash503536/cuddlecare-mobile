@@ -15,43 +15,11 @@ import {babyDetails} from "../constants";
 import {Bars3CenterLeftIcon} from "react-native-heroicons/mini";
 import {UpcomingEvent} from "../components/upcomingEvent";
 import {GrowthUpcomingEvent} from "../components/Growth/GrowthUpcomingEvent";
+import {DUMMY_GROWTH} from "../constants/GrowthChartZScoreData/DUMMY_GROWTH";
 
 let baby = babyDetails[2];
 
-const DUMMY_GROWTH =[
-    {
-        id: 'e1',
-        weight:5,
-        height: 10,
-        headCircumference: 15,
-        description: 'Eat more',
-        date: getFormattedDate(new Date(2023, 4, 29)),
-    },
-    {
-        id: 'e2',
-        weight:10,
-        height: 20,
-        headCircumference: 25,
-        description: 'Eat less',
-        date: getFormattedDate(new Date(2023, 2, 6)),
-    },
-    {
-        id: 'e3',
-        weight:15,
-        height: 30,
-        headCircumference: 35,
-        description: 'eat samaposha',
-        date: getFormattedDate(new Date(2022, 12, 22)),
-    },
-    {
-        id: 'e4',
-        weight:20,
-        height: 40,
-        headCircumference: 45,
-        description: 'eat more',
-        date: getFormattedDate(new Date(2022, 5, 8))
-    }
-];
+
 export function GrowthDetailsScreen() {
     let dispatch = useDispatch();
     useEffect(() => {

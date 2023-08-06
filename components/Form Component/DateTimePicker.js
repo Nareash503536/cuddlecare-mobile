@@ -5,7 +5,7 @@ import {themeColors} from "../../theme";
 import {GlobalStyles} from "../../constants/styles";
 import {getFormattedDate, getFormattedTime} from "../../util/date";
 
-export function DateTimePicker ({inputHandler,mode,lable,invalid,mindate=new Date('2023-07-26'),maxdate=new Date('2300-07-26')}) {
+export function DateTimePicker ({inputHandler,mode,lable,invalid,mindate,maxdate}) {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [dateTimePicker, setDateTimePicker] = useState(mode);
     const showDatePicker = () => {
@@ -17,6 +17,7 @@ export function DateTimePicker ({inputHandler,mode,lable,invalid,mindate=new Dat
     };
 
     const handleConfirm = (data) => {
+        console.log(data)
         if(mode =="time"){
             setDateTimePicker(data)
             inputHandler('time',data);

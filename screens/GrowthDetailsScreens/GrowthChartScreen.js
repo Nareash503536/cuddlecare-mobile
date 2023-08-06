@@ -5,6 +5,7 @@ import {ChartGenerator} from "../../components/GrowthChart/ChartGenerator";
 import {themeColors} from "../../theme";
 import {PlusSmallIcon} from "react-native-heroicons/solid";
 import {useNavigation} from "@react-navigation/native";
+import {ClipboardDocumentListIcon} from "react-native-heroicons/outline";
 
 const line_chart_Weightdata = [
     { month: 0, value: 3.5 },
@@ -108,9 +109,9 @@ export default function GrowthChartScreen() {
             <TouchableOpacity
                 className={"absolute bottom-28 right-5 rounded-full p-1"}
                 style={{backgroundColor:themeColors.btnColor}}
-                onPress={() => navigation.navigate.goBack()}
+                onPress={() => navigation.goBack()}
             >
-                <PlusSmallIcon size="40" color="white"  />
+                <ClipboardDocumentListIcon size="40" color="white"  />
             </TouchableOpacity>
         </>
     );
