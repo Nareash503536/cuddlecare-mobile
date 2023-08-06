@@ -25,7 +25,7 @@ export function BabyScreen() {
             <SafeAreaView>
                 {/*Top bar*/}
                 <View className="mx-4  mt-1 flex-row  items-center">
-                    <TouchableOpacity className={"rounded-full p-1"} style={{backgroundColor:themeColors.btnColor}}>
+                    <TouchableOpacity className={"rounded-full p-1"} style={{backgroundColor:themeColors.btnColor}} >
                         <Bars3CenterLeftIcon size="27" color="white" />
                     </TouchableOpacity>
 
@@ -112,7 +112,7 @@ export function BabyScreen() {
                         <TouchableOpacity className={"rounded-full p-2"}>
                             <CalendarDaysIcon size="27" color="gray" />
                         </TouchableOpacity>
-                        <TouchableOpacity className={"rounded-full p-2"} >
+                        <TouchableOpacity className={"rounded-full p-2"} onPress={navigation.navigate("Expense")} >
                             <ClipboardDocumentListIcon size="27" color="gray" />
                         </TouchableOpacity>
                         <TouchableOpacity className={"rounded-full p-2"}>

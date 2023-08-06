@@ -8,6 +8,8 @@ const ExpenseApi = async () => {
             },
             // data: data,
         });
+
+
         return response.data;
     } catch (error) {
         console.log(error);
@@ -57,5 +59,46 @@ const ExpenseApiTotalIncome = async () => {
         console.log(error);
     }
 };
+const ExpenseFirstdate = async () => {
 
-export {ExpenseApi,ExpenseApiPost,ExpenseApiTotalIncome,ExpenseApiTotalExpense};
+    try {
+        const response = await ApiManager.get("/expenses/firstDate",{
+            headers: {
+                "Content-Type": "application/json",
+            },
+            // data: data,
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+const ExpenseDelete = async (expenseID) => {
+    try {
+        const response = await ApiManager.delete("/expenses/delete/"+expenseID,{
+            headers: {
+                "Content-Type": "application/json",
+            },
+            // data: data,
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+const ExpenseEdit = async (data,expenseID) => {
+    console.log("expenseedit", data,expenseID);
+    try {
+        const jsonData = JSON.stringify(data);
+        const response = await ApiManager.put("/expenses/edit/"+expenseID,jsonData,{
+            headers: {
+                "Content-Type": "application/json",
+            },
+
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+export {ExpenseApi,ExpenseApiPost,ExpenseApiTotalIncome,ExpenseApiTotalExpense,ExpenseFirstdate,ExpenseDelete,ExpenseEdit};

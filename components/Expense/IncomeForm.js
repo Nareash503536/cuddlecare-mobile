@@ -4,13 +4,13 @@ import Input from '../Growth/Input';
 import React, {useState} from "react";
 import Button from "../UI/Button";
 import {GlobalStyles} from "../../constants/styles";
-import DateTimePicker from "../Form Component/DateTimePicker";
+import DateTimePicker from "./DateTimePicker";
 import DropdownComponent from "./DropdownComponent";
 import {getFormattedDate} from "../../util/date";
 
-// import {ExpenseApiPost} from "../../Api/ExpenseApi";
+// import {BudgetApiPost} from "../../Api/BudgetApi";
 
-import {ExpenseApiPost} from "../../api/ExpenseApi";
+import {BudgetApiPost} from "../../api/BudgetApi";
 
 import {themeColors} from "../../theme";
 import {useNavigation} from "@react-navigation/native";
@@ -27,23 +27,16 @@ export default function IncomeForm() {
             value: '',
             isValid: true,
         },
-        expenseName: {
+        budgetName: {
             value: '',
             isValid: true,
         },
-        notes: {
-            value: '',
+
+        startdate: {
+            value: new Date(),
             isValid: true,
         },
-        category:{
-            value:'Income',
-            isValid:true,
-        },
-        calendar: {
-            value: false,
-            isValid: true,
-        },
-        date: {
+        enddate: {
             value: new Date(),
             isValid: true,
         },
@@ -51,14 +44,15 @@ export default function IncomeForm() {
     function cancelHandler() {
         navigation.goBack();
     }
-    const PostExpense = () => {
-        console.log(inputs.amount.value, inputs.expenseName.value, inputs.notes.value,inputs.date.value);
-        ExpenseApiPost({
+
+    const PostBudget = () => {
+        console.log(inputs.amount.value, inputs.budgetName.value, inputs.startdate.value,inputs.enddate.value);
+        BudgetApiPost({
             amount: +inputs.amount.value,
-            expenseName: inputs.expenseName.value,
-            notes: inputs.notes.value,
-            date: inputs.date.value,
-            category:'Income',
+            budgetName: inputs.budgetName.value,
+            startdate: inputs.startdate.value,
+            enddate: inputs.enddate.value,
+
         }).then((res) => {
             console.log(res);
         }).catch((err) => {
@@ -77,33 +71,33 @@ export default function IncomeForm() {
 
     function submitHandler() {
         console.log("submit");
-        const ExpenseData = {
+        const BudgetData = {
             amount:+inputs.amount.value,
-            expenseName:inputs.expenseName.value,
-            notes:inputs.notes.value,
-            date:getFormattedDate(inputs.date.value),
+            budgetName:inputs.budgetName.value,
+            enddate:getFormattedDate(inputs.enddate.value),
+            startdate:getFormattedDate(inputs.startdate.value),
         }
-        console.log(ExpenseData);
+        console.log(BudgetData);
         const positiveNumberRegex = /^\d+(\.\d+)?$/;
 
-        const expenseNameIsValid = (ExpenseData.expenseName) && ExpenseData.expenseName.length < 50;
+        const budgetNameIsValid = (BudgetData.budgetName) && BudgetData.budgetName.length < 50;
 
-        const amountIsValid = !isNaN(ExpenseData.amount)&&positiveNumberRegex.test(ExpenseData.amount);
+        const amountIsValid = !isNaN(BudgetData.amount)&&positiveNumberRegex.test(BudgetData.amount);
+        const enddateIsValid =  (BudgetData.enddate);
 
-        const notesIsValid = (ExpenseData.notes)? (ExpenseData.notes)&& ExpenseData.notes.length > 0: true;
 
-        const dateIsValid = (ExpenseData.date);
-        console.log(expenseNameIsValid);
-        if(!expenseNameIsValid || !amountIsValid || !notesIsValid || !dateIsValid){
+        const startdateIsValid = (BudgetData.startdate);
+        console.log(budgetNameIsValid);
+        if(!budgetNameIsValid || !amountIsValid || !enddateIsValid || !startdateIsValid){
             // Alert.alert('Invalid input', 'Please check your input values');
             setInputs((curInputs) => {
                 return {
-                    expenseName: { value: curInputs.expenseName.value, isValid: expenseNameIsValid },
+                    budgetName: { value: curInputs.budgetName.value, isValid: budgetNameIsValid },
                     amount: { value: curInputs.amount.value, isValid: amountIsValid },
-                    notes: { value: curInputs.notes.value, isValid: notesIsValid },
-                    date: {
-                        value: curInputs.date.value,
-                        isValid: dateIsValid,
+                    enddate: { value: curInputs.enddate.value, isValid: enddateIsValid },
+                    startdate: {
+                        value: curInputs.startdate.value,
+                        isValid: startdateIsValid,
                     },
                 };
             });
@@ -112,22 +106,36 @@ export default function IncomeForm() {
             return;
         }
         console.log("passed");
-        PostExpense();
+        PostBudget();
     }
 
     const formIsValid =
-        !inputs.expenseName.isValid ||
+        !inputs.budgetName.isValid ||
         !inputs.amount.isValid ||
-        !inputs.notes.isValid ||
-        !inputs.date.isValid;
+        !inputs.enddate.isValid ||
+        !inputs.startdate.isValid;
 
     return (
-        <SafeAreaView>
-            <View className={"flex-row justify-center my-10"}>
-                <Text className={"flex-row justify-center text-2xl text-gray-500"} style={{  color: themeColors.colorDark}}>tab bar</Text>
+        <SafeAreaView  className={"flex-1 relative mt-8"} >
+            <View  className={" mt-5 "} >
+
+            <View className={"flex-row justify-center "}>
+                <Text className={"flex-row justify-center text-2xl text-gray-500"} style={{  color: themeColors.colorDark}}>Add Budget</Text>
             </View>
 
-                <View >
+                <View className={"mt-5"}>
+                    <Input
+                        label="Title"
+                        invalid ={!inputs.budgetName.isValid}
+                        textInputConfig={{
+                            keyboardType: 'default',
+                            placeholder: 'Enter Title',
+                            onChangeText: inputChangedHandler.bind(this, 'budgetName'),
+                            value: inputs.budgetName.value,
+
+                        }}
+                    />
+
                     <Input
                         label="Amount"
                         invalid ={!inputs.amount.isValid}
@@ -139,33 +147,30 @@ export default function IncomeForm() {
 
                         }}
                     />
-                    <View>
-                        <Text style={styles.label} className={"text-xs ml-8"}>Category</Text>
-                        <DropdownComponent onCategorySelect={inputChangedHandler} />
-                    </View>
+
                     <DateTimePicker
                         mode='Date'
-                        lable={"Pick a Date"}
+                        lable={"Pick Start Date"}
+                        name = 'startdate'
                         inputHandler={inputChangedHandler}
+                        value={getFormattedDate(new Date())}
 
                     />
-                    <Input
-                        label="Notes"
-                        invalid ={!inputs.notes.isValid}
-                        textInputConfig={{
-                            multiline: true,
-                            onChangeText: inputChangedHandler.bind(this, 'notes'),
-                            value: inputs.notes.value,
 
-                        }}
+                    <DateTimePicker
+                        mode='Date'
+                        lable={"Pick End Date"}
+                        name = 'enddate'
+                        inputHandler={inputChangedHandler}
+                        value={getFormattedDate(new Date())}
                     />
+
 
 
                     {formIsValid &&
-                        <Text className={"text-center text-red-500 my-2"}
+                        <Text className={"text-center text-red-500 my-2 "}
                         >Invalid input value - please check your entered data!</Text>}
-
-                    <View style={styles.buttons} className={"mt-2"}>
+                    <View style={styles.buttons}  className={"mt-10 "} >
                         <Button style={styles.button} mode="flat" onPress={cancelHandler}>
                             Cancel
                         </Button>
@@ -173,9 +178,10 @@ export default function IncomeForm() {
                             {'Add'}
                         </Button>
                     </View>
+
                 </View>
 
-
+            </View>
         </SafeAreaView>
     );
 }
@@ -190,6 +196,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+
+
     },
     button: {
         minWidth: 120,

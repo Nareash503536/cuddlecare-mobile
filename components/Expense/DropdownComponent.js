@@ -5,23 +5,15 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import {themeColors} from "../../theme";
 import {GlobalStyles} from "../../constants/styles";
 
-const data = [
-    { label: 'Food', value: 'Food' },
-    { label: 'Diaper', value: 'Diaper' },
-    { label: 'Cloths', value: 'Cloths' },
-    { label: 'Medical', value: 'Medical' },
-    { label: 'Travel', value: 'Travel' },
-    { label: 'Others', value: 'Others' },
 
-];
+const DropdownComponent = ({onCategorySelect,data,name,defaultval=null}) => {
 
-const DropdownComponent = ({onCategorySelect}) => {
     const handleCategoryChange = (value) => {
         // Call the onCategorySelect function here with the new value
-        onCategorySelect('expenseName',value);
+        onCategorySelect(name ,value);
     };
 
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState(defaultval);
 
     return (
         <View className={"my-1 mx-8 "}>

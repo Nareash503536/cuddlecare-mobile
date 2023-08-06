@@ -43,7 +43,7 @@ export default function ExpenseTabs(){
 
         >
             <Tab.Screen name="Expense" component={ExpenseForm} options={{tabBarLabel:"Expense"}}/>
-            <Tab.Screen name="Income" component={IncomeForm} options={{tabBarLabel:"Income"}}/>
+            <Tab.Screen name="Income" component={IncomeForm} options={{tabBarLabel:"Budget"}}/>
         </Tab.Navigator></SafeAreaView>
     )
 }

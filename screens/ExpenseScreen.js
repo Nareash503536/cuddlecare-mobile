@@ -1,37 +1,138 @@
 import {View, Text, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
-
 import React, {useEffect, useState} from 'react'
-
 import {useNavigation} from "@react-navigation/native";
-
-// import {ExpenseApi, ExpenseApiTotalExpense,ExpenseApiTotalIncome} from "../Api/ExpenseApi";
-
-import { ExpenseApiTotalExpense,ExpenseApiTotalIncome} from "../api/ExpenseApi";
-
-
+import {ExpenseApiTotalExpense, ExpenseApiTotalIncome, ExpenseFirstdate} from "../api/ExpenseApi";
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import {themeColors} from "../theme";
-import {CakeIcon, CheckIcon, PlusSmallIcon} from "react-native-heroicons/solid";
+import {CalendarDaysIcon, PlusSmallIcon} from "react-native-heroicons/solid";
 import {ExpenseApi} from "../api/ExpenseApi";
 import {Bars3CenterLeftIcon} from "react-native-heroicons/mini";
-import {BellIcon} from "react-native-heroicons/outline";
+import {BellIcon, ChartBarSquareIcon} from "react-native-heroicons/outline";
 import {TopBar} from "../components/TopBar";
+import {BudgetApi, BudgetApiTotalBudget, BudgetEnddate} from "../api/BudgetApi";
+import CalendarPicker from "../components/CalendarPicker";
+import InfoBars from "../components/Expense/InfoBars";
+import {GlobalStyles} from "../constants/styles";
+import DropdownComponent from "../components/Expense/DropdownComponent";
 export function ExpenseScreen (){
     let navigation = useNavigation();
     const [expenseDetails, setexpenseDetails] = useState(null);
+    const[budgetDetails, setbudgetDetails] = useState(null);
     const [TotalExpense, setTotalExpense] = useState(0);
-    const [TotalIncome, setTotalIncome] = useState(0);
+    const [TotalIncome, setTotalIncome] = useState(null);
+    const [Enddate, setEnddate] = useState(null);
+    const [firstdate, setFirstdate] = useState(null);
+    const[exception, setException] = useState("No data found");
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [category, setCategory] = useState("Expense");
+
+    const categories = [
+        {label:'Expenses',value:'Expense'},
+        {label:'Budget',value:'Budget'},
+        ];
+
+    const setDateFunction=(names,Sdate)=>{
+
+        const getDate = new Date(Sdate).toLocaleDateString();
+        setSelectedDate(getDate);
+
+    }
+
+    function StringtoDate(DateString){
+    const [day,month,year] = DateString.split("/");
+    const NewDate =year+"-"+month+"-"+day;
+    const finalDate = new Date(NewDate);
+    return finalDate.toDateString()
+
+
+    }
+    const setCategoryFunction=(names,value)=>{
+        setCategory(value);
+    }
+    function compareDates (firstDate,secondDate) {
+        console.log(firstDate,secondDate)
+        if(firstDate.getFullYear()===secondDate.getFullYear()&& firstDate.getMonth()===secondDate.getMonth() && firstDate.getDate()===secondDate.getDate() ){
+            return true;
+        }
+        const year = firstDate.getFullYear()<secondDate.getFullYear();
+        if(year){
+            return false;
+        }
+        const month =firstDate.getMonth()<secondDate.getMonth();
+        if(month){
+            return false;
+        }
+        const day = firstDate.getDate()>secondDate.getDate();
+        if(day){
+            return true;
+        }
+    return false;
+    }
+    // filter data according to date
+    const dateFileteredExpense = expenseDetails?(selectedDate ? expenseDetails.filter((item) => new Date(item.date).toLocaleDateString() === selectedDate):expenseDetails):''
+    function parseDateFromString(dateString) {
+        const [ day,month, year] = dateString.split('/');
+
+        return new Date(`${year}-${month}-${day}`);
+    }
+    function parseDateFromStrings(dateString) {
+        const firstpart= dateString.split('T')[0];
+        const [ day,month, year] = firstpart.split('-');
+
+        return new Date(`${year}-${month}-${day}`);
+    }
+//filter budget according to date
+    const dateFilteredBudget = budgetDetails?(selectedDate?budgetDetails.filter((item)=>
+            compareDates( parseDateFromString(selectedDate), new Date(item.startdate))&&
+                compareDates( new Date(item.enddate), parseDateFromString(selectedDate))
+
+    ):budgetDetails):''
+
+
+    //when data not fou
+    const noDataFound = dateFileteredExpense?dateFileteredExpense.length === 0:false;
+    const noDataFoundbudget = dateFilteredBudget?dateFilteredBudget.length === 0:false;
+
     useEffect(() => {
         fetchExpense();
         gettotalExpense();
-        gettotalIncome();
+        gettotalBudget();
+        fetchBudget();
+        fetchEnddate();
+        fetchFirstdate();
     },[]);
     const fetchExpense = async () => {
         try {
             const response = await ExpenseApi();
             setexpenseDetails(response);
+            console.log(response);
+        } catch (e) {
+            console.log("expense:"+e);
+        }
+    };
+    const fetchBudget = async () => {
+        try {
+            const response = await BudgetApi();
+            setbudgetDetails(response);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    const fetchEnddate = async () => {
+        try {
+            const response = await BudgetEnddate();
+            setEnddate(response);
+
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    const fetchFirstdate = async () => {
+        try {
+            const response = await ExpenseFirstdate();
+            setFirstdate(response);
+
         } catch (e) {
             console.log(e);
         }
@@ -44,19 +145,25 @@ export function ExpenseScreen (){
             console.log(e);
         }
     };
-    const gettotalIncome = async () => {
+    const gettotalBudget = async () => {
         try {
-            const response = await ExpenseApiTotalIncome();
+            const response = await BudgetApiTotalBudget();
+
             setTotalIncome(response);
+
+
         } catch (e) {
-            console.log(e);
+            console.log('error: '+e);
+            setException(e);
+
+            console.log(exception);
         }
     };
     const ExpenseNames ={
         Cloths:'cart',Travel:'train',Medical:'pulse',Diaper:'paw',Food:'pizza',Others:'bicycle'
     };
 
-    console.log(ExpenseNames['Shopping']);
+
     return (
 <SafeAreaView style={{backgroundColor: '#f3f5f7'}}  className={"flex-1 relative"} >
     <TopBar/>
@@ -69,22 +176,25 @@ export function ExpenseScreen (){
                                 paddingHorizontal: 20,
                             }}>
                                 <LinearGradient colors={['#56b1da','#badee3','#82e0ed']} style={{...styles.Box}}>
-                                    <View style={{width:'100%',flexDirection:'column'}}>
-                                        <View style={{width:'100%',alignItems:'center'}}>
+                                    <View style={{width:'100%',flexDirection:'column' ,justifyContent:'center'}}>
+                                        <View style={{width:'100%',alignItems:'center',gap:5}}>
                                             <Text
                                                 style={{
                                                     color:'white',
-                                                    fontSize: 15,
+                                                    fontSize: 20,
 
                                                     fontWeight: '600',
 
                                             }}>
-                                                Current Balance
+                                                {TotalIncome? 'Current Balance':'Total Expenses'}
                                             </Text>
-                                            <Text style={{fontFamily:''}}></Text>
-                                            <Text style={{color:'white',fontSize: 32,fontWeight: 700}}>Rs.{TotalIncome-TotalExpense?TotalIncome-TotalExpense:'0.00'}</Text>
+                                            {firstdate&&(
+                                                <Text style={{fontFamily:'',color:GlobalStyles.colors.primary700,fontSize:12}}>{TotalIncome?new Date(TotalIncome.startdate).toLocaleDateString()+'-'+new Date(TotalIncome.enddate).toLocaleDateString():(Enddate?new Date(Enddate).toLocaleDateString():new Date(firstdate).toLocaleDateString())+'- Present'}</Text>
+                                            )}
+                                            <Text style={{color:'white',fontSize: 32,fontWeight: 700}}>Rs.{TotalIncome?((TotalIncome?TotalIncome.amount:0.00)-(TotalExpense?TotalExpense:0.00)):(TotalExpense?TotalExpense:0.00)}</Text>
 
                                         </View>
+                                        {TotalIncome&&(
                                         <View style={{width:'100%',flexDirection:'row',justifyContent:'space-between'}}>
                                                 <View style={{ marginLeft: 10}}>
                                                     <Text style={{
@@ -92,13 +202,13 @@ export function ExpenseScreen (){
 
 
                                                         fontSize: 18,
-                                                        fontWeight: '700'}} >Income</Text>
+                                                        fontWeight: '700'}} >Budget</Text>
                                                     <Text style={{
                                                         color:'white',
 
 
                                                         fontSize: 18,
-                                                        fontWeight: '700'}}>Rs.{TotalIncome?TotalIncome:'0.00'}</Text>
+                                                        fontWeight: '700'}}>Rs.{TotalIncome&&(TotalIncome.amount)?TotalIncome.amount:'0.00'}</Text>
                                                 </View>
                                                 <View style={{ marginRight: 10}}>
                                                     <Text style={{
@@ -114,6 +224,7 @@ export function ExpenseScreen (){
                                                         fontWeight: '700'}}>Rs.{TotalExpense?TotalExpense:'0.00'}</Text>
                                                 </View>
                                         </View>
+                                        )}
                                     </View>
 
 
@@ -128,95 +239,53 @@ export function ExpenseScreen (){
                 }} className={"flex-1  gap-5"}>
 
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between',  position:'relative'}}>
-                    <View>
-                    <Text style={{
-                        color:'black',
-
-
-                        fontSize: 20,
+                    <View style={{ flexDirection: 'row', justifyContent:'space-between',  position:'relative'}}>
+                       <Text className={"mt-3"} style={{fontSize: 20,
                         fontWeight: '800'}}>Transactions </Text>
-                    </View>
-                    <View>
-                        <Text style={{
-                            color:'rgb(3 105 161)',
-
-                            fontSize: 15,
-                            fontWeight: '500'}}>View All </Text>
-                    </View>
-                    </View>
-
-                        {expenseDetails && (
-                            <FlatList
-                                data={expenseDetails}
-                                keyExtractor={(item) => item.expenseID.toString()}
-                                renderItem={({ item }) => (
-
-                                    <TouchableOpacity  style={{...styles.btn}} className={"flex-row justify-between"}>
-                                        <View style={{ flexDirection: 'row'}}>
-                                            <TouchableOpacity className={"rounded-full p-3  "} style={{backgroundColor:'#70AABA'}}>
-                                                <CakeIcon size="27" color="white"  />
-                                            </TouchableOpacity>
-                                            <View className={"left-2"}>
-                                                <Text
-                                                    style={{
-                                                        fontSize: 18,
-                                                        fontWeight: '700',
-                                                        textAlign:'left'
-                                                    }}
-                                                > {item.expenseName}</Text>
-
-                                                <Text style={{color:'gray',
-
-                                                    paddingLeft:5,
-                                                    width:150,
-                                                    textAlign:'left',}}>{item.notes}</Text>
-                                            </View>
-                                        </View>
-
-                                        <View className={" p-1"}>
-                                            <Text>Rs.{item.amount}</Text>
-                                            <Text style={{color:'gray'}}>{new Date(item.date).toLocaleDateString()}</Text>
-                                        </View>
-
-                                    </TouchableOpacity>
-                                )}
+                        <View className={"mt-3"}>
+                            <CalendarPicker
+                                mode='date'
+                                lable={"Pick Start Date"}
+                                name = 'seldate'
+                                inputHandler={setDateFunction}
                             />
-                        )}
-
-                    <TouchableOpacity  style={{...styles.btn}} className={"flex-row justify-between"}>
-                        <View style={{ flexDirection: 'row'}}>
-                            <TouchableOpacity className={"rounded-full p-3 "} style={{backgroundColor:'#70AABA'}}>
-                                <CakeIcon size="27" color="white"  />
-                            </TouchableOpacity>
-                            <View className={"left-2"}>
-                                <Text
-                                    style={{
-                                        fontSize: 18,
-                                        fontWeight: '700',
-                                        textAlign:'left'
-                                    }}
-                                > pizza</Text>
-
-                                <Text style={{color:'gray',
-
-                                    paddingLeft:5,
-                                    width:150,
-                                    textAlign:'left',}}>at pizzaria</Text>
-                            </View>
                         </View>
+                        {/*budget and expense selection*/}
+                        {/*<View style={{width:'60%'}}>*/}
+                        {/*    <DropdownComponent onCategorySelect={setCategoryFunction}   data={categories} />*/}
 
-                        <View className={" p-1"}>
-                            <Text>Rs.2500</Text>
-                            <Text style={{color:'gray'}}>3/7/2021</Text>
-                        </View>
+                        {/*</View>*/}
 
-                    </TouchableOpacity>
+                    </View>
+                    {selectedDate&&<View className={"justify-center"}><Text className={"text-center text-xl"} style={{color:themeColors.btnColor}}>{StringtoDate(selectedDate)}</Text></View>}
+
+<View>
+    {category === 'Budget' ? (
+        budgetDetails && <InfoBars details={dateFilteredBudget} keyField='budgetID' category='Budget' />
+    ) : (
+        expenseDetails && <InfoBars details={dateFileteredExpense} keyField='expenseID' category='Expense' />
+    )}
+
+    {noDataFound &&noDataFoundbudget &&(
+        <View>
+            <Text className={"text-center font-bold text-2xl my-3"} style={{ color: GlobalStyles.colors.primary700 }}>No Data found</Text>
+        </View>
+    )}
+
+</View>
+
                 </View>
+            <TouchableOpacity
+                className={"absolute bottom-24 right-5 rounded-full p-1"}
+                style={{backgroundColor:themeColors.btnColor}}
+                onPress={() => navigation.navigate('ExpenseChart')}
+            >
+                <ChartBarSquareIcon   size="40" color="white" />
+            </TouchableOpacity>
             <TouchableOpacity
                 className={"absolute bottom-10 right-5 rounded-full p-1"}
                 style={{backgroundColor:themeColors.btnColor,position:'absolute'}}
-                onPress={() => navigation.navigate('ExpenseForm')}
+                onPress={() => navigation.navigate('ExpenseTab')}
             >
                 <PlusSmallIcon size="40" color="white"  />
             </TouchableOpacity>
@@ -229,7 +298,7 @@ export function ExpenseScreen (){
 const styles = StyleSheet.create({
     Box:{
         width:'100%',
-        height:200,
+
         borderRadius: 15,
         flexDirection: 'row',
         padding: 22,
@@ -243,12 +312,12 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
 
     },
-    btn:{
-        backgroundColor:'white',
+    hoverbtn:{
+        backgroundColor:'gray',
         minHeight:80,
         borderRadius: 15,
         padding: 22,
-
+        opacity:0.2,
     },
 
 })

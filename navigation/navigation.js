@@ -14,7 +14,7 @@ import {GrowthChartScreen} from "../screens/GrowthDetailsScreens/GrowthChartScre
 import {ExpenseScreen} from "../screens/ExpenseScreen";
 import ExpenseForm from "../components/Expense/ExpenseForm";
 import ExpenseTabs from "../components/Expense/ExpenseTabs";
-
+import ExpenseBarGraph from "../components/Expense/ExpenseBarGraph";
 
 
 const Stack = createNativeStackNavigator();
@@ -38,8 +38,9 @@ export function Navigation() {
                 <Stack.Screen name="GrowthChart" component={GrowthChartScreen} />
 
                 <Stack.Screen name="Expense" component={ExpenseScreen} />
-                <Stack.Screen name="ExpenseForm" component= {ExpenseTabs} />
-
+                <Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />
+                <Stack.Screen name="ExpenseForm" component={ExpenseForm} />
+                <Stack.Screen name="ExpenseChart" component={ExpenseBarGraph} />
             </Stack.Navigator>
         </NavigationContainer>
     )
