@@ -51,7 +51,7 @@ const AppNav = () => {
     return (
         <NativeBaseProvider>
             {authState?.authenticated == true ? <Navigation /> : <AuthStack />}
-            <Toast config={toastConfig}/>
+            <Toast config={toastConfig}/>   
         </NativeBaseProvider>
     )
 }

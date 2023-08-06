@@ -14,16 +14,18 @@ import { AuthContext } from "../../Context/AuthContext";
 import { ButtonStyles } from "../../components/Registration/VerifyToLoginScreen/ButtonStyle";
 import LottieView from 'lottie-react-native';
 import animation from '../../constants/animations';
+import AuthenticationAPI from "../../Api/AuthenticationAPI";
 
 export function GetStartedScreen() {
 
     const [loading, setLoading] = useState(false);
-    const TOKEN_KEY = "token";
+    const ACCESS_KEY = "token";
+    const REFRESH_KEY = "refreshToken";
     const route = useRoute();
     const email = route.params?.email || {};
     const password = route.params?.Password || {};
 
-    const { login, authState, setAuthState } = useContext(AuthContext);
+    const { authState, setAuthState, updateKeys } = useContext(AuthContext);
 
     const setToken = async (email, password) => {
         setLoading(true);
@@ -41,11 +43,13 @@ export function GetStartedScreen() {
                 }
             });
             setAuthState({
-                token: response.data.accessToken,
+                accessToken: response.data.accessToken,
+                refreshToken: response.data.refreshToken,
                 authenticated: false
             })
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
-            await SecureStore.setItemAsync(TOKEN_KEY, response.data.accessToken);
+            await SecureStore.setItemAsync(ACCESS_KEY, response.data.accessToken);
+            await SecureStore.setItemAsync(REFRESH_KEY, response.data.refreshToken);
             console.log(response.data);
         } catch (err) {
             console.log(err);
@@ -55,18 +59,13 @@ export function GetStartedScreen() {
 
         //Only authenticateUser
         setLoading(true);
-        apiURL = BASE_URL + "/setAuthenticated";
         try {
-            const response = await axios.post(apiURL, null,
-                {
-                    params: {
-                        email: email
-                    }
-                });
+            await updateKeys();
+            const response = await AuthenticationAPI().setToken(email);
             console.log(response.data);
-            //Set authenticated true
             setAuthState({
-                token: authState.token,
+                accessToken: authState.accessToken,
+                refreshToken: authState.refreshToken,
                 authenticated: true
             });
         } catch (error) {
@@ -74,7 +73,6 @@ export function GetStartedScreen() {
         } finally {
             setLoading(false);
         }
-
     }
 
     return (

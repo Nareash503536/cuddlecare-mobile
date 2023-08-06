@@ -5,8 +5,9 @@ import { ButtonStyles } from "./ButtonStyle";
 import { Formik } from 'formik';
 import { Dropdown } from 'react-native-element-dropdown';
 import { COLORS } from "../../../constants/theme";
-import { useContext, useState, useCallback } from "react";
+import { useContext, useState, useEffect } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import Toast from 'react-native-toast-message';
 // import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { handleNavigateContext } from "../../../screens/Registration/RegisterPageCaregiver";
 
@@ -14,7 +15,12 @@ export function CaregiverForm() {
 
     const { registrationInfo, setRegistrationInfo, setCurrentComponent } = useContext(handleNavigateContext);
 
+    const CONTACTNUMBER_REGEX = /^(?:\+94|0)?(?:\(\d{3}\)|\d{3})\d{7}$/;
+
+
     const [value, setValue] = useState("");
+    const [validContactNumber, setValidContactNumber] = useState(false);
+
 
     const [CaregiverInfo, setCaregiverInfo] = useState({
         CaregiverName: "",
@@ -48,6 +54,11 @@ export function CaregiverForm() {
         setCaregiverInfo({ ...CaregiverInfo, CaregiverDOB: inputDate })
         hideDatePicker();
     };
+
+    useEffect(() => {
+        const result = CONTACTNUMBER_REGEX.test(CaregiverInfo.CaregiverContactNumber);
+        setValidContactNumber(result);
+    }, [CaregiverInfo.CaregiverContactNumber]);
 
     return (
         <>
@@ -96,6 +107,7 @@ export function CaregiverForm() {
                             mode="date"
                             onConfirm={handleConfirm}
                             onCancel={hideDatePicker}
+                            maximumDate={new Date(Date.now() - 18 * 365 * 24 * 60 * 60 * 1000)}
                         />
 
                         <Dropdown
@@ -116,8 +128,16 @@ export function CaregiverForm() {
                             placeholder="Phone Number"
                             value={CaregiverInfo.CaregiverContactNumber}
                             onChangeText={(CaregiverContactNumber) => setCaregiverInfo({ ...CaregiverInfo, CaregiverContactNumber: CaregiverContactNumber })}
+                            onBlur={() => !validContactNumber ? Toast.show({
+                                type: 'error',
+                                text1: 'Error',
+                                text2: 'Please enter a valid phone number'
+                            }) : null}
                         />
-
+                        <Text className={"text-center font-extrabold text-red-600"}>
+                            {!validContactNumber ? 
+                        "Please enter a valid phone number" : null    
+                        }</Text>
                     </View>
 
                 </Formik>
@@ -134,12 +154,14 @@ export function CaregiverForm() {
                         CaregiverGender: CaregiverInfo.CaregiverGender,
                         CaregiverDOB: CaregiverInfo.CaregiverDOB,
                         CaregiverPhoneNumber: CaregiverInfo.CaregiverContactNumber
-                    })
+                    });
                 }}
                 disabled={CaregiverInfo.CaregiverName === "" ||
                     CaregiverInfo.CaregiverDOB === "" ||
                     CaregiverInfo.CaregiverGender === "" ||
-                    CaregiverInfo.CaregiverContactNumber === "" ? true : false}
+                    CaregiverInfo.CaregiverContactNumber === "" ||
+                    validContactNumber === false
+                    ? true : false}
             >
                 <Text className="text-white">
                     Next

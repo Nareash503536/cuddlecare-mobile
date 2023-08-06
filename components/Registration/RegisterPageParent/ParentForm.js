@@ -3,13 +3,14 @@ import images from "../../../constants/images";
 import { styles } from "./textInputStyle";
 import { ButtonStyles } from "./ButtonStyle";
 import { Formik } from 'formik';
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { COLORS } from "../../../constants/theme";
 import { handleNavigateContext } from "../../../screens/Registration/RegisterPageParent";
-import { configureFonts } from "react-native-paper";
 
 export function ParentForm() {
+
+    const CONTACTNUMBER_REGEX = /^(?:\+94|0)?(?:\(\d{3}\)|\d{3})\d{7}$/;
 
     const { setRegistrationInfo, registrationInfo, setCurrentComponent } = useContext(handleNavigateContext);
 
@@ -20,6 +21,12 @@ export function ParentForm() {
     })
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [validContactNumber, setValidContactNumber] = useState(false);
+
+    useEffect(() => {
+        const result = CONTACTNUMBER_REGEX.test(ParentInfo.ParentContactNumber);
+        setValidContactNumber(result);
+    }, [ParentInfo.ParentContactNumber]);
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -81,6 +88,7 @@ export function ParentForm() {
                             mode="date"
                             onConfirm={handleConfirm}
                             onCancel={hideDatePicker}
+                            maximumDate={new Date(Date.now() - 18 * 365 * 24 * 60 * 60 * 1000)}
                         />
                         <TextInput
                             keyboardType="numeric"
@@ -88,7 +96,16 @@ export function ParentForm() {
                             placeholder="Phone Number"
                             value={ParentInfo.ParentContactNumber}
                             onChangeText={(ParentPhoneNumber) => setParentInfo({ ...ParentInfo, ParentContactNumber: ParentPhoneNumber })}
+                            onBlur={() => !validContactNumber ? Toast.show({
+                                type: 'error',
+                                text1: 'Error',
+                                text2: 'Please enter a valid phone number'
+                            }) : null}
                         />
+                        <Text className={"text-center font-extrabold text-red-600"}>
+                            {!validContactNumber ?
+                                "Please enter a valid phone number" : null
+                            }</Text>
                     </View>
                 </Formik>
             </View>

@@ -2,35 +2,20 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 import { BASE_URL } from "../config";
+import Token_Helper from "../helpers/Token_Helper";
 
-const TOKEN_KEY = "token";
+const ACCESS_KEY = "token";
+const REFRESH_KEY = "refreshToken";
 export const API_URL = BASE_URL + '/login';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
-    const register = async (username, password) => {
-        setIsLoading(true);
-        const apiURL = BASE_URL + "/login";
-        const formData = new FormData();
-        formData.append('username', username);
-        formData.append('password', password);
-        try {
-            const response = await axios.post(apiURL, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-        } catch (err) {
-            console.log(err);
-        }
-        setIsLoading(false);
-    }
-
     const login = async (username, password) => {
         const apiURL = BASE_URL + "/login";
         const formData = new FormData();
+        console.log(username, password);
         formData.append('username', username);
         formData.append('password', password);
         try {
@@ -40,35 +25,61 @@ export const AuthProvider = ({ children }) => {
                 }
             });
             setAuthState({
-                token: response.data.accessToken,
+                accessToken: response.data.accessToken,
+                refreshToken: response.data.refreshToken,
                 authenticated: authState.authenticated
             })
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
-            await SecureStore.setItemAsync(TOKEN_KEY, response.data.accessToken);
+            await SecureStore.setItemAsync(ACCESS_KEY, response.data.accessToken);
+            await SecureStore.setItemAsync(REFRESH_KEY, response.data.refreshToken);
             return response;
         } catch (err) {
-            console.log(err);
+            console.log("Login error: " + err);
         }
     }
 
-    const logout = () => {
+    const updateKeys = async() => {
+        const accessToken = await SecureStore.getItemAsync(ACCESS_KEY);
+        const refreshToken = await SecureStore.getItemAsync(REFRESH_KEY);
+        const keys = await Token_Helper.getVerifiedKeys(accessToken, refreshToken);
+
+        if(keys){
+            setAuthState({
+                accessToken: keys.accessToken,
+                refreshToken: keys.refreshToken,
+                authenticated: true
+            });
+            await SecureStore.setItemAsync(ACCESS_KEY, keys.accessToken);
+            await SecureStore.setItemAsync(REFRESH_KEY, keys.refreshToken);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${keys.accessToken}`;
+            console.log(keys);
+        } else {
+            logout();
+        }
+    }
+
+    const logout = async() => {
         setAuthState({
-            token: null,
+            accessToken: null,
+            refreshToken: null,
             authenticated: false
         })
         axios.defaults.headers.common['Authorization'] = '';
-        SecureStore.deleteItemAsync(TOKEN_KEY);
+        SecureStore.deleteItemAsync(ACCESS_KEY);
+        SecureStore.deleteItemAsync(REFRESH_KEY);
         setIsLoading(false);
     }
 
     useEffect(() => {
         setIsLoading(true);
         const loadToken = async () => {
-            const token = await SecureStore.getItemAsync(TOKEN_KEY);
-            if (token) {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            const accessToken = await SecureStore.getItemAsync(ACCESS_KEY);
+            const refreshToken = await SecureStore.getItemAsync(REFRESH_KEY);
+            if (accessToken && refreshToken) {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 setAuthState({
-                    token: token,
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
                     authenticated: true
                 })
             }
@@ -80,12 +91,21 @@ export const AuthProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [authState, setAuthState] = useState({
-        token: null,
+        accessToken: null,
+        refreshToken: null,
         authenticated: null
     });
 
     return (
-        <AuthContext.Provider value={{ register, login, logout, authState, setAuthState, isLoading, setIsLoading}}>
+        <AuthContext.Provider value={{
+            login,
+            logout,
+            authState,
+            setAuthState,
+            isLoading,
+            setIsLoading,
+            updateKeys
+        }}>
             {children}
         </AuthContext.Provider>
     )

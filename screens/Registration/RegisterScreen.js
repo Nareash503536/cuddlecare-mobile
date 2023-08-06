@@ -1,7 +1,7 @@
 import { SafeAreaView } from "react-native-safe-area-context"
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, Button } from "react-native";
 import { COLORS } from "../../constants/theme";
 import { Title } from "../../components/Registration/RegisterScreeen/Title";
 import { Buttons } from "../../components/Registration/RegisterScreeen/Buttons";
@@ -25,6 +25,6 @@ export function RegisterScreen() {
                     </View>
                 </LinearGradient>
             </SafeAreaView>
-        </NativeBaseProvider>  
+        </NativeBaseProvider>
     )
 }
