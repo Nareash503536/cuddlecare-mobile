@@ -59,6 +59,8 @@ export function Form() {
                             refreshToken: authState.refreshToken,
                             authenticated: true
                         });
+                        console.log("Logged In Successfully");
+                        // navigation.navigate("Home");
                     } else {
                         navigation.navigate('VerifyToLoginScreen', {
                             PhoneNumber: response.data.phoneNumber,

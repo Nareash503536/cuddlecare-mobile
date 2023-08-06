@@ -2,7 +2,7 @@ import {FlatList, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View} fr
 import {CakeIcon,TrashIcon,PencilSquareIcon,EllipsisHorizontalIcon} from "react-native-heroicons/solid";
 import React, {useRef, useState} from "react";
 import {themeColors} from "../../theme";
-import {ExpenseDelete} from "../../api/ExpenseApi";
+import {ExpenseDelete} from "../../Api/ExpenseApi";
 import {useNavigation} from "@react-navigation/native";
 import Pagination,{Icon,Dot} from 'react-native-pagination';
 
