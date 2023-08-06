@@ -25,3 +25,4 @@ export default {logo,
                 getStartedBaby,
                 verifyBaby
             };
+

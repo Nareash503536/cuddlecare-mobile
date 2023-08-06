@@ -15,6 +15,7 @@ export function Buttons () {
             <View>
                 <TouchableOpacity style={styles.Button}
                     onPress={() => navigation.navigate("SelectUser")}
+
                     >
                     <Text>
                         Register
@@ -23,7 +24,7 @@ export function Buttons () {
                 
             </View>
             <View className={"m-2"} style={{ borderBottomColor: COLORS.primary, borderBottomWidth: 2 }} />
-                
+
                 <View className="text-center flex-row justify-center">
                     <Text>
                         Already have an account?

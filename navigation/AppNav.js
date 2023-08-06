@@ -10,6 +10,7 @@ import LottieView from 'lottie-react-native';
 import animation from '../constants/animations';
 import { COLORS } from "../constants/theme";
 
+
 const toastConfig = {
     error: ({ text1, text2}) => (
         <View style={{
@@ -38,7 +39,7 @@ const toastConfig = {
 const AppNav = () => {
     const { isLoading, authState} = useContext(AuthContext);
 
-    
+
     if(isLoading){
         return(
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -51,9 +52,10 @@ const AppNav = () => {
     return (
         <NativeBaseProvider>
             {authState?.authenticated == true ? <Navigation /> : <AuthStack />}
-            <Toast config={toastConfig}/>   
+            <Toast config={toastConfig}/>
         </NativeBaseProvider>
     )
 }
 
 export default AppNav;
+

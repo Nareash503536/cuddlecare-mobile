@@ -15,12 +15,14 @@ export function Form() {
     const { setLoading } = useContext(LoadingContext);
     const { login, setAuthState, authState, updateKeys } = useContext(AuthContext);
 
+
     const emailRef = useRef();
     const errRef = useRef();
 
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
     const [EmailFocus, setEmailFocus] = useState(false);
+
 
     const [secureTextEntry, setSecureTextEntry] = useState(true);
 
@@ -73,6 +75,7 @@ export function Form() {
                 }
             }
         }
+
 
     }
 
@@ -178,6 +181,6 @@ export function Form() {
             </View>
         </KeyboardAvoidingView>
 
-
     )
 }
+

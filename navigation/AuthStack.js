@@ -11,6 +11,7 @@ import { GetStartedScreen } from "../screens/Registration/GetStartedScreen";
 import { VerifyToLoginScreen } from "../screens/Registration/VerifyToLoginScreen";
 import { CheckOTP } from "../screens/Registration/CheckOTP"
 
+
 const Stack = createNativeStackNavigator();
 export function AuthStack() {
     return (
@@ -20,7 +21,7 @@ export function AuthStack() {
                     headerStyle: {
                         backgroundColor: '#BADEE3',
                     },
-                    headerTintColor: '#fff',            
+                    headerTintColor: '#fff',
                     headerTitleStyle: {
                         fontWeight: 'bold',
                     },

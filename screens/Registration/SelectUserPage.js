@@ -62,7 +62,6 @@ export function SelectUserPage() {
                             style={{ backgroundColor: COLORS.cardBackground }}
                         />
                     </TouchableOpacity>
-
                 </View>
             </SafeAreaView>
         </NativeBaseProvider>

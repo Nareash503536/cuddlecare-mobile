@@ -4,6 +4,7 @@ const COLORS = {
     tertiary: "#7AABAF",
     cardBackground: "#EEF8F9",
 
+
     fontColor1: "#477276",
 
     gray: "#83829A",
