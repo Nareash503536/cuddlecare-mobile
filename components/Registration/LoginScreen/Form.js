@@ -1,17 +1,19 @@
 import { React, useState, useRef, useEffect, useContext } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native';
 import { styles } from './textInputStyle';
 import { useNavigation } from "@react-navigation/native";
 import { Formik } from 'formik';
 import Toast from 'react-native-toast-message';
-import axios  from 'axios';
 import { AuthContext } from "../../../Context/AuthContext";
-import { BASE_URL } from "../../../config";
+import AuthenticationAPI from '../../../Api/AuthenticationAPI';
+import icons from '../../../constants/icons';
+import { LoadingContext } from '../../../screens/Registration/LoginScreen';
 
 export function Form() {
     const navigation = useNavigation();
 
-    const { login, authState, setIsLoading, setAuthState } = useContext(AuthContext);
+    const { setLoading } = useContext(LoadingContext);
+    const { login, setAuthState, authState, updateKeys } = useContext(AuthContext);
 
     const emailRef = useRef();
     const errRef = useRef();
@@ -19,6 +21,8 @@ export function Form() {
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
     const [EmailFocus, setEmailFocus] = useState(false);
+
+    const [secureTextEntry, setSecureTextEntry] = useState(true);
 
     const [password, setPassword] = useState('');
     const [validPassword, setValidPassword] = useState(false);
@@ -30,27 +34,29 @@ export function Form() {
     const loginCheck = async () => {
         if (!validEmail && !validPassword) {
             showToast("emailPassword");
+            return;
         } else if (!validEmail && validPassword) {
             showToast("email");
+            return;
         } else if (validEmail && !validPassword) {
             showToast("password");
+            return;
         } else {
+            // console.log(email, password)
+            setLoading(true);
             let response = await login(email, password);
             if (response === undefined) {
+                setLoading(false);
                 showToast();
             } else {
-                const apiURL = BASE_URL + "/isAuthenticated";
                 try {
-                    response = await axios.post(apiURL, null,
-                        {
-                            params: {
-                                email:email
-                            }
-                        });
+                    await updateKeys();
+                    let response = await AuthenticationAPI().isAuthenticated(email);
                     console.log(response.data);
                     if (response.data.authenticated) {
                         setAuthState({
-                            token: authState.token,
+                            accessToken: authState.accessToken,
+                            refreshToken: authState.refreshToken,
                             authenticated: true
                         });
                     } else {
@@ -60,8 +66,10 @@ export function Form() {
                             Password: password
                         });
                     }
-                } catch (error) {
-                    console.log("Authentication error : " + error);
+                } catch (err) {
+                    console.log("isAuthenticated Error: " + err);
+                } finally {
+                    setLoading(false);
                 }
             }
         }
@@ -109,52 +117,67 @@ export function Form() {
 
 
     return (
-        <View>
-            <Formik
-                initialValues={{ email: '', password: '' }}>
-                <View>
-
-                    <TextInput
-                        keyboardType='email-address'
-                        onChangeText={setEmail}
-                        value={email}
-                        ref={emailRef}
-                        style={styles.textInput}
-                        placeholder="Email"
-                        onFocus={() => setEmailFocus(true)}
-                        onBlur={() => setEmailFocus(false)}
-                    />
-                    <TextInput
-                        onChangeText={setPassword}
-                        secureTextEntry={true}
-                        value={password}
-                        style={styles.textInput}
-                        placeholder="Password"
-                    />
-                    <TouchableOpacity
-                        className={"flex-row mt-8"}
-                        style={styles.loginButton}
-                        name="submit"
-                        onPress={loginCheck}
-                    >
-                        <Text className="text-white">
-                            login
-                        </Text>
-                    </TouchableOpacity>
-
-                </View>
-            </Formik>
-
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={'padding'}>
             <View>
-                <View className="flex-row justify-center">
-                    <Text>
-                        Don't have an account?
-                    </Text>
-                    <Text className={"underline underline-offset-"} onPress={() => navigation.navigate("Register")}>
-                        Register
-                    </Text>
+                <Formik
+                    initialValues={{ email: '', password: '' }}>
+                    <View>
+
+                        <TextInput
+                            keyboardType='email-address'
+                            onChangeText={setEmail}
+                            value={email}
+                            ref={emailRef}
+                            style={styles.textInput}
+                            placeholder="Email"
+                            onFocus={() => setEmailFocus(true)}
+                            onBlur={() => setEmailFocus(false)}
+                        />
+                        <TextInput
+                            onChangeText={setPassword}
+                            secureTextEntry={secureTextEntry}
+                            value={password}
+                            style={styles.textInput}
+                            placeholder="Password"
+                        />
+                        <TouchableOpacity
+                            className={"absolute right-2 top-16 mr-4 mt-4"}
+                            onPressIn={() => setSecureTextEntry(false)}
+                            onPressOut={() => setSecureTextEntry(true)}
+                        >
+                            <Image
+                                source={icons.eye}
+                                className={"w-6 h-6 opacity-50"}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            className={"flex-row mt-8"}
+                            style={styles.loginButton}
+                            name="submit"
+                            onPress={loginCheck}
+                        >
+
+                            <Text className="text-white">
+                                login
+                            </Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </Formik>
+
+                <View>
+                    <View className="flex-row justify-center">
+                        <Text>
+                            Don't have an account?
+                        </Text>
+                        <Text className={"underline underline-offset-"} onPress={() => navigation.navigate("Register")}>
+                            Register
+                        </Text>
+                    </View>
                 </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
+
+
     )
 }

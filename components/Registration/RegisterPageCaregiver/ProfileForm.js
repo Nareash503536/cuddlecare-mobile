@@ -1,15 +1,17 @@
 import { View, Image, Text, TouchableOpacity, TextInput, StyleSheet, Alert, ActivityIndicator } from "react-native";
-import images from "../../../constants/images";
 import { styles } from "./textInputStyle";
+import icons from "../../../constants/icons";
 import { ButtonStyles } from "./ButtonStyle";
 import { Formik } from 'formik';
 import { useEffect } from "react";
 import { handleNavigateContext } from "../../../screens/Registration/RegisterPageCaregiver";
 import { useContext, useState } from "react";
 import Toast from 'react-native-toast-message';
-import axios from "axios";
-import { BASE_URL } from "../../../config";
 import { useNavigation } from "@react-navigation/native";
+import AuthenticationAPI from "../../../Api/AuthenticationAPI";
+import { AuthContext } from "../../../Context/AuthContext";
+import { ALERT_TYPE, Dialog, AlertNotificationRoot } from 'react-native-alert-notification';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export function ProfileForm() {
@@ -19,6 +21,7 @@ export function ProfileForm() {
     const USER_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$_!%*#?&])[A-Za-z\d@$!%*_#?&]{8,}$/;
 
+    const { updateKeys } = useContext(AuthContext);
     const { setRegistrationInfo, registrationInfo, setLoading } = useContext(handleNavigateContext);
 
     const [CaregiverAdditionalInfo, setCaregiverAdditionalInfo] = useState({
@@ -28,7 +31,6 @@ export function ProfileForm() {
     })
 
     const sendRegistrationInfo = async () => {
-        setLoading(true);
         if (!validEmail && !validPassword) {
             showToast("emailPassword");
             return;
@@ -50,35 +52,52 @@ export function ProfileForm() {
         console.log(registrationInfo);
         console.log(CaregiverAdditionalInfo.CaregiverEmail);
         console.log(CaregiverAdditionalInfo.CaregiverPassword);
-        let API_URL = BASE_URL + "/register/caregiver";
+
         try {
-            let response = await axios.post(API_URL, null, {
-                params: {
-                    CaregiverEmail: CaregiverAdditionalInfo.CaregiverEmail,
-                    CaregiverPassword: CaregiverAdditionalInfo.CaregiverPassword,
-                    CaregiverName: registrationInfo.CaregiverName,
-                    CaregiverPhoneNumber: registrationInfo.CaregiverPhoneNumber,
-                    CaregiverDOB: registrationInfo.CaregiverDOB,
-                    CaregiverGender: registrationInfo.CaregiverGender
-                }
-            });
-            console.log(response.data);
-            Navigation.navigate("VerifyToLoginScreen", {
-                PhoneNumber: registrationInfo.CaregiverPhoneNumber,
-                Email: CaregiverAdditionalInfo.CaregiverEmail,
-                Password: CaregiverAdditionalInfo.CaregiverPassword
-            });
+            setLoading(true);
+            let response = await AuthenticationAPI().registerCaregiver(
+                CaregiverAdditionalInfo.CaregiverEmail,
+                CaregiverAdditionalInfo.CaregiverPassword,
+                registrationInfo.CaregiverName,
+                registrationInfo.CaregiverPhoneNumber,
+                registrationInfo.CaregiverDOB,
+                registrationInfo.CaregiverGender);
+            if (response.data.error === true) {
+                console.log(response.data.error);
+                setLoading(false);
+                Dialog.show({
+                    type: ALERT_TYPE.DANGER,
+                    title: 'Registration Failed',
+                    textBody: response.data.result + ". Try different email or username",
+                    button: 'Close',
+                    
+                })
+            } else {
+                setLoading(false);
+                Dialog.show({
+                    type: ALERT_TYPE.SUCCESS,
+                    title: 'Success',
+                    textBody: 'Registration Completed Successfully',
+                    button: 'Continue',
+                    onPressButton: () => Navigation.navigate("VerifyToLoginScreen", {
+                        PhoneNumber: registrationInfo.CaregiverPhoneNumber,
+                        Email: CaregiverAdditionalInfo.CaregiverEmail,
+                        Password: CaregiverAdditionalInfo.CaregiverPassword
+                    })
+                })
+            }
         } catch (error) {
-            Alert.alert("Registration Failed", "Try different email or username");
+            Alert.alert("Registration Failed", ". Try different email.");
             console.log(error);
-        } finally {
+        }  finally {
             setLoading(false);
         }
-
     }
 
     const [validEmail, setValidEmail] = useState(false);
     const [validPassword, setValidPassword] = useState(false);
+    const [secureTextEntry, setSecureTextEntry] = useState(true);
+    const [secureTextEntryConfirmPassword, setSecureTextEntryConfirmPassword] = useState(true);
     const [validConfirmPassword, setValidConfirmPassword] = useState(false);
 
     const showToast = (condition) => {
@@ -115,59 +134,85 @@ export function ProfileForm() {
     }, [CaregiverAdditionalInfo.CaregiverConfirmPassword]);
 
     return (
-        <>
-            <View>
-                <Text className={"text-center text-3xl font-bold"}>
-                    Registration
-                </Text>
-            </View>
-            <View>
-                <Text className={"text-[#477276] text-xl text-center font-bold"}>
-                    Set your pofile
-                </Text>
-                <Formik
-                    initialValues={{}}>
-                    <View>
-                        <TextInput
-                            keyboardType='email-address'
-                            style={styles.textInput}
-                            placeholder="Email"
-                            value={CaregiverAdditionalInfo.CaregiverEmail}
-                            onChangeText={(CaregiverEmail) => setCaregiverAdditionalInfo({ ...CaregiverAdditionalInfo, CaregiverEmail: CaregiverEmail })}
-                        />
-                        <TextInput
-                            keyboardType="default"
-                            style={styles.textInput}
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            value={CaregiverAdditionalInfo.CaregiverPassword}
-                            onChangeText={(CaregiverPassword) => setCaregiverAdditionalInfo({ ...CaregiverAdditionalInfo, CaregiverPassword: CaregiverPassword })}
-                        />
-                        <TextInput
-                            keyboardType="default"
-                            style={styles.textInput}
-                            placeholder="Confirm Password"
-                            secureTextEntry={true}
-                            value={CaregiverAdditionalInfo.CaregiverConfirmPassword}
-                            onChangeText={(CaregiverConfirmPassword) => setCaregiverAdditionalInfo({ ...CaregiverAdditionalInfo, CaregiverConfirmPassword: CaregiverConfirmPassword })}
-                        />
-                    </View>
-                </Formik>
-            </View>
-            <TouchableOpacity
-                className={"flex-row mt-8"}
-                style={ButtonStyles.Button}
-                name="next"
-                onPress={() => sendRegistrationInfo()}
-                disabled={CaregiverAdditionalInfo.CaregiverEmail === "" ||
-                    CaregiverAdditionalInfo.CaregiverPassword === "" ||
-                    CaregiverAdditionalInfo.CaregiverConfirmPassword === "" ? true : false}
-            >
-                <Text className="text-white">
-                    Submit
-                </Text>
-            </TouchableOpacity>
-        </>
+        <AlertNotificationRoot>
+
+            <SafeAreaView className={"flex-1 justify-around"}>
+                <View>
+                    <Text className={"text-center text-3xl font-bold"}>
+                        Registration
+                    </Text>
+                </View>
+                <View>
+                    <Text className={"text-[#477276] text-xl text-center font-bold"}>
+                        Set your pofile
+                    </Text>
+                    <Formik
+                        initialValues={{}}>
+                        <View>
+                            <TextInput
+                                keyboardType='email-address'
+                                style={styles.textInput}
+                                placeholder="Email"
+                                value={CaregiverAdditionalInfo.CaregiverEmail}
+                                onChangeText={(CaregiverEmail) => setCaregiverAdditionalInfo({ ...CaregiverAdditionalInfo, CaregiverEmail: CaregiverEmail })}
+                            />
+                            <TextInput
+                                keyboardType="default"
+                                style={styles.textInput}
+                                placeholder="Password"
+                                secureTextEntry={secureTextEntry}
+                                value={CaregiverAdditionalInfo.CaregiverPassword}
+                                onChangeText={(CaregiverPassword) => setCaregiverAdditionalInfo({ ...CaregiverAdditionalInfo, CaregiverPassword: CaregiverPassword })}
+                            />
+                            <TouchableOpacity
+                                className={"absolute right-2 top-16 mr-4 mt-4"}
+                                onPressIn={() => setSecureTextEntry(false)}
+                                onPressOut={() => setSecureTextEntry(true)}
+                            >
+                                <Image
+                                    source={icons.eye}
+                                    className={"w-6 h-6 opacity-50"}
+                                />
+                            </TouchableOpacity>
+                            <TextInput
+                                keyboardType="default"
+                                style={styles.textInput}
+                                placeholder="Confirm Password"
+                                secureTextEntry={secureTextEntryConfirmPassword}
+                                value={CaregiverAdditionalInfo.CaregiverConfirmPassword}
+                                onChangeText={(CaregiverConfirmPassword) => setCaregiverAdditionalInfo({ ...CaregiverAdditionalInfo, CaregiverConfirmPassword: CaregiverConfirmPassword })}
+                            />
+                            <TouchableOpacity
+                                className={"absolute right-2 bottom-4 mr-4 mt-4"}
+                                onPressIn={() => setSecureTextEntryConfirmPassword(false)}
+                                onPressOut={() => setSecureTextEntryConfirmPassword(true)}
+                            >
+                                <Image
+                                    source={icons.eye}
+                                    className={"w-6 h-6 opacity-50"}
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+                    </Formik>
+                </View>
+
+                <TouchableOpacity
+                    className={"flex-row mt-8"}
+                    style={ButtonStyles.Button}
+                    name="next"
+                    onPress={() => sendRegistrationInfo()}
+                    disabled={CaregiverAdditionalInfo.CaregiverEmail === "" ||
+                        CaregiverAdditionalInfo.CaregiverPassword === "" ||
+                        CaregiverAdditionalInfo.CaregiverConfirmPassword === "" ? true : false}
+                >
+                    <Text className="text-white">
+                        Submit
+                    </Text>
+                </TouchableOpacity>
+            </SafeAreaView>
+        </AlertNotificationRoot>
+
     )
 }
 
