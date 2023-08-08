@@ -104,25 +104,25 @@ export function BabyScreen() {
                 </View>
 
                 {/*Bottom Bar*/}
-                <View  className={"mb-1 bg-white rounded-3xl mt-5 border border-gray-300 mx-1"}  >
-                    <View  className={" w-full flex-row justify-around py-2"}>
-                        <TouchableOpacity className={"rounded-full p-2"} style={{backgroundColor:themeColors.colornormal}}>
-                            <HomeIcon  size="25" color="white" />
-                        </TouchableOpacity>
-                        <TouchableOpacity className={"rounded-full p-2"}>
-                            <CalendarDaysIcon size="27" color="gray" />
-                        </TouchableOpacity>
-                        <TouchableOpacity className={"rounded-full p-2"} onPress={navigation.navigate("Expense")} >
-                            <ClipboardDocumentListIcon size="27" color="gray" />
-                        </TouchableOpacity>
-                        <TouchableOpacity className={"rounded-full p-2"}>
-                            <PresentationChartLineIcon  size="27" color="gray" />
-                        </TouchableOpacity>
-                        <TouchableOpacity className={"rounded-full p-2"}>
-                            <BellIcon   size="27" color="gray" />
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                {/*<View  className={"mb-1 bg-white rounded-3xl mt-5 border border-gray-300 mx-1"}  >*/}
+                {/*    <View  className={" w-full flex-row justify-around py-2"}>*/}
+                {/*        <TouchableOpacity className={"rounded-full p-2"} style={{backgroundColor:themeColors.colornormal}}>*/}
+                {/*            <HomeIcon  size="25" color="white" />*/}
+                {/*        </TouchableOpacity>*/}
+                {/*        <TouchableOpacity className={"rounded-full p-2"}>*/}
+                {/*            <CalendarDaysIcon size="27" color="gray" />*/}
+                {/*        </TouchableOpacity>*/}
+                {/*        <TouchableOpacity className={"rounded-full p-2"} >*/}
+                {/*            <ClipboardDocumentListIcon size="27" color="gray" />*/}
+                {/*        </TouchableOpacity>*/}
+                {/*        <TouchableOpacity className={"rounded-full p-2"}>*/}
+                {/*            <PresentationChartLineIcon  size="27" color="gray" />*/}
+                {/*        </TouchableOpacity>*/}
+                {/*        <TouchableOpacity className={"rounded-full p-2"}>*/}
+                {/*            <BellIcon   size="27" color="gray" />*/}
+                {/*        </TouchableOpacity>*/}
+                {/*    </View>*/}
+                {/*</View>*/}
 
             </SafeAreaView>
         </View>

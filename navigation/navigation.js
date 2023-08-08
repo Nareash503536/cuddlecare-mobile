@@ -1,5 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import {StartScreen} from "../screens/StartScreen";
 import {HomeScreen} from "../screens/HomeScreen";
 import {BabyScreen} from "../screens/BabyScreen";
@@ -15,8 +17,40 @@ import ExpenseForm from "../components/Expense/ExpenseForm";
 import ExpenseTabs from "../components/Expense/ExpenseTabs";
 import ExpenseBarGraph from "../components/Expense/ExpenseBarGraph";
 import GrowthChartScreen from "../screens/GrowthDetailsScreens/GrowthChartScreen";
+import {CommunityScreen} from "../screens/CommunityScreen";
+import {themeColors} from "../theme";
+import {CalendarDaysIcon, HomeIcon} from "react-native-heroicons/outline";
+import {StyleSheet, View} from "react-native";
 
+const BottomTabs = createBottomTabNavigator();
 
+function AppOverview() {
+    return (
+        <BottomTabs.Navigator screenOptions={{
+            headerShown:false,
+            tabBarShowLabel:false,
+            tabBarStyle:{height:60,position:'absolute',bottom:10,borderRadius:90,marginHorizontal:5}}} >
+
+            <Stack.Screen name="Baby" component={BabyScreen}
+            options={{
+                tabBarLabel: 'Home',
+                tabBarIcon: ({focused}) => (
+                    <View className={"rounded-full p-2"} style={{backgroundColor:focused? themeColors.colornormal:"white"}}>
+                        {focused? <HomeIcon size="27" color="white" />: <HomeIcon size="27" color="gray" />}
+                    </View>
+                ),
+            }} />
+
+            <Stack.Screen name="Community" component={CommunityScreen} options={{
+                  tabBarLabel: 'Community',
+                  tabBarIcon: ({focused}) => (
+                      <View className={"rounded-full p-2"} style={{backgroundColor:focused? themeColors.colornormal:"white"}}>
+                          {focused? <CalendarDaysIcon size="27" color="white" />: <CalendarDaysIcon size="27" color="gray" />}
+                      </View>
+                  ),}}/>
+        </BottomTabs.Navigator>
+    );
+}
 
 const Stack = createNativeStackNavigator();
 export function Navigation() {
@@ -25,7 +59,7 @@ export function Navigation() {
             <Stack.Navigator screenOptions={{headerShown:false}}>
                 <Stack.Screen name="Start" component={StartScreen} />
                 <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Baby" component={BabyScreen} />
+                <Stack.Screen name="AppOverview" component={AppOverview} />
 
 
                 <Stack.Screen name="RemindersList" component={RemindersList}/>

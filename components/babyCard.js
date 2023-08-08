@@ -8,7 +8,7 @@ export default function BabyCard({item}) {
     const navigation = useNavigation();
     return (
 
-        <TouchableOpacity onPress={() => navigation.navigate('Baby')}
+        <TouchableOpacity onPress={() => navigation.navigate('AppOverview')}
             style={{
                 borderRadius: 40,
                 height: ios? height*0.4 : height*0.33,
