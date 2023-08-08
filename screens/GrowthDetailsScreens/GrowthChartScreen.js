@@ -1,7 +1,10 @@
 import * as React from 'react';
-import { View, useWindowDimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import {View, useWindowDimensions, TouchableOpacity} from 'react-native';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {ChartGenerator} from "../../components/GrowthChart/ChartGenerator";
+import {themeColors} from "../../theme";
+import {PlusSmallIcon} from "react-native-heroicons/solid";
+import {useNavigation} from "@react-navigation/native";
 
 const line_chart_Weightdata = [
     { month: 0, value: 3.5 },
@@ -75,6 +78,7 @@ const renderScene = SceneMap({
 });
 
 export default function GrowthChartScreen() {
+    const navigation = useNavigation();
     const layout = useWindowDimensions();
 
     const [index, setIndex] = React.useState(0);
@@ -85,11 +89,29 @@ export default function GrowthChartScreen() {
     ]);
 
     return (
+        <>
         <TabView
             navigationState={{ index, routes }}
             renderScene={renderScene}
             onIndexChange={setIndex}
             initialLayout={{ width: layout.width }}
+            tabBarStyle={{ backgroundColor: 'white' }}
+            renderTabBar={(props) => (
+                <TabBar
+                    {...props}
+                    indicatorStyle={{ backgroundColor: '#7AABAF' }} // Customize indicator color if needed
+                    style={{ backgroundColor: 'white',paddingTop:20}} // Change tab bar color to white
+                    labelStyle={{ color: '#7AABAF' }}
+                />
+            )}
         />
+            <TouchableOpacity
+                className={"absolute bottom-28 right-5 rounded-full p-1"}
+                style={{backgroundColor:themeColors.btnColor}}
+                onPress={() => navigation.navigate.goBack()}
+            >
+                <PlusSmallIcon size="40" color="white"  />
+            </TouchableOpacity>
+        </>
     );
 }

@@ -117,11 +117,11 @@ export function ChartGenerator(
 
 
 
-            <View className={'mt-5 pt-2'}>
+            <View>
                 {chartPropFactory()}
             </View>
 
-            <View className={' absolute left-2 pb-3'} style={{top: deviceHight*0.050}}>
+            <View className={' absolute left-2 pb-3'} style={{top: deviceHight*0.02}}>
                 <Text className={"text-gray-400"}> {axisLabal["yLable"]}</Text>
             </View>
             <View className={'bg-transparent absolute right-4 '} style={{bottom: deviceHight*0.05}} >

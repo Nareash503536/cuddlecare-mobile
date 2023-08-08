@@ -89,7 +89,7 @@ export function BabyScreen() {
                             <Text className={"pr-2 text-gray-500"} style={{letterSpacing:1,}} > See More</Text>
                         </TouchableOpacity>
                     </View>
-                    <UpcomingEvent/>
+                    <UpcomingEvent title={"Vaccination"}/>
                 </View>
 
                 {/*Latest log notifier*/}

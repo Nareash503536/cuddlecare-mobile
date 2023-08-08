@@ -1,25 +1,55 @@
 import React from 'react'
-import {TouchableOpacity, View,Text,StyleSheet} from "react-native";
+import {TouchableOpacity, View, Text, StyleSheet, Image} from "react-native";
 import {themeColors} from "../../theme";
+import {ArrowUpIcon, CalendarDaysIcon, CheckIcon, ClockIcon} from "react-native-heroicons/solid";
 export default function GrowthMeasurement({ weight, height, headCircumference, description,date}) {
-    console.log(date)
     return (
         <TouchableOpacity className={"pt-3"}>
-            <View className={"flex-row rounded-xl  mx-2 space-x-3 border-b-2 border-gray-300 mt-4 pb-2 pr-4"}
-                  style={styles.rowborder}
-            >
-                <Text className={"w-2/5 text-center"} style={{color:themeColors.colorExtraDark}}>
-                    {date}
-                </Text>
-                <Text className={"w-1/5 text-center"} style={{color:themeColors.colorExtraDark}} >
-                    {weight}
-                </Text>
-                <Text className={"w-1/5 text-center"} style={{color:themeColors.colorExtraDark}} >
-                    {height}
-                </Text>
-                <Text className={"w-1/5 text-center"} style={{color:themeColors.colorExtraDark}} >
-                    {headCircumference}
-                </Text>
+
+            <View className={"flex-row rounded-xl p-3 shadow-2xl  mx-2 space-x-3"} style={{backgroundColor:"white",shadowColor: "#000"}}>
+
+                <View className={"flex justify-center flex-1"}>
+                    <View><Text className={" text-gray-500  font-semibold"} >Jun 26,2023 (1M-25D)</Text></View>
+
+                    <View><Text className={" text-gray-500 py-1"} >
+                       Midwife emphasized the importance of a balanced...</Text>
+                    </View>
+
+                    <View className={"flex-row items-center space-x-1"}>
+                        <ClockIcon size="18" color="limegreen" />
+                        <Text className={"text-gray-500"}> 12 Days more</Text>
+                    </View>
+                </View>
+
+                <View className={"p-1 bg-white"}>
+                    <View className={"flex-row mx-1 space-x-2 pt-1 "}>
+                        <View >
+                            <Image source={require("../../assets/images/weight-icon.png")} className={"w-6 h-6 "}/>
+                        </View>
+                        <View className={"flex"}>
+                            <Text className={"flex-row font-semibold text-gray-500"}>{weight} kg</Text>
+                        </View>
+                    </View>
+
+                    <View className={"flex-row mx-1 space-x-2 pt-1 "}>
+                        <View >
+                            <Image source={require("../../assets/images/height-icon.png")} className={"w-6 h-6 "}/>
+                        </View>
+                        <View className={"flex"}>
+                            <Text className={"flex-row font-semibold text-gray-500"}>{height} cm</Text>
+                        </View>
+                    </View>
+
+                    <View className={"flex-row mx-1 space-x-2 pt-1 "}>
+                        <View >
+                            <Image source={require("../../assets/images/headCircum-icon.png")} className={"w-6 h-6 "}/>
+                        </View>
+                        <View className={"flex"}>
+                            <Text className={"flex-row font-semibold text-gray-500"}>{headCircumference} cm</Text>
+                        </View>
+                    </View>
+                </View>
+
             </View>
         </TouchableOpacity>
     )
