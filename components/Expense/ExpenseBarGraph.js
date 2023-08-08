@@ -1,11 +1,12 @@
 import {Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {BarChart, LineChart, PieChart} from "react-native-chart-kit";
-import {ExpenseApi} from "../../Api/ExpenseApi";
-import {useEffect, useState} from "react";
+import {ExpenseApi} from "../../api/ExpenseApi";
+import React, {useEffect, useState} from "react";
 import { Dimensions } from "react-native";
 import {TopBar} from "../TopBar";
 import {themeColors} from "../../theme";
 import {COLORS} from "../../constants/theme";
+import {GlobalStyles} from "../../constants/styles";
 const screenWidth = Dimensions.get("window").width-30;
 export default function ExpenseBarGraph(){
     const [amount, setAmount] = useState([]);
@@ -20,16 +21,16 @@ export default function ExpenseBarGraph(){
     const [months, setMonths] = useState([]);
     const [years, setYears] = useState([]);
     const [xAxis, setxAxis] = useState([]);
-    const tempWeeks = weeks.map((item) => Number(weeklyAmount[item]));
 
-    const [yAxis, setyAxis] = useState(   tempWeeks);
+
+    const [yAxis, setyAxis] = useState([]);
 
 
 
     // const [tempweeks, setTempweeks] = useState([]);
     // const [tempmonths, setTempmonths] = useState([]);
     // const [tempyears, setTempyears] = useState([]);
-    const pickcolors = ["#5EDEEA","#A1E0E6","#296166","#7DAEB3","#91C9CE"];
+    const pickcolors = ["#A1E0E6","#91C9CE","#296166","#7DAEB3","#5EDEEA"];
     useEffect(() => {
         fetchExpense();
     },[]);
@@ -37,26 +38,29 @@ export default function ExpenseBarGraph(){
         if (expenseDetails.length > 0) {
             calculateAmount();
             AmountForDate();
-            setxAxis(weeks); // Set initial xAxis state to weeks
-            setyAxis(tempWeeks); // Set initial yAxis state to tempWeeks
+
         }
     }, [expenseDetails]);
-    // useEffect(() => {
-    //     setxAxis(weeks);
-    // }, [weeks]);
-    // useEffect(() => {
-    //     const tempWeeks = weeks.map((item) => Number(weeklyAmount[item]));
-    //     setyAxis(tempWeeks);
-    // }, [weeks, weeklyAmount]);
+    useEffect(() => {
+
+        setxAxis(weeks); // Set initial xAxis state to weeks
+        const tempWeeks = weeks.map((item) => Number(weeklyAmount[item]));
+        setyAxis(tempWeeks); // Set initial yAxis state to tempWeeks
+        console.log("inside use effect",weeks,tempWeeks);
+        {console.log("this is xaxis len", xAxis.length)}
+    }, [weeks,weeklyAmount]);
+
+
     const  chartConfig={
         backgroundColor: "#eee",
         backgroundGradientFrom: "#7AABAF",
         backgroundGradientTo: "#7AABAF",
-            decimalPlaces: 2, // optional, defaults to 2dp
+        decimalPlaces: 2, // optional, defaults to 2dp
         color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
         labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-            borderRadius: 16
+        style: {
+            borderRadius: 16,
+
         },
         propsForDots: {
             r: "6",
@@ -64,6 +68,7 @@ export default function ExpenseBarGraph(){
             backgroundColor: "#7AABAF",
             stroke: "#fff"
         },
+
 
     }
 
@@ -100,19 +105,19 @@ export default function ExpenseBarGraph(){
         // let tempDate=itemDate.toISOString().split('T')[0]
         console.log("week start",currentWeekStart,"week end",currentWeekEnd);
         expenseDetails.forEach((item)=>{
-                let itemDate= new Date(item.date);
+            let itemDate= new Date(item.date);
 
             if(itemDate.getFullYear() >= currentYear) {
-                    year[itemDate.getFullYear()] =(year[itemDate.getFullYear()]||0)+ item.amount;
-                }
-                if((currentWeekStart <= itemDate) && (itemDate < currentWeekEnd)) {
+                year[itemDate.getFullYear()] =(year[itemDate.getFullYear()]||0)+ item.amount;
+            }
+            if((currentWeekStart <= itemDate) && (itemDate < currentWeekEnd)) {
 
-                    week[WeekDays[itemDate.getDay()]] =(week[WeekDays[itemDate.getDay()]]||0)+ item.amount;
-                }
-                if(itemDate.getFullYear() === currentYear) {
-                    month[Months[itemDate.getMonth()]] =(month[Months[itemDate.getMonth()]]||0)+ item.amount;
-                }
-            });
+                week[WeekDays[itemDate.getDay()]] =(week[WeekDays[itemDate.getDay()]]||0)+ item.amount;
+            }
+            if(itemDate.getFullYear() === currentYear) {
+                month[Months[itemDate.getMonth()]] =(month[Months[itemDate.getMonth()]]||0)+ item.amount;
+            }
+        });
 
 
         setWeeklyAmount(week);
@@ -176,7 +181,7 @@ export default function ExpenseBarGraph(){
             finaldata.push(piedata);
         }
         setPieChartData(finaldata);
-            console.log("this is piedata",(new Date(expenseDetails[0].date)).getFullYear());
+        console.log("this is piedata",(new Date(expenseDetails[0].date)).getFullYear());
     }
 
 
@@ -184,98 +189,163 @@ export default function ExpenseBarGraph(){
 
 
     const hello=[20, 45, 28, 80, 99];
-console.log("xaxis",xAxis);
-console.log("yaxis",yAxis);
 
 
-    const lineData = {
-        labels: xAxis,
+
+    let lineData = null;
+
+    if (xAxis && yAxis) {
+        lineData = {
+            labels: xAxis,
+            datasets: [
+                {
+                    data: yAxis,
+                }
+            ],
+            legend: ["Total Expenses"],
+        };
+    }
+
+    const emptyData = {
+        labels: [0],
         datasets: [
             {
-                data: yAxis,
+                data: [0],
             }
         ],
-        legend: ["Total Expenses"] // optional
+        legend: ["Total Expenses"],
     };
 
+
+//for testing purpose
+    const lineData2 = {
+        labels: Categories,
+        datasets: [
+            {
+                data: hello,
+            }
+        ],
+
+    };
+    //until this
 
     return(
         <SafeAreaView className={"flex-1 mt-8"}>
             <TopBar/>
 
 
-            <View className={"flex flex-1 gap-5 mt-8  p-5"}>
-                <View className={"flex-col flex-1 justify-center items-center"}>
-                    <View  className={"flex-row justify-end  absolute right-0 top-6 z-10"}>
+            <View className={"flex flex-1 gap-5 p-5"}>
+
+                <View className={"flex-col flex-1 justify-center items-center"} >
+                    <View  className={"flex-row justify-center mt-5"}>
                         <TouchableOpacity
-                            className={" rounded-l-xl border-r py-1 px-3"}
+                            className={" rounded-l-lg  py-1 px-3"}
                             onPress={() =>GraphForDate()}
                             style={styles.btn}
                         ><Text style={styles.btntxt}  className={"text-center"}>Week</Text></TouchableOpacity>
                         <TouchableOpacity
-                            className={" border-r  py-1 px-3"}
+                            className={"  py-1 px-3"}
                             onPress={() => GraphForMonth()}
                             style={styles.btn}
                         ><Text style={styles.btntxt}  className={"text-center"}>Month</Text></TouchableOpacity>
                         <TouchableOpacity
-                            className={"  rounded-r-xl py-1 px-3"}
+                            className={"  rounded-r-lg py-1 px-3"}
                             onPress={() => GraphForYear()}
                             style={styles.btn}
                         ><Text style={styles.btntxt}  className={"text-center"}>Year</Text></TouchableOpacity>
                     </View>
-                {expenseDetails && Categories && (
-                    <LineChart
-                        data={lineData}
-                        width={screenWidth}
-                        height={306}
-                        verticalLabelRotation={30}
-                        yAxisLabel="Rs."
-                        chartConfig={chartConfig}
-                        bezier
-                        style={{
-                            marginVertical: 8,
-                            borderRadius: 16,
 
-                        }}
-                    />)}
+
+                    {(
+                        xAxis.length > 0 && yAxis.length > 0 && (
+                            <>
+                                {console.log("this is xaxis", xAxis)}
+                                <LineChart
+                                    data={lineData}
+                                    width={screenWidth}
+                                    height={306}
+                                    verticalLabelRotation={30}
+                                    yAxisLabel="Rs."
+                                    chartConfig={chartConfig}
+
+                                    bezier
+                                    style={{
+                                        marginVertical: 8,
+                                        borderRadius: 16,
+
+                                    }}
+                                />
+                            </>
+                        )
+                    )}
+                    {(
+                        xAxis.length === 0 && yAxis.length === 0 && (
+                            <>
+                                <LineChart
+                                    data={emptyData}
+                                    width={screenWidth}
+                                    height={306}
+                                    verticalLabelRotation={30}
+                                    yAxisLabel="Rs."
+                                    chartConfig={chartConfig}
+
+                                    bezier
+                                    style={{
+                                        marginVertical: 8,
+                                        borderRadius: 16,
+
+                                    }}
+                                />
+                            </>
+                        )
+                    )}
                 </View>
-            {/*<View>*/}
-            {/*    <BarChart*/}
+                {/*<View>*/}
+                {/*    <BarChart*/}
 
-            {/*        data={data}*/}
-            {/*        width={screenWidth}*/}
-            {/*        height={220}*/}
-            {/*        yAxisLabel="$"*/}
-            {/*        chartConfig={chartConfig}*/}
-            {/*        verticalLabelRotation={30}*/}
-            {/*    />*/}
-            {/*</View>*/}
-            <View className={"flex-row  justify-center items-center bg-white rounded-2xl p-5"}>
-                <PieChart
-                    data={pieChartData}
-                    width={screenWidth}
-                    height={220}
-                    chartConfig={chartConfig}
-                    accessor={"population"}
-                    backgroundColor={"transparent"}
-                    paddingLeft={"10"}
-                    center={[10, 10]}
-                    absolute
-                />
+                {/*        data={data}*/}
+                {/*        width={screenWidth}*/}
+                {/*        height={220}*/}
+                {/*        yAxisLabel="$"*/}
+                {/*        chartConfig={chartConfig}*/}
+                {/*        verticalLabelRotation={30}*/}
+                {/*    />*/}
+                {/*</View>*/}
+
+                <View className={"flex-col  justify-center items-center bg-white rounded-2xl p-5 shadow-2xl"}>
+                    <Text style={styles.titleTxt}>Total Expense per Category</Text>
+                    <PieChart
+                        data={pieChartData}
+                        width={screenWidth}
+                        height={170}
+                        chartConfig={chartConfig}
+                        accessor={"population"}
+                        backgroundColor={"transparent"}
+                        paddingLeft={"10"}
+                        center={[10, 0]}
+                        absolute
+                    />
+                </View>
+
             </View>
-        </View>
-    </SafeAreaView>
-        )
+        </SafeAreaView>
+    )
 
 }
 const styles = StyleSheet.create({
     btn: {
+        width: 80,
 
         backgroundColor: "rgba(222,222,225,0.68)",
-        borderWidth: 0.2,
-        borderColor: '#7AABAF',
+
+
     },
     btntxt: {
         color:'#7AABAF',
+    },
+    titleTxt:{
+        color:themeColors.colorDark,
+        fontSize:20,
+
     }
 });

@@ -1,20 +1,31 @@
 import {FlatList, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {CakeIcon,TrashIcon,PencilSquareIcon,EllipsisHorizontalIcon} from "react-native-heroicons/solid";
+import {CakeIcon,PencilSquareIcon,EllipsisHorizontalIcon} from "react-native-heroicons/solid";
+import{TrashIcon} from "react-native-heroicons/outline";
 import React, {useRef, useState} from "react";
 import {themeColors} from "../../theme";
-import {ExpenseDelete} from "../../Api/ExpenseApi";
+import {ExpenseDelete} from "../../api/ExpenseApi";
 import {useNavigation} from "@react-navigation/native";
 import Pagination,{Icon,Dot} from 'react-native-pagination';
+import {GlobalStyles} from "../../constants/styles";
 
 
 
 export default function InfoBars({details , keyField ,category}) {
     let navigation = useNavigation();
-
+    const [showButtons,setShowButtons]=useState(false);
     function deleteExpense(expenseID){
         setModalVisible(!modalVisible);
         ExpenseDelete(expenseID);
     }
+    function showbuttonHandle(itemId){
+        console.log("show btn");
+        setShowButtons(prevState => ({ ...prevState, [itemId]: true }));
+    }
+    function hidebuttonHandle(itemId){
+        console.log("hide btn")
+        setShowButtons(prevState => ({ ...prevState, [itemId]: false }));
+    }
+
 //     const renderPagination = (currentPage) => {
 //         const startIndex = (currentPage - 1) * itemsPerPage;
 //         const endIndex = startIndex + itemsPerPage;
@@ -30,6 +41,7 @@ export default function InfoBars({details , keyField ,category}) {
 //         );
 //     };
     const [modalVisible, setModalVisible] = useState(false);
+    console.log("button statue",showButtons);
     return(
 
         category==='Budget'?(
@@ -77,100 +89,109 @@ export default function InfoBars({details , keyField ,category}) {
             />
         ):(
 
-<>
+            <>
 
-            <FlatList
-
-
+                <FlatList
 
 
-                keyExtractor={(item) => item[keyField].toString()}
-
-                data={details}
-
-                renderItem={({ item }) => (
-                    <View style={{...styles.btn}}
-                                      className={"flex-row mt-4 justify-between"}>
 
 
-                        <View style={{flexDirection: 'row'}}>
-                            <TouchableOpacity className={"rounded-full p-3  "}
-                                              style={{backgroundColor: '#70AABA'}}>
-                                <CakeIcon size="27" color="white"/>
-                            </TouchableOpacity>
-                            <View className={"left-2"}>
-                                <Text
-                                    style={{
-                                        fontSize: 18,
-                                        fontWeight: '700',
-                                        textAlign: 'left'
-                                    }}
-                                > {item.expenseName}</Text>
+                    keyExtractor={(item) => item[keyField].toString()}
 
-                                <Text style={{
-                                    color: 'gray',
+                    data={details}
 
-                                    paddingLeft: 5,
-                                    width: 150,
-                                    textAlign: 'left',
-                                }}>{item.notes}</Text>
-                            </View>
-                        </View>
+                    renderItem={({ item }) => (
+                        <>
+                            {(showButtons[item[keyField]]&&(
+                                    <TouchableOpacity          style={{...styles.btnoverlay}}
+                                                               className={"flex-row   absolute z-10 top-3  w-full h-full"}
+                                                               onPress={() => setShowButtons(prevState => ({ ...prevState, [item[keyField]]: false }))}
+                                    >
+                                        <TouchableOpacity className={"mr-3"}  onPress={() => setModalVisible(true)} >
+                                            <TrashIcon size="27" color="red" />
+                                        </TouchableOpacity>
+                                        <TouchableOpacity className={"ml-3"}  onPress={() => navigation.navigate('ExpenseForm',{Editdata:item,title:"Edit Expense"})}>
+                                            <PencilSquareIcon size="27" color="black" />
+                                        </TouchableOpacity>
+                                    </TouchableOpacity>
+                                )
+                            )}
+                            <TouchableOpacity onLongPress={() => setShowButtons(prevState => ({ ...prevState, [item[keyField]]: true }))}
 
-                        <View className={" p-1"}>
-                            <Text>Rs.{item.amount}</Text>
-                            <Text
-                                style={{color: 'gray'}}>{new Date(item.date).toLocaleDateString()}</Text>
-                        </View>
-                        {/*<EllipsisHorizontalIcon size="27" color="black" style={{position:'absolute',right:20,marginTop:5}} />*/}
+                                              style={{...styles.btn}}
+                                              className={"flex-row mt-4 justify-between"}>
 
-                        <TouchableOpacity className={"flex-col justify-between ml-2"}>
-                            <TouchableOpacity  onPress={() => setModalVisible(true)} >
-                                <TrashIcon size="27" color="gray" />
-                            </TouchableOpacity>
-                            <TouchableOpacity   onPress={() => navigation.navigate('ExpenseForm',{Editdata:item,title:"Edit Expense"})}>
-                                    <PencilSquareIcon size="27" color="grey" />
-                            </TouchableOpacity>
-                        </TouchableOpacity>
-                        <View style={styles.centeredView}>
-                        <Modal
 
-                            transparent={true}
-                            visible={modalVisible}
-                            onRequestClose={() => {
-                                setModalVisible(!modalVisible);
-                            }}>
-                            <View style={{...styles.modalView}}>
-                                <Text>Are You sure, You want to Delete this?</Text>
-                                <View className={"flex-1 flex-row gap-4 my-2"}>
-                                <Pressable
-                                    style={styles.cancel}
-                                    onPress={() => setModalVisible(!modalVisible)}>
-                                    <Text   style={{color:themeColors.btnColor}}>Cancel</Text>
-                                </Pressable>
-                                <Pressable
-                                    style={styles.Button}
-                                    onPress={() => (deleteExpense(item.expenseID))}>
-                                    <Text   style={{color:'white'}}>Delete</Text>
-                                </Pressable>
+                                <View style={{flexDirection: 'row'}}>
+                                    <TouchableOpacity className={"rounded-full p-3  "}
+                                                      style={{backgroundColor: '#70AABA'}}>
+                                        <CakeIcon size="27" color="white"/>
+                                    </TouchableOpacity>
+                                    <View className={"left-2"}>
+                                        <Text
+                                            style={{
+                                                fontSize: 18,
+                                                fontWeight: '700',
+                                                textAlign: 'left'
+                                            }}
+                                        > {item.expenseName}</Text>
+
+                                        <Text style={{
+                                            color: 'gray',
+
+                                            paddingLeft: 5,
+                                            width: 150,
+                                            textAlign: 'left',
+                                        }}>{item.notes}</Text>
+                                    </View>
                                 </View>
-                            </View>
-                        </Modal>
-                        </View>
-                    </View>
 
-                )
+                                <View className={" p-1"}>
+                                    <Text>Rs.{item.amount}</Text>
+                                    <Text
+                                        style={{color: 'gray'}}>{new Date(item.date).toLocaleDateString()}</Text>
+                                </View>
+                                {/*<EllipsisHorizontalIcon size="27" color="black" style={{position:'absolute',right:20,marginTop:5}} />*/}
 
-                }
+                                <View style={styles.centeredView}>
+                                    <Modal
 
-            />
+                                        transparent={true}
+                                        visible={modalVisible}
+                                        onRequestClose={() => {
+                                            setModalVisible(!modalVisible);
+                                        }}>
+                                        <View style={{...styles.modalView}}>
+                                            <Text>Are You sure, You want to Delete this?</Text>
+                                            <View className={"flex-1 flex-row gap-4 my-2"}>
+                                                <Pressable
+                                                    style={styles.cancel}
+                                                    onPress={() => setModalVisible(!modalVisible)}>
+                                                    <Text   style={{color:themeColors.btnColor}}>Cancel</Text>
+                                                </Pressable>
+                                                <Pressable
+                                                    style={styles.Button}
+                                                    onPress={() => (deleteExpense(item.expenseID))}>
+                                                    <Text   style={{color:'white'}}>Delete</Text>
+                                                </Pressable>
+                                            </View>
+                                        </View>
+                                    </Modal>
+                                </View>
+                            </TouchableOpacity>
+                        </>
+                    )
+
+                    }
+
+                />
 
 
-    </>
+            </>
         )
 
 
-        )
+    )
 
 }
 const styles = StyleSheet.create({
@@ -185,7 +206,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         elevation: 2,
-            backgroundColor:'white',
+        backgroundColor:'white',
         borderColor:'themeColors.btnColor'
     },
     Box:{
@@ -213,6 +234,16 @@ const styles = StyleSheet.create({
     },
     btn:{
         backgroundColor:'white',
+        minHeight:80,
+        borderRadius: 15,
+        padding: 22,
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+
+    },
+    btnoverlay:{
+        backgroundColor: 'rgba(236, 240, 241,0.8)',
         minHeight:80,
         borderRadius: 15,
         padding: 22,
