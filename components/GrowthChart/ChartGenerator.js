@@ -36,6 +36,15 @@ import {
 } from "../../constants/GrowthChartZScoreData/headCircumZscoreData";
 
 import {GeneralChart} from "./GeneralChart";
+import {
+    BBSD0,
+    BBSD1,
+    BBSD1neg,
+    BBSD2,
+    BBSD2neg,
+    BBSD3,
+    BBSD3neg, BxAxisPoints, ByAxisPoints, GBSD0, GBSD1, GBSD1neg, GBSD2, GBSD2neg, GBSD3, GBSD3neg
+} from "../../constants/GrowthChartZScoreData/bmiZscoreData";
 
 
 const deviceHight = Dimensions.get('window').height;
@@ -47,6 +56,8 @@ const objectMapping = {
     "GWSD3neg": GWSD3neg,"GWSD2neg": GWSD2neg,"GWSD1neg": GWSD1neg,"GWSD0": GWSD0,"GWSD1": GWSD1,"GWSD2": GWSD2,"GWSD3": GWSD3,
     "GHSD3neg": GHSD3neg,"GHSD2neg": GHSD2neg,"GHSD1neg": GHSD1neg,"GHSD0": GHSD0,"GHSD1": GHSD1,"GHSD2": GHSD2,"GHSD3": GHSD3,
     "GCSD3neg": GCSD3neg,"GCSD2neg": GCSD2neg,"GCSD1neg": GCSD1neg,"GCSD0": GCSD0,"GCSD1": GCSD1,"GCSD2": GCSD2,"GCSD3": GCSD3,
+    "BBSD3neg": BBSD3neg,"BBSD2neg": BBSD2neg,"BBSD1neg": BBSD1neg,"BBSD0": BBSD0,"BBSD1": BBSD1,"BBSD2": BBSD2,"BBSD3": BBSD3,"ByAxisPoints":ByAxisPoints,"BxAxisPoints":BxAxisPoints,
+    "GBSD3neg": GBSD3neg,"GBSD2neg": GBSD2neg,"GBSD1neg": GBSD1neg,"GBSD0": GBSD0,"GBSD1": GBSD1,"GBSD2": GBSD2,"GBSD3": GBSD3,
 }
 export function ChartGenerator(
     {
@@ -80,7 +91,7 @@ export function ChartGenerator(
                 break;
             default:
                 prefixString+="B";
-                axisLabals= {xLable:"Month",yLable:"BMI(kg)"};
+                axisLabals= {xLable:"Month",yLable:"BMI(kg/m2)"};
         }
         // setAxisLabal(axisLabals);
         return(

@@ -8,7 +8,7 @@ import {themeColors} from "../theme";
 import GrowthMeasurementList from "../components/Growth/GrowthMeasurementList";
 import {useDispatch, useSelector} from "react-redux";
 import {selectGrowth, setGrowth} from "../slices/growthSlice";
-import {getFormattedDate} from "../util/date";
+import {dateDiff, getFormattedDate} from "../util/date";
 import {BellIcon, CalendarDaysIcon, ChartBarSquareIcon} from "react-native-heroicons/outline";
 import {GlobalStyles} from "../constants/styles";
 import {babyDetails} from "../constants";
@@ -16,17 +16,20 @@ import {Bars3CenterLeftIcon} from "react-native-heroicons/mini";
 import {UpcomingEvent} from "../components/upcomingEvent";
 import {GrowthUpcomingEvent} from "../components/Growth/GrowthUpcomingEvent";
 import {DUMMY_GROWTH} from "../constants/GrowthChartZScoreData/DUMMY_GROWTH";
+import GrowthDisplays from "../components/Growth/GrowthDisplays";
 
 let baby = babyDetails[2];
 
 
 export function GrowthDetailsScreen() {
+    let baby = babyDetails[2];
     let dispatch = useDispatch();
     useEffect(() => {
         dispatch(setGrowth(DUMMY_GROWTH));
-    },[]);
+    },[DUMMY_GROWTH]);
 
     let growthDetails = useSelector(selectGrowth);
+    const latestGrowthDetail = growthDetails[0];
 
 const navigation = useNavigation();
     return (
@@ -65,7 +68,7 @@ const navigation = useNavigation();
                         </View>
                         <View className={"flex-row space-x-2"}>
                             <Text className={"text-gray-500 font-bold"} >Age </Text>
-                            <Text className={"text-gray-500 text-sm"} >3Y-1M</Text>
+                            <Text className={"text-gray-500 text-sm"} >{dateDiff(baby.dob,(new Date()))}</Text>
                         </View>
                         <View className={"flex-row space-x-2"}>
                             <Text className={"text-gray-500 font-bold"} >8 </Text>
@@ -94,75 +97,7 @@ const navigation = useNavigation();
                 <GrowthUpcomingEvent title={"Growth measurement"}/>
 
                 {/*Growth Displays*/}
-                <View className={"flex-row my-2 justify-center items-center"}>
-
-                    {/*Weight Display*/}
-                    <View className={"flex rounded-xl shadow-2xl mx-1 "} style={{backgroundColor:themeColors.colornormal,shadowColor: "#000"}}>
-                       {/*Image and title*/}
-                        <View className={"flex-row mx-2 space-x-2 pt-1"}>
-                            {/*Weight Image*/}
-                            <View className={" p-1 rounded-full bg-white"} >
-                                <Image source={require("../assets/images/weight-icon.png")} className={"w-8 h-8 rounded-full"}/>
-                            </View>
-                            <View className={"flex pt-1"}>
-                                <Text className={"flex-row font-semibold text-white"}>Weight</Text>
-                                <View className={"flex-row"}>
-                                    <Text className={"flex-row font-semibold text-white"}>25.2%</Text>
-                                    <ArrowUpIcon size="16" color="white" />
-                                </View>
-                            </View>
-                        </View>
-                        <View className={"flex-row justify-center items-center mx-2 space-x-1 my-1"}>
-                            <Text className={"text-3xl text-white"}>7.3</Text>
-                            <View className={"mt-2"}><Text className={" text-gray-100"}>kg</Text></View>
-                        </View>
-                    </View>
-
-                    {/*Height Display*/}
-                    <View className={"flex rounded-xl shadow-2xl mx-1 "} style={{backgroundColor:themeColors.colornormal,shadowColor: "#000"}}>
-                        {/*Image and title*/}
-                        <View className={"flex-row mx-2 space-x-2 pt-1"}>
-                            {/*Weight Image*/}
-                            <View className={" p-1 rounded-full bg-white"} >
-                                <Image source={require("../assets/images/height-icon.png")} className={"w-8 h-8 rounded-full"}/>
-                            </View>
-                            <View className={"flex pt-1"}>
-                                <Text className={"flex-row font-semibold text-white"}>Height</Text>
-                                <View className={"flex-row"}>
-                                    <Text className={"flex-row font-semibold text-white"}>21.4%</Text>
-                                    <ArrowUpIcon size="16" color="white" />
-                                </View>
-                            </View>
-                        </View>
-                        <View className={"flex-row justify-center items-center mx-2 space-x-1 my-1"}>
-                            <Text className={"text-3xl text-white"}>57.8</Text>
-                            <View className={"mt-2"}><Text className={" text-gray-100"}>cm</Text></View>
-                        </View>
-                    </View>
-
-                    {/*Head Circum display*/}
-                    <View className={"flex rounded-xl shadow-2xl mx-1 "} style={{backgroundColor:themeColors.colornormal,shadowColor: "#000"}}>
-                        {/*Image and title*/}
-                        <View className={"flex-row mx-2 space-x-2 pt-1"}>
-                            {/*Weight Image*/}
-                            <View className={" p-1 rounded-full bg-white"} >
-                                <Image source={require("../assets/images/headCircum-icon.png")} className={"w-8 h-8 rounded-full"}/>
-                            </View>
-                            <View className={"flex pt-1"}>
-                                <Text className={"flex-row font-semibold text-white"}>HeadCir.</Text>
-                                <View className={"flex-row"}>
-                                    <Text className={"flex-row font-semibold text-white"}>13.4%</Text>
-                                    <ArrowUpIcon size="16" color="white" />
-                                </View>
-                            </View>
-                        </View>
-                        <View className={"flex-row justify-center items-center mx-2 space-x-1 my-1"}>
-                            <Text className={"text-3xl text-white"}>34.5</Text>
-                            <View className={"mt-2"}><Text className={" text-gray-100"}>cm</Text></View>
-                        </View>
-                    </View>
-
-                </View>
+                <GrowthDisplays {...latestGrowthDetail}/>
 
                 {/*Growth upcoming event*/}
                 {/*<GrowthUpcomingEvent title={"Growth measurement"}/>*/}
@@ -189,7 +124,8 @@ const navigation = useNavigation();
                         style={{backgroundColor:themeColors.btnColor,shadowColor: "#000"}}
                         onPress={() => navigation.navigate('GrowthChart')}
                     >
-                        <ChartBarSquareIcon   size="40" color="white" />
+                        <Image source={require("../assets/images/analysisIcon.png")} className={"w-12 h-12 rounded-full"}/>
+                        {/*<ChartBarSquareIcon   size="40" color="white" />*/}
                     </TouchableOpacity>
 
                     <TouchableOpacity

@@ -7,7 +7,8 @@ export const babyDetails = [
         month: '5',
         weight: '4.6',
         image: require('../assets/images/baby1.png'),
-        desc: 'The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.'
+        desc: 'The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.',
+        dob: '2022-09-29',
     },
 
     {
@@ -18,7 +19,8 @@ export const babyDetails = [
         month: '6',
         weight: '4.3',
         image: require('../assets/images/baby3.png'),
-        desc: 'The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.'
+        desc: 'The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.',
+        dob: '2022-09-29',
     },
 
     {
@@ -29,17 +31,9 @@ export const babyDetails = [
         month: '1',
         weight: '4.0',
         image: require('../assets/images/baby2.png'),
-        desc: 'The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.'  },
-
-    {
-        id: 4,
-        name: 'Mahi Baba',
-        height: '67',
-        year: '0',
-        month: '5',
-        weight: '3.5',
-        image: require('../assets/images/baby4.png'),
-        desc: 'The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.'  },
+        desc: 'The taste of coffee can vary depending on factors such as the type of beans, roast level, brewing method, and the addition of any flavors or sweeteners.',
+        dob: '2022-09-29',
+    },
 
 
 ]

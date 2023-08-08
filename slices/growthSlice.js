@@ -9,7 +9,9 @@ export const growthSlice = createSlice({
   initialState,
   reducers: {
     setGrowth: (state, action) => { // action.payload is an array of objects
-        state.growth = action.payload;
+        const reversedPayload = action.payload.slice().reverse();
+        state.growth = [...reversedPayload];
+        // state.growth = action.payload;
     },
     addGrowth: (state, action) => {
         state.growth =  [action.payload, ...state.growth]
