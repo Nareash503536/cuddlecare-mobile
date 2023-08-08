@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
             setAuthState({
                 accessToken: response.data.accessToken,
                 refreshToken: response.data.refreshToken,
-                authenticated: authState.authenticated
+                authenticated: false
             })
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
             await SecureStore.setItemAsync(ACCESS_KEY, response.data.accessToken);
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
             setAuthState({
                 accessToken: keys.accessToken,
                 refreshToken: keys.refreshToken,
-                authenticated: true
+                authenticated: authState.authenticated
             });
             await SecureStore.setItemAsync(ACCESS_KEY, keys.accessToken);
             await SecureStore.setItemAsync(REFRESH_KEY, keys.refreshToken);
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
     const [authState, setAuthState] = useState({
         accessToken: null,
         refreshToken: null,
-        authenticated: null
+        authenticated: false
     });
 
     return (

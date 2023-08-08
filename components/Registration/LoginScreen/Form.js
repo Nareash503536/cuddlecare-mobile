@@ -53,6 +53,7 @@ export function Form() {
                     await updateKeys();
                     let response = await AuthenticationAPI().isAuthenticated(email);
                     console.log(response.data);
+                    console.log(authState.authenticated);
                     if (response.data.authenticated) {
                         setAuthState({
                             accessToken: authState.accessToken,
@@ -60,7 +61,6 @@ export function Form() {
                             authenticated: true
                         });
                         console.log("Logged In Successfully");
-                        // navigation.navigate("Home");
                     } else {
                         navigation.navigate('VerifyToLoginScreen', {
                             PhoneNumber: response.data.phoneNumber,
