@@ -41,6 +41,10 @@ export function Navigation() {
                 <Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />
                 <Stack.Screen name="ExpenseForm" component={ExpenseForm} />
                 <Stack.Screen name="ExpenseChart" component={ExpenseBarGraph} />
+
+                <Stack.Screen name="Sleeping" component={SleepScreen} />
+                <Stack.Screen name="Time" component={TimeScreen} />
+                <Stack.Screen name="SleepTimeline" component={SleepTimelineScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
