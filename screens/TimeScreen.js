@@ -6,7 +6,7 @@ import {useNavigation} from "@react-navigation/native";
 import FilledButton from "../components/filledButton";
 import SleepHeader from "../components/sleepHeader";
 import {ClockIcon} from "react-native-heroicons/solid";
-import {SleepApi, SleepApiGetLast} from "../Api/SleepApi";
+import {SleepApi, SleepApiGetLast} from "../api/SleepApi";
 
 export function TimeScreen(){
     const [startTime, setStartTime] = useState('');

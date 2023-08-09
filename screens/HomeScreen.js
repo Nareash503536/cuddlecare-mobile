@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Carousel } from "react-native-snap-carousel";
 import RemindersButton from "../components/RemindersButton";
 import { AuthContext } from "../Context/AuthContext";
-import AuthenticationAPI from "../Api/AuthenticationAPI";
+import AuthenticationAPI from "../api/AuthenticationAPI";
 import * as SecureStore from 'expo-secure-store';
 
 

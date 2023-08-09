@@ -9,7 +9,7 @@ import { handleNavigateContext } from "../../../screens/Registration/RegisterPag
 import { useContext, useState } from "react";
 import Toast from 'react-native-toast-message';
 import { useNavigation } from "@react-navigation/native";
-import AuthenticationAPI from "../../../Api/AuthenticationAPI";
+import AuthenticationAPI from "../../../api/AuthenticationAPI";
 import { AuthContext } from "../../../Context/AuthContext";
 import { ALERT_TYPE, Dialog, AlertNotificationRoot } from 'react-native-alert-notification';
 import { SafeAreaView } from "react-native-safe-area-context";

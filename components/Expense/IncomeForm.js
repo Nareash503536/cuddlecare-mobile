@@ -8,9 +8,9 @@ import DateTimePicker from "./DateTimePicker";
 import DropdownComponent from "./DropdownComponent";
 import {getFormattedDate} from "../../util/date";
 
-// import {BudgetApiPost} from "../../Api/BudgetApi";
+// import {BudgetApiPost} from "../../api/BudgetApi";
 
-import {BudgetApiPost} from "../../Api/BudgetApi";
+import {BudgetApiPost} from "../../api/BudgetApi";
 
 import {themeColors} from "../../theme";
 import {useNavigation} from "@react-navigation/native";

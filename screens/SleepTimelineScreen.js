@@ -3,10 +3,10 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import SleepHeader from "../components/sleepHeader";
 import React, {useEffect} from "react";
 import {ClockIcon} from "react-native-heroicons/solid";
-import {SleepApiGetAll, SleepApiGetTotal} from "../Api/SleepApi";
+import {SleepApiGetAll, SleepApiGetTotal} from "../api/SleepApi";
 import { PieChart } from 'react-native-chart-kit';
 import {useNavigation} from "@react-navigation/native";
-import BottomNavbar from "../components/bottomNavbar";
+// import BottomNavbar from "../components/bottomNavbar";
 export function SleepTimelineScreen() {
     const [sleepList, setSleepList] = React.useState([]);
     const [totalSleep, setTotalSleep] = React.useState(0);
@@ -146,7 +146,7 @@ export function SleepTimelineScreen() {
                 </Pressable>
             </View>
             <View className={"mt-14"}>
-                <BottomNavbar/>
+                {/*<BottomNavbar/>*/}
             </View>
         </SafeAreaView>
     )

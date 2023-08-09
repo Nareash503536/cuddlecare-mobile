@@ -21,6 +21,9 @@ import {CommunityScreen} from "../screens/CommunityScreen";
 import {themeColors} from "../theme";
 import {CalendarDaysIcon, HomeIcon} from "react-native-heroicons/outline";
 import {StyleSheet, View} from "react-native";
+import {SleepScreen} from "../screens/SleepScreen";
+import {TimeScreen} from "../screens/TimeScreen";
+import {SleepTimelineScreen} from "../screens/SleepTimelineScreen";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -57,8 +60,8 @@ export function Navigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown:false}}>
-                {/*<Stack.Screen name="Start" component={StartScreen} />*/}
-                {/*<Stack.Screen name="Home" component={HomeScreen} />*/}
+                <Stack.Screen name="Start" component={StartScreen} />
+                <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="AppOverview" component={AppOverview} />
 
 

@@ -14,7 +14,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import { ButtonStyles } from "../../components/Registration/VerifyToLoginScreen/ButtonStyle";
 import LottieView from 'lottie-react-native';
 import animation from '../../constants/animations';
-import AuthenticationAPI from "../../Api/AuthenticationAPI";
+import AuthenticationAPI from "../../api/AuthenticationAPI";
 
 export function GetStartedScreen() {
 

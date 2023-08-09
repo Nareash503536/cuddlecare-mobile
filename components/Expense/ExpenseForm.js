@@ -6,7 +6,7 @@ import {GlobalStyles} from "../../constants/styles";
 import DateTimePicker from "./DateTimePicker";
 import DropdownComponent from "./DropdownComponent";
 import {getFormattedDate} from "../../util/date";
-import {ExpenseApiPost, ExpenseEdit} from "../../Api/ExpenseApi";
+import {ExpenseApiPost, ExpenseEdit} from "../../api/ExpenseApi";
 import {themeColors} from "../../theme";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {TopBar} from "../TopBar";
