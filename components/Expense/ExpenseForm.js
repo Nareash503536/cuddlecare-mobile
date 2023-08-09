@@ -149,7 +149,7 @@ export default function ExpenseForm() {
 
     return (
         <SafeAreaView className={"flex-1 relative mt-8"}>
-            {Editdata&&<><TopBar/><View  className={"mb-10"}></View></>}
+         <TopBar/><View  className={"mb-10"}></View>
             <View className={"flex-row justify-center my-5"}>
 
                 <Text className={"flex-row justify-center text-2xl text-gray-500"} style={{  color: themeColors.colorDark}}>{title?title:"Add expense"}</Text>

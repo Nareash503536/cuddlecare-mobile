@@ -3,7 +3,7 @@ import { useContext } from "react";
 import images from "../../../constants/images";
 import { styles } from "./ButtonStyle";
 import { handleNavigateContext } from "../../../screens/Registration/RegisterPage";
-import axios from "../../../api/axios";
+import axios from "../../../Api/axios";
 
 export function RegisterButton() {
 

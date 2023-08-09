@@ -11,7 +11,7 @@ import { RemindersList } from '../screens/RemindersList';
 import React from 'react';
 import {GrowthDetailsScreen} from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
-
+import{FeedingScreen} from "../screens/FeedingScreen";
 import {ExpenseScreen} from "../screens/ExpenseScreen";
 import ExpenseForm from "../components/Expense/ExpenseForm";
 import ExpenseTabs from "../components/Expense/ExpenseTabs";
@@ -21,6 +21,8 @@ import {CommunityScreen} from "../screens/CommunityScreen";
 import {themeColors} from "../theme";
 import {CalendarDaysIcon, HomeIcon} from "react-native-heroicons/outline";
 import {StyleSheet, View} from "react-native";
+import {BreastFeeding} from "../components/Feeding/BreastFeeding";
+import {SolidFood} from "../components/Feeding/SolidFood";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -71,15 +73,13 @@ export function Navigation() {
                 <Stack.Screen name="GrowhtManage" component={GrowhtManageScreen} />
 
                 <Stack.Screen name="GrowthChart" component={GrowthChartScreen} />
+                <Stack.Screen name="Feeding" component={FeedingScreen} />
 
                 <Stack.Screen name="Expense" component={ExpenseScreen} />
-                <Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />
+                {/*<Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />*/}
                 <Stack.Screen name="ExpenseForm" component={ExpenseForm} />
                 <Stack.Screen name="ExpenseChart" component={ExpenseBarGraph} />
 
-                <Stack.Screen name="Sleeping" component={SleepScreen} />
-                <Stack.Screen name="Time" component={TimeScreen} />
-                <Stack.Screen name="SleepTimeline" component={SleepTimelineScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

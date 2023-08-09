@@ -42,7 +42,7 @@ export const mainFeatures = [
     {
         name: 'Feeding',
         image: require('../assets/images/milkBottle.png'),
-        location: 'FeedingScreen',
+        location: 'Feeding',
     },
 
     {
