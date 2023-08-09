@@ -10,7 +10,7 @@ import {GlobalStyles} from "../../constants/styles";
 const screenWidth = Dimensions.get("window").width-30;
 export default function ExpenseBarGraph(){
     const [amount, setAmount] = useState([]);
-    const [expenseDetails, setexpenseDetails] = useState([]);
+    const [expenseDetails, setexpenseDetails] = useState(null);
     const [Categories, setCategories] = useState([]);
 
     const [pieChartData, setPieChartData] = useState([]);
@@ -35,7 +35,8 @@ export default function ExpenseBarGraph(){
         fetchExpense();
     },[]);
     useEffect(() => {
-        if (expenseDetails.length > 0) {
+        if (expenseDetails) {
+            console.log("he hoo me here",  expenseDetails);
             calculateAmount();
             AmountForDate();
 
@@ -47,7 +48,7 @@ export default function ExpenseBarGraph(){
         const tempWeeks = weeks.map((item) => Number(weeklyAmount[item]));
         setyAxis(tempWeeks); // Set initial yAxis state to tempWeeks
         console.log("inside use effect",weeks,tempWeeks);
-        {console.log("this is xaxis len", xAxis.length)}
+
     }, [weeks,weeklyAmount]);
 
 
