@@ -14,7 +14,6 @@ export default function SymptomContainer() {
     const Example = () => {
 
         const date = new Date();
-        console.log(date);
         let inputTime = date.toISOString().slice(11, 16);
         let hour = parseInt(inputTime.slice(0, 2));
         let minute = inputTime.slice(3, 5);
@@ -156,7 +155,11 @@ export default function SymptomContainer() {
                     Save
                 </Text>
             </TouchableOpacity>
+<<<<<<< HEAD
             <Example />
+=======
+            <Example/>
+>>>>>>> 5e7636d (Just The UI of the symptom is done)
         </ScrollView>
     )
 }
