@@ -16,7 +16,7 @@ export function FeedingScreen(){
         <SafeAreaView className={"flex-1 relative mt-8"}>
             <TopBar/>
             <Tab.Navigator
-                initialRouteName="Expense"
+                initialRouteName="Feeding"
                 screenOptions={
                     {
                         "tabBarActiveTintColor": "white",

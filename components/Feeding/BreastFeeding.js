@@ -13,7 +13,7 @@ export function BreastFeeding() {
                 source={require('../../assets/images/babyMilkFeeding.png')}
             />
             <View >
-                <Text className={"font-extrabold text-center text-6xl"} style={{color:'gray'}}>00:00:00</Text>
+                <Text className={"font-extrabold text-center text-5xl"} style={{color:'gray'}}>00:00:00</Text>
             </View>
             <View className={"flex-row top-3 justify-around   relative"}>
                 <TouchableOpacity style={styles.button} >

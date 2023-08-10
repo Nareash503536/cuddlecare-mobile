@@ -35,13 +35,13 @@ export function DateTimePicker ({inputHandler,mode,value,lable,invalid,mindate=n
 
     return (
         <View className={"my-1 mx-8 flex-1Z"}>
-            <Text style={[styles.label,invalid && styles.inbalidLable ]} className={"text-xs mb-2"} >{lable}</Text>
+            <Text style={[styles.label,invalid && styles.inbalidLable ]} className={"text-xs mb-2 ml-1"} >{lable}</Text>
             {/*<Button title="Show Date Picker" onPress={showDatePicker} />*/}
             <TouchableOpacity
                 className={"p-2 rounded-xl text-lg"} style={inputStyles}
                 onPress={showDatePicker}
             >
-                <Text className={'text-gray-400 text-lg'}>{dateTimePicker}</Text>
+                <Text className={' text-lg'} style={styles.grayinput}>{dateTimePicker}</Text>
             </TouchableOpacity>
 
             <DateTimePickerModal
@@ -62,10 +62,13 @@ const styles = StyleSheet.create({
 
     label: {
         color: themeColors.colorDark,
+        textAlign:'center',
     },
     input: {
         backgroundColor: themeColors.bgInput(0.1),
         color: GlobalStyles.colors.primary700,
+        width: 150,
+
     },
     inputMultiline: {
         minHeight: 100,
@@ -76,6 +79,10 @@ const styles = StyleSheet.create({
     },
     invalidInput: {
         backgroundColor:themeColors.bgInputDager(0.2),
+    },
+    grayinput:{
+        color:'gray',
+        textAlign:'center',
     }
 });
 

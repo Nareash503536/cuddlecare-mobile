@@ -14,8 +14,13 @@ import {BudgetApi, BudgetApiTotalBudget, BudgetEnddate} from "../Api/BudgetApi";
 import CalendarPicker from "../components/CalendarPicker";
 import InfoBars from "../components/Expense/InfoBars";
 import {GlobalStyles} from "../constants/styles";
+import {useContext} from "react";
+import {AuthContext} from "../Context/AuthContext";
 import DropdownComponent from "../components/Expense/DropdownComponent";
+import axios from "axios";
+import {BASE_URL} from "../config";
 export function ExpenseScreen (){
+    const {updateKeys} = useContext(AuthContext);
     let navigation = useNavigation();
     const [expenseDetails, setexpenseDetails] = useState(null);
     const[budgetDetails, setbudgetDetails] = useState(null);
@@ -106,23 +111,40 @@ export function ExpenseScreen (){
     const noDataFoundbudget = dateFilteredBudget?dateFilteredBudget.length === 0:false;
 
     useEffect(() => {
+
         fetchExpense();
         gettotalExpense();
         gettotalBudget();
         fetchBudget();
         fetchEnddate();
         fetchFirstdate();
+
     },[]);
+
+    // const getExpense = async () => {
+    //     await updateKeys();
+    //     try {
+    //         const apiURL = BASE_URL + "/expenses/all";
+    //         const response = await axios.get(apiURL,null);
+    //         setexpenseDetails(response.data);
+    //         console.log(response.data);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
     const fetchExpense = async () => {
+        await updateKeys();
         try {
-            const response = await ExpenseApi();
-            setexpenseDetails(response);
-            console.log(response);
+            const apiURL = BASE_URL + "/expenses/all";
+            const response = await axios.get(apiURL,null);
+            setexpenseDetails(response.data);
+
         } catch (e) {
             console.log("expense:"+e);
         }
     };
     const fetchBudget = async () => {
+        await updateKeys();
         try {
             const response = await BudgetApi();
             setbudgetDetails(response);
@@ -140,23 +162,29 @@ export function ExpenseScreen (){
         }
     };
     const fetchFirstdate = async () => {
+        await updateKeys();
         try {
-            const response = await ExpenseFirstdate();
-            setFirstdate(response);
+            const apiURL = BASE_URL + "/expenses/firstDate";
+            const response = await axios.get(apiURL,null);
+            setFirstdate(response.data);
 
         } catch (e) {
             console.log(e);
         }
     };
     const gettotalExpense = async () => {
+        await updateKeys();
         try {
-            const response = await ExpenseApiTotalExpense();
-            setTotalExpense(response);
+            const apiURL = BASE_URL + "/expenses/totalExpense";
+            const response = await axios.get(apiURL,null);
+console.log("total expense",response);
+            setTotalExpense(response.data);
         } catch (e) {
-            console.log(e);
+            console.log("total expense",e);
         }
     };
     const gettotalBudget = async () => {
+        await updateKeys();
         try {
             const response = await BudgetApiTotalBudget();
 
@@ -275,7 +303,7 @@ export function ExpenseScreen (){
     {expenseDetails && (<InfoBars details={dateFileteredExpense} keyField='expenseID' category='Expense' />)}
 
 
-    {noDataFound &&noDataFoundbudget &&(
+    {noDataFound &&(
         <View>
             <Text className={"text-center font-bold text-2xl my-3"} style={{ color: GlobalStyles.colors.primary700 }}>No Data found</Text>
         </View>

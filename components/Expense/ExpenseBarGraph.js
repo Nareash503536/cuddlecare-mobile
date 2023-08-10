@@ -1,14 +1,18 @@
 import {Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {BarChart, LineChart, PieChart} from "react-native-chart-kit";
 import {ExpenseApi} from "../../Api/ExpenseApi";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { Dimensions } from "react-native";
 import {TopBar} from "../TopBar";
 import {themeColors} from "../../theme";
 import {COLORS} from "../../constants/theme";
 import {GlobalStyles} from "../../constants/styles";
+import {BASE_URL} from "../../config";
+import axios from "axios";
+import {AuthContext} from "../../Context/AuthContext";
 const screenWidth = Dimensions.get("window").width-30;
 export default function ExpenseBarGraph(){
+    const {updateKeys} = useContext(AuthContext);
     const [amount, setAmount] = useState([]);
     const [expenseDetails, setexpenseDetails] = useState(null);
     const [Categories, setCategories] = useState([]);
@@ -73,11 +77,15 @@ export default function ExpenseBarGraph(){
 
     }
 
-    const fetchExpense = async () => {
-        try {
-            const response = await ExpenseApi();
-            setexpenseDetails(response);
 
+
+    const fetchExpense = async () => {
+        await updateKeys();
+        try {
+            const apiURL = BASE_URL + "/expenses/all";
+            const response = await axios.get(apiURL,null);
+            setexpenseDetails(response.data);
+            console.log(response.data);
         } catch (e) {
             console.log("expense:"+e);
         }

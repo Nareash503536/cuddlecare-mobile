@@ -1,6 +1,7 @@
 import {ApiManager} from "./ApiManager";
 
 const ExpenseApi = async () => {
+
     try {
         const response = await ApiManager.get("/expenses/all",{
             headers: {

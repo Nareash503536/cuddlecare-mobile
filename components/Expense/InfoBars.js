@@ -7,15 +7,18 @@ import {ExpenseDelete} from "../../Api/ExpenseApi";
 import {useNavigation} from "@react-navigation/native";
 import Pagination,{Icon,Dot} from 'react-native-pagination';
 import {GlobalStyles} from "../../constants/styles";
+import axios from "axios";
 
 
 
 export default function InfoBars({details , keyField ,category}) {
     let navigation = useNavigation();
     const [showButtons,setShowButtons]=useState(false);
-    function deleteExpense(expenseID){
+    const deleteExpense = async (expenseID) => {
         setModalVisible(!modalVisible);
-        ExpenseDelete(expenseID);
+        const apiURL = BASE_URL + "/expenses/delete/"+expenseID;
+        const response = await axios.delete(apiURL,null);
+
     }
     function showbuttonHandle(itemId){
         console.log("show btn");
