@@ -7,7 +7,7 @@ import FilledButton from "../components/filledButton";
 import Icon from "react-native-vector-icons/FontAwesome";
 import SleepHeader from "../components/sleepHeader";
 import {ClockIcon} from "react-native-heroicons/solid";
-import BottomNavbar from "../components/bottomNavbar";
+// import BottomNavbar from "../components/bottomNavbar";
 import {SleepApi, SleepApiGetLast} from "../Api/SleepApi";
 
 export function SleepScreen() {

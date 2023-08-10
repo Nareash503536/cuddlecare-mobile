@@ -3,7 +3,7 @@ import {CakeIcon,PencilSquareIcon,EllipsisHorizontalIcon} from "react-native-her
 import{TrashIcon} from "react-native-heroicons/outline";
 import React, {useRef, useState} from "react";
 import {themeColors} from "../../theme";
-import {ExpenseDelete} from "../../api/ExpenseApi";
+import {ExpenseDelete} from "../../Api/ExpenseApi";
 import {useNavigation} from "@react-navigation/native";
 import Pagination,{Icon,Dot} from 'react-native-pagination';
 import {GlobalStyles} from "../../constants/styles";

@@ -12,6 +12,10 @@ import React from 'react';
 import {GrowthDetailsScreen} from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
 
+import SleepScreen from "../screens/SleepScreen";
+import TimeScreen from "../screens/TimeScreen";
+import SleepTimelineScreen from "../screens/SleepTimelineScreen";
+
 import {ExpenseScreen} from "../screens/ExpenseScreen";
 import ExpenseForm from "../components/Expense/ExpenseForm";
 import ExpenseTabs from "../components/Expense/ExpenseTabs";
@@ -21,6 +25,9 @@ import {CommunityScreen} from "../screens/CommunityScreen";
 import {themeColors} from "../theme";
 import {CalendarDaysIcon, HomeIcon} from "react-native-heroicons/outline";
 import {StyleSheet, View} from "react-native";
+
+import {SymptomList} from "../screens/Symptom/SymptomList";
+import SymptomAdd from "../screens/Symptom/SymptomAdd";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -76,10 +83,13 @@ export function Navigation() {
                 <Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />
                 <Stack.Screen name="ExpenseForm" component={ExpenseForm} />
                 <Stack.Screen name="ExpenseChart" component={ExpenseBarGraph} />
+                <Stack.Screen name="SymptomList" component={SymptomList} />
+                <Stack.Screen name="SymptomAdd" component={SymptomAdd} />
+                
 
-                <Stack.Screen name="Sleeping" component={SleepScreen} />
+                {/* <Stack.Screen name="Sleeping" component={SleepScreen} />
                 <Stack.Screen name="Time" component={TimeScreen} />
-                <Stack.Screen name="SleepTimeline" component={SleepTimelineScreen} />
+                <Stack.Screen name="SleepTimeline" component={SleepTimelineScreen} /> */}
             </Stack.Navigator>
         </NavigationContainer>
     )
