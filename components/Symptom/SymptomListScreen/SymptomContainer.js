@@ -6,6 +6,8 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Modal, Center, Button, FormControl, Input, VStack, HStack } from "native-base";
 
+
+
 export default function SymptomContainer() {
 
     const [symptomArray, setSymptomArray] = useState(Array(11).fill(false));
@@ -14,7 +16,7 @@ export default function SymptomContainer() {
     const Example = () => {
 
         const date = new Date();
-        console.log(date);
+
         let inputTime = date.toISOString().slice(11, 16);
         let hour = parseInt(inputTime.slice(0, 2));
         let minute = inputTime.slice(3, 5);
@@ -156,7 +158,7 @@ export default function SymptomContainer() {
                     Save
                 </Text>
             </TouchableOpacity>
-            <Example />
+            <Example/>
         </ScrollView>
     )
 }
