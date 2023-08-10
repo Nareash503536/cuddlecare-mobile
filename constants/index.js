@@ -67,7 +67,7 @@ export const mainFeatures = [
     {
         name: 'Symtom',
         image: require('../assets/images/symptom.png'),
-        location: 'SymptomScreen',
+        location: 'SymptomList',
     },
 
     {

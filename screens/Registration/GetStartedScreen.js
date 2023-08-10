@@ -47,7 +47,7 @@ export function GetStartedScreen() {
                 refreshToken: response.data.refreshToken,
                 authenticated: false
             })
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
+            // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
             await SecureStore.setItemAsync(ACCESS_KEY, response.data.accessToken);
             await SecureStore.setItemAsync(REFRESH_KEY, response.data.refreshToken);
             console.log(response.data);
