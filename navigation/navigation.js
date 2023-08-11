@@ -34,6 +34,9 @@ import {SolidFood} from "../components/Feeding/SolidFood";
 
 import {SymptomList} from "../screens/Symptom/SymptomList";
 import SymptomAdd from "../screens/Symptom/SymptomAdd";
+import MilestonesScreen from "../screens/MilestonesScreen";
+import MilestonesListScreen from "../screens/MilestonesScreens/MilestonesListScreen";
+import MilestoneManageScreen from "../screens/MilestonesScreens/MilestoneManageScreen";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -82,12 +85,16 @@ export function Navigation() {
                 {/* Growth feature screens */}
                 <Stack.Screen name="GrowthDetails" component={GrowthDetailsScreen} />
                 <Stack.Screen name="GrowhtManage" component={GrowhtManageScreen} />
-
                 <Stack.Screen name="GrowthChart" component={GrowthChartScreen} />
                 <Stack.Screen name="Feeding" component={FeedingScreen} />
+                {/* Growth feature screens */}
+                <Stack.Screen name="Milestones" component={MilestonesScreen} />
+                <Stack.Screen name="MilestonesList" component={MilestonesListScreen} />
+                <Stack.Screen name="MilestoneManage" component={MilestoneManageScreen} />
 
                 <Stack.Screen name="Expense" component={ExpenseScreen} />
                 {/*<Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />*/}
+                {/*<Stack.Screen name="Expense" component={ExpenseScreen} />*/}
                 <Stack.Screen name="ExpenseForm" component={ExpenseForm} />
                 <Stack.Screen name="ExpenseChart" component={ExpenseBarGraph} />
                 <Stack.Screen name="SymptomList" component={SymptomList} />

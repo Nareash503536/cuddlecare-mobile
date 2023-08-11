@@ -7,7 +7,8 @@ import {getFormattedDate, getFormattedTime} from "../../util/date";
 
 export function DateTimePicker ({inputHandler,mode,lable,invalid,mindate,maxdate}) {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [dateTimePicker, setDateTimePicker] = useState(mode);
+    const [dateTimePicker, setDateTimePicker] = useState(getFormattedDate(new Date()));
+    // setDateTimePicker(getFormattedDate(new Date()))
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };

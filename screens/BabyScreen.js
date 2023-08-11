@@ -52,7 +52,7 @@ export function BabyScreen() {
                     {/*name and growth status*/}
                     <View className={"flex  flex-1 pl-3"}>
                         <View>
-                            <Text className={"text-white text-2xl font-semibold"} style={{letterSpacing:2}}>{baby.name}</Text>
+                            <Text className={"text-white text-2xl font-semibold"} style={{letterSpacing:2,color:"white"}}>{baby.name}</Text>
                         </View>
                         <View className={"flex-row flex-1 justify-between space-x-1"} >
                             <View className={" flex px-5 py-1 items-center rounded-2xl"} style={{backgroundColor:themeColors.bgWhite(0.4)}} >
@@ -98,9 +98,9 @@ export function BabyScreen() {
                 {/*upcoming notifier*/}
                 <View  className={" mt-1 "} >
                     <View className={"flex-row justify-between bg-white my-2"} >
-                        <Text className={"pl-2 font-semibold text-gray-500"} style={{letterSpacing:1,fontSize:16}} > Upcoming Event</Text>
+                        <Text className={"pl-2 font-semibold text-gray-500"} style={{letterSpacing:1,fontSize:16,color:"gray"}} > Upcoming Event</Text>
                         <TouchableOpacity>
-                            <Text className={"pr-2 text-gray-500"} style={{letterSpacing:1,}} > See More</Text>
+                            <Text className={"pr-2 text-gray-500"} style={{letterSpacing:1,color:"gray"}} > See More</Text>
                         </TouchableOpacity>
                     </View>
                     <UpcomingEvent title={"Vaccination"}/>
@@ -109,7 +109,7 @@ export function BabyScreen() {
                 {/*Latest log notifier*/}
                 <View  className={" mt-2 "}>
                     <View className={"flex-row justify-between  my-2"}>
-                        <Text className={"pl-2 font-semibold text-gray-500"} style={{letterSpacing:1,fontSize:16}} >Latest Logs</Text>
+                        <Text className={"pl-2 font-semibold text-gray-500"} style={{letterSpacing:1,fontSize:16,color:"gray"}} >Latest Logs</Text>
                         <TouchableOpacity>
                             <Text className={"pr-2 text-gray-500"} style={{letterSpacing:1,}} > See More</Text>
                         </TouchableOpacity>

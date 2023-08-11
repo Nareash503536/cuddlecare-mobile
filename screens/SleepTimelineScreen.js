@@ -22,7 +22,7 @@ export function SleepTimelineScreen() {
 
     const totalTime = async () => {
         const currentDate = new Date().toISOString().slice(0, 10);
-        const apiURL = BASE_URL + "/api/sleep/total-sleep-duration/" + currentDate;
+        const apiURL = BASE_URL + "/Api/sleep/total-sleep-duration/" + currentDate;
         try {
             await updateKeys();
             // const response = await SleepApiGetTotal();
@@ -54,7 +54,7 @@ export function SleepTimelineScreen() {
 
     const getAll = async () => {
         const currentDate = new Date().toISOString().slice(0, 10);
-        const apiURL = BASE_URL + "/api/sleep/all-sleeps/" + currentDate;
+        const apiURL = BASE_URL + "/Api/sleep/all-sleeps/" + currentDate;
         try {
             await updateKeys();
             // const response = await SleepApiGetAll();

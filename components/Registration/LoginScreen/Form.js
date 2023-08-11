@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Formik } from 'formik';
 import Toast from 'react-native-toast-message';
 import { AuthContext } from "../../../Context/AuthContext";
-import AuthenticationAPI from '../../../api/AuthenticationAPI';
+import AuthenticationAPI from '../../../Api/AuthenticationAPI';
 import icons from '../../../constants/icons';
 import { LoadingContext } from '../../../screens/Registration/LoginScreen';
 

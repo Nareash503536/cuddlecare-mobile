@@ -7,7 +7,6 @@ import FilledButton from "../components/filledButton";
 import Icon from "react-native-vector-icons/FontAwesome";
 import SleepHeader from "../components/sleepHeader";
 import {ClockIcon} from "react-native-heroicons/solid";
-import {SleepApi, SleepApiGetLast} from "../Api/SleepApi";
 import {AuthContext} from "../Context/AuthContext";
 import {BASE_URL} from "../config";
 // import BottomNavbar from "../components/bottomNavbar";
@@ -65,7 +64,7 @@ export function SleepScreen() {
 
     const lastSleep = async () => {
         const currentDate = new Date().toISOString().slice(0, 10);
-        const apiURL = BASE_URL + "/api/sleep/last-sleep/" + currentDate;
+        const apiURL = BASE_URL + "/Api/sleep/last-sleep/" + currentDate;
         try {
             await updateKeys();
             // const response = await SleepApiGetLast();
@@ -160,7 +159,7 @@ export function SleepScreen() {
 
     const storeData = async (data) => {
         console.log("sleep data: "+data);
-        const apiURL = BASE_URL + "/api/sleep/save";
+        const apiURL = BASE_URL + "/Api/sleep/save";
         try {
             await updateKeys();
             const response = await axios.post(apiURL, data);

@@ -12,4 +12,5 @@ export const themeColors = {
     colornormal:"#94CCD2",
     colorDark:'#7AABAF',
     colorExtraDark:"#477276",
+    colorDanger:"#E8ACA7"
 }

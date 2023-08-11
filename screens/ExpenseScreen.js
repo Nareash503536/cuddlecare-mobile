@@ -2,15 +2,15 @@ import {View, Text, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-n
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {useEffect, useState} from 'react'
 import {useNavigation} from "@react-navigation/native";
-import {ExpenseApiTotalExpense, ExpenseApiTotalIncome, ExpenseFirstdate} from "../api/ExpenseApi";
+import {ExpenseApiTotalExpense, ExpenseApiTotalIncome, ExpenseFirstdate} from "../Api/ExpenseApi";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {themeColors} from "../theme";
 import {CalendarDaysIcon, PlusSmallIcon} from "react-native-heroicons/solid";
-import {ExpenseApi} from "../api/ExpenseApi";
+import {ExpenseApi} from "../Api/ExpenseApi";
 import {Bars3CenterLeftIcon} from "react-native-heroicons/mini";
 import {BellIcon, ChartBarSquareIcon} from "react-native-heroicons/outline";
 import {TopBar} from "../components/TopBar";
-import {BudgetApi, BudgetApiTotalBudget, BudgetEnddate} from "../api/BudgetApi";
+import {BudgetApi, BudgetApiTotalBudget, BudgetEnddate} from "../Api/BudgetApi";
 import CalendarPicker from "../components/CalendarPicker";
 import InfoBars from "../components/Expense/InfoBars";
 import {GlobalStyles} from "../constants/styles";

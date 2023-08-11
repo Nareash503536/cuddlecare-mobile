@@ -82,3 +82,10 @@ export const DUMMY_GROWTH =[
         date: getFormattedDate(new Date(2023, 6, 24))
     }
 ];
+
+export const DUMMY_Milestones =[
+    {id:'1',"date": getFormattedDate(new Date(2023, 6, 24)), "description": "Sometimes Calms down when spoken", "milestone": "Calms down when spoken to or picked up"},
+    {id:'2',"date": getFormattedDate(new Date(2023, 5, 22)), "description": "Baby does this properly", "milestone": "Looks at your face"},
+    {id:'3',"date": getFormattedDate(new Date(2023, 4, 23)), "description": "Sometimes Baby cries", "milestone": "Reacts to loud sounds"},
+    {id:'4',"date": getFormattedDate(new Date(2023, 3, 28)), "description": "Baby smiled first with his papa", "milestone": "Smiles when you talk to or smile at her"},
+];
