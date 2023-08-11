@@ -7,8 +7,12 @@ import FilledButton from "../components/filledButton";
 import SleepHeader from "../components/sleepHeader";
 import {ClockIcon} from "react-native-heroicons/solid";
 import {SleepApi, SleepApiGetLast} from "../Api/SleepApi";
+import {AuthContext} from "../Context/AuthContext";
+import axios from "axios";
+import {BASE_URL} from "../config";
 
 export function TimeScreen(){
+    const {updateKeys} = React.useContext(AuthContext);
     const [startTime, setStartTime] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endTime, setEndTime] = useState('');
@@ -145,6 +149,7 @@ export function TimeScreen(){
 
     const storeData = async (data) => {
         try {
+            await updateKeys();
             const response = await SleepApi(data);
             console.log(response.data);
             navigation.navigate("SleepTimeline");
@@ -177,9 +182,13 @@ export function TimeScreen(){
     };
 
     const lastSleep = async () => {
+        const currentDate = new Date().toISOString().slice(0, 10);
+        const apiURL = BASE_URL + "/api/sleep/last-sleep/" + currentDate;
         try {
-            const response = await SleepApiGetLast();
-            // console.log(response.data);
+            await updateKeys();
+            // const response = await SleepApiGetLast();
+            const response = await axios.get(apiURL, null);
+            console.log(response.data);
             const sleepStartTime = response.data.sleepStartTime;
             // const timeString = sleepStartTime.substr(11, 5);
             // const [hour, minute] = timeString.split(':').map(Number);

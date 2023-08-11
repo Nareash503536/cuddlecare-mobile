@@ -48,7 +48,7 @@ export const mainFeatures = [
     {
         name: 'Sleeping',
         image: require('../assets/images/sleep.png'),
-        location: 'SleepingScreen',
+        location: 'Sleeping',
     },
 
     {
@@ -65,7 +65,7 @@ export const mainFeatures = [
     },
 
     {
-        name: 'Symtom',
+        name: 'Symptom',
         image: require('../assets/images/symptom.png'),
         location: 'SymptomList',
     },
@@ -74,5 +74,11 @@ export const mainFeatures = [
         name: 'Immulization',
         image: require('../assets/images/syringe.png'),
         location: 'ImmunizationScreen',
+    },
+
+    {
+        name: 'Expense',
+        image: require('../assets/images/symptom.png'),
+        location: 'Expense',
     },
 ]

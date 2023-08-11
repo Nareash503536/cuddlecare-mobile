@@ -13,12 +13,12 @@ import {GrowthDetailsScreen} from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
 import{FeedingScreen} from "../screens/FeedingScreen";
 
-import SleepScreen from "../screens/SleepScreen";
-import TimeScreen from "../screens/TimeScreen";
-import SleepTimelineScreen from "../screens/SleepTimelineScreen";
-import SleepBarChart from "../screens/SleepBarChart";
+import {SleepScreen} from "../screens/SleepScreen";
+import {TimeScreen} from "../screens/TimeScreen";
+import {SleepTimelineScreen} from "../screens/SleepTimelineScreen";
+import {SleepBarChart} from "../screens/SleepBarChart";
 
-import DiaperScreen from "../screens/DiaperScreen";
+import {DiaperScreen} from "../screens/DiaperScreen";
 
 import {ExpenseScreen} from "../screens/ExpenseScreen";
 import ExpenseForm from "../components/Expense/ExpenseForm";

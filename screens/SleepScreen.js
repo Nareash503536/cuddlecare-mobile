@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, Modal, TextInput, Pressable, Image, Keyboard, TouchableOpacity} from 'react-native';
+import {View, Text, Modal, TextInput, Pressable, Image} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useNavigation} from "@react-navigation/native";
 import axios from "axios";
@@ -7,10 +7,13 @@ import FilledButton from "../components/filledButton";
 import Icon from "react-native-vector-icons/FontAwesome";
 import SleepHeader from "../components/sleepHeader";
 import {ClockIcon} from "react-native-heroicons/solid";
-// import BottomNavbar from "../components/bottomNavbar";
 import {SleepApi, SleepApiGetLast} from "../Api/SleepApi";
+import {AuthContext} from "../Context/AuthContext";
+import {BASE_URL} from "../config";
 
 export function SleepScreen() {
+
+    const {updateKeys} = React.useContext(AuthContext);
     const [startTime, setStartTime] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endTime, setEndTime] = useState(null);
@@ -60,14 +63,14 @@ export function SleepScreen() {
     };
 
     const lastSleep = async () => {
+        const currentDate = new Date().toISOString().slice(0, 10);
+        const apiURL = BASE_URL + "/api/sleep/last-sleep/" + currentDate;
         try {
-            const response = await SleepApiGetLast();
-            // console.log(response.data);
+            await updateKeys();
+            // const response = await SleepApiGetLast();
+            const response = await axios.get(apiURL, null);
+            console.log(response.data);
             const sleepStartTime = response.data.sleepStartTime;
-            // const timeString = sleepStartTime.substr(11, 5);
-            // const [hour, minute] = timeString.split(':').map(Number);
-            // const period = hour >= 12 ? 'PM' : 'AM';
-            // const formattedTime = `${(hour % 12) || 12}:${minute.toString().padStart(2, '0')} ${period}`;
             const dateObj = new Date(sleepStartTime);
             const formattedTime = dateObj.toLocaleString(undefined, {
                 hour: 'numeric',
@@ -155,10 +158,14 @@ export function SleepScreen() {
     };
 
     const storeData = async (data) => {
+        console.log("sleep data: "+data);
+        const apiURL = BASE_URL + "/api/sleep/save";
         try {
-            const response = await SleepApi(data);
-            console.log(response.data);
+            await updateKeys();
+            const response = await axios.post(apiURL, data);
+            // const response = await SleepApi(data);
             navigation.navigate("SleepTimeline");
+            console.log(response.data);
         } catch (error) {
             console.log(error);
             console.log(data);
@@ -173,6 +180,7 @@ export function SleepScreen() {
             sleepDuration,
             note,
         };
+        console.log(data);
         storeData(data).then(r => console.log(r));
         console.log(sleepStartTime);
         console.log(sleepEndTime);
@@ -274,10 +282,10 @@ export function SleepScreen() {
                     <View>
                         <Modal visible={modalVisible} animationType="slide">
                             <View className={"flex-1 justify-center"}>
-                                <View className={"m-4 rounded-3xl p-5 border"}>
-                                    <Text>Total Time Slept: {totalTime}</Text>
+                                <View className={"m-4 rounded-3xl p-2 border border-primary"}>
+                                    {/*<Text>Total Time Slept: {totalTime}</Text>*/}
                                     <TextInput
-                                        className={"border h-20 p-1 my-2"}
+                                        className={"border-primary rounded-2xl border h-20 p-1 my-1"}
                                         placeholder="Add a note (Optional)"
                                         value={note}
                                         onChangeText={text => setNote(text)}
@@ -288,7 +296,6 @@ export function SleepScreen() {
                         </Modal>
                     </View>
             </View>
-            <BottomNavbar />
         </SafeAreaView>
     )
 }
