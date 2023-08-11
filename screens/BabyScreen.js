@@ -13,6 +13,7 @@ import {Logs} from "../components/logs";
 import {HomeIcon,CalendarDaysIcon,ClipboardDocumentListIcon,PresentationChartLineIcon} from "react-native-heroicons/outline";
 import {useNavigation} from "@react-navigation/native";
 import { AuthContext } from "../Context/AuthContext";
+import RemindersButton from "../components/RemindersButton";
 
 export function BabyScreen() {
     let baby = babyDetails[2];
@@ -76,6 +77,12 @@ export function BabyScreen() {
                     {/*    title="Logout"*/}
                     {/*    onPress={logout}*/}
                     {/*/>*/}
+                    <View>
+                        <RemindersButton/>
+                    </View>
+                    <View>
+                        <Button title={"community"} onPress={() => navigation.navigate('Community')}/>
+                    </View>
                     <Carousel
                         data={featuresDetails}
                         renderItem={({item})=> <Features item={item} />}
