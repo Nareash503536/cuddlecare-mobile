@@ -4,9 +4,10 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import Input from "../Growth/Input";
 import {themeColors} from "../../theme";
 import {GlobalStyles} from "../../constants/styles";
-import DateTimePicker from "./DateTimePicker";
+
 import {getFormattedDate} from "../../util/date";
 import {ChevronRightIcon, ChevronLeftIcon, PencilSquareIcon} from "react-native-heroicons/solid";
+import {DateAndTime} from "./DateAndTime";
 
 
 export function BottleFeeding() {
@@ -71,22 +72,7 @@ const textInputConfig = {
     }
     return (
         <SafeAreaView  >
-            <View  className={"flex-row justify-around mb-6"} >
-                <DateTimePicker
-                    mode='Date'
-                    lable={"Pick a Date"}
-                    value={getFormattedDate(new Date())}
-                    inputHandler={inputChangedHandler}
-                    name={'date'}
-                />
-                <DateTimePicker
-                    mode='time'
-                    lable={"Pick a time"}
-                    value='02:30 pm'
-                    inputHandler={inputChangedHandler}
-                    name={'time'}
-                />
-            </View>
+            <DateAndTime/>
 <View   className={"flex-col align-middle justify-center  "}>
     <Text style={[styles.label,!inputs.quantity.isValid && styles.inbalidLable ]} className={"text-center mb-2"}>Choose a type </Text>
 
