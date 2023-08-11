@@ -87,7 +87,7 @@ export function Navigation() {
                 <Stack.Screen name="Feeding" component={FeedingScreen} />
 
                 <Stack.Screen name="Expense" component={ExpenseScreen} />
-                <Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />
+                {/*<Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />*/}
                 <Stack.Screen name="ExpenseForm" component={ExpenseForm} />
                 <Stack.Screen name="ExpenseChart" component={ExpenseBarGraph} />
                 <Stack.Screen name="SymptomList" component={SymptomList} />
