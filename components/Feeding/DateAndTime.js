@@ -10,14 +10,14 @@ export function DateAndTime() {
                 mode='Date'
                 lable={"Pick a Date"}
                 value={getFormattedDate(new Date())}
-                inputHandler={inputChangedHandler}
+                // inputHandler={inputChangedHandler}
                 name={'date'}
             />
             <DateTimePicker
                 mode='time'
                 lable={"Pick a time"}
                 value='02:30 pm'
-                inputHandler={inputChangedHandler}
+                // inputHandler={inputChangedHandler}
                 name={'time'}
             />
         </View>
