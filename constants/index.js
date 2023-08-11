@@ -81,4 +81,9 @@ export const mainFeatures = [
         image: require('../assets/images/symptom.png'),
         location: 'Expense',
     },
+    {
+        name: 'Milstones',
+        image: require('../assets/images/syringe.png'),
+        location: 'Milestones',
+    },
 ]
