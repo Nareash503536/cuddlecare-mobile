@@ -123,7 +123,7 @@ export function ChartGenerator(
     }
 
     return (
-        <SafeAreaView className={'bg-white flex-1' }>
+        <SafeAreaView className={'bg-white flex-1' } style={{backgroundColor:"white"}}>
             <StatusBar barStyle={'dark-content'}/>
 
 
@@ -133,10 +133,10 @@ export function ChartGenerator(
             </View>
 
             <View className={' absolute left-2 pb-3'} style={{top: deviceHight*0.02}}>
-                <Text className={"text-gray-400"}> {axisLabal["yLable"]}</Text>
+                <Text className={"text-gray-400"} style={{color:"gray"}}> {axisLabal["yLable"]}</Text>
             </View>
             <View className={'bg-transparent absolute right-4 '} style={{bottom: deviceHight*0.05}} >
-                <Text className={"text-gray-400"}>{axisLabal["xLable"]}</Text>
+                <Text className={"text-gray-400"} style={{color:"gray"}}>{axisLabal["xLable"]}</Text>
             </View>
 
         </SafeAreaView>

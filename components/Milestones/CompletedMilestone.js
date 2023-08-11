@@ -14,15 +14,15 @@ export default function  CompletedMilestone({ milestone,description,date}) {
             <View className={"flex-row rounded-xl p-3 shadow-2xl  mx-2 space-x-3"} style={{backgroundColor:"white",shadowColor: "#000"}}>
 
                 <View className={"flex justify-center flex-1"}>
-                    <View><Text className={" text-gray-500  font-semibold"} >{milestone}</Text></View>
+                    <View><Text className={" text-gray-500  font-semibold"} style={{color:"gray"}}>{milestone}</Text></View>
 
-                    <View><Text className={" text-gray-500 py-1"} >
+                    <View><Text className={" text-gray-500 py-1"} style={{color:"gray"}}>
                         {description.substring(0, 60)+"..."}</Text>
                     </View>
 
                     <View className={"flex-row items-center space-x-1"}>
                         <ClockIcon size="18" color="limegreen" />
-                        <Text className={"text-gray-500"}>{getDateenUSFormat(date)}</Text>
+                        <Text className={"text-gray-500"} style={{color:"gray"}}>{getDateenUSFormat(date)}</Text>
                     </View>
                 </View>
 

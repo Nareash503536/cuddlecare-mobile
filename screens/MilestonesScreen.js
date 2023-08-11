@@ -37,7 +37,7 @@ export default function MilestonesScreen() {
 
     const navigation = useNavigation();
     return (
-        <View className={"flex-1 bg-white "}>
+        <View className={"flex-1 bg-white "} style={{backgroundColor:"white"}}>
             <SafeAreaView className={"flex-1 relative"}>
                 <StatusBar barStyle={"light"}/>
                 {/*Top bar*/}
@@ -68,16 +68,16 @@ export default function MilestonesScreen() {
                     {/*name and growth status*/}
                     <View className={"flex flex-1 pl-1"}>
                         <View>
-                            <Text className={"text-gray-500 text-2xl font-semibold"} >{baby.name}</Text>
+                            <Text className={"text-gray-500 text-2xl font-semibold"} style={{color:"gray"}}>{baby.name}</Text>
                         </View>
                         <View className={"flex-row space-x-2"}>
-                            <Text className={"text-gray-500 font-bold"} >Age </Text>
-                            <Text className={"text-gray-500 text-sm"} >{dateDiff(baby.dob,(new Date()))}</Text>
+                            <Text className={"text-gray-500 font-bold"} style={{color:"gray"}}>Age </Text>
+                            <Text className={"text-gray-500 text-sm"} style={{color:"gray"}} >{dateDiff(baby.dob,(new Date()))}</Text>
                         </View>
-                        <View className={"flex-row space-x-2"}>
-                            <Text className={"text-gray-500 font-bold"} >8 </Text>
-                            <Text className={"text-gray-500 text-sm"} >Measurements</Text>
-                        </View>
+                        {/*<View className={"flex-row space-x-2"}>*/}
+                        {/*    <Text className={"text-gray-500 font-bold"} style={{color:"gray"}}>8 </Text>*/}
+                        {/*    <Text className={"text-gray-500 text-sm"} style={{color:"gray"}} >Measurements</Text>*/}
+                        {/*</View>*/}
 
                         {/*<View className={"flex-row flex-1 justify-between space-x-1"} >*/}
                         {/*    <View className={" flex px-5 py-1 items-center rounded-2xl"} style={{backgroundColor:themeColors.bgWhite(0.4)}} >*/}
@@ -106,7 +106,7 @@ export default function MilestonesScreen() {
                         onPress={() => navigation.navigate('MilestonesList')}
                     >
                         <View >
-                            <Text className={"text-white text-lg"}>Check Milestone list</Text>
+                            <Text className={"text-white text-lg"} style={{color:"white"}}>Check Milestone list</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -114,11 +114,11 @@ export default function MilestonesScreen() {
                 {/*Milestones to be completed*/}
                 <View className={"h-full"}>
                     <View className={"flex-row justify-between px-3 pt-3"}>
-                        <Text className={"font-semibold text-xl text-gray-500"} style={{letterSpacing:1,fontSize:16}} >
+                        <Text className={"font-semibold text-xl text-gray-500"} style={{letterSpacing:1,fontSize:16,color:"gray"}} >
                             completed Milestones
                         </Text>
                         <TouchableOpacity>
-                            <Text className={"text-gray-500"} style={{letterSpacing:1,}} >
+                            <Text className={"text-gray-500"} style={{letterSpacing:1,color:"gray"}} >
                                 See More
                                 <ArrowRightIcon  size="16" color="gray" />
                             </Text>
