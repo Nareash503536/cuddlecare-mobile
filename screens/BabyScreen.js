@@ -72,10 +72,10 @@ export function BabyScreen() {
 
                 {/*feature carousel*/}
                 <View  className={" mt-1 "}>
-                    {/* <Button
-                        title="Logout"  
-                        onPress={logout}
-                    /> */}
+                    {/*<Button*/}
+                    {/*    title="Logout"*/}
+                    {/*    onPress={logout}*/}
+                    {/*/>*/}
                     <Carousel
                         data={featuresDetails}
                         renderItem={({item})=> <Features item={item} />}
