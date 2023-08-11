@@ -34,9 +34,6 @@ import {SolidFood} from "../components/Feeding/SolidFood";
 
 import {SymptomList} from "../screens/Symptom/SymptomList";
 import SymptomAdd from "../screens/Symptom/SymptomAdd";
-import {SleepScreen} from "../screens/SleepScreen";
-import {TimeScreen} from "../screens/TimeScreen";
-import {SleepTimelineScreen} from "../screens/SleepTimelineScreen";
 
 const BottomTabs = createBottomTabNavigator();
 
