@@ -58,6 +58,19 @@ export const mainFeatures = [
 
     },
 
+    // {
+    //     name: 'Sleeping',
+    //     image: require('../assets/images/sleep.png'),
+    //     location: 'SleepingScreen',
+    // },
+    //
+    // {
+    //     name: 'Diaper',
+    //     image: require('../assets/images/diaper.png'),
+    //     location: 'DiaperScreen',
+    //
+    // },
+    //
     {
         name: 'Growth',
         image: require('../assets/images/chart.png'),
