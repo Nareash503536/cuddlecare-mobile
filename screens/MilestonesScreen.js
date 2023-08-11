@@ -15,10 +15,11 @@ import {babyDetails} from "../constants";
 import {Bars3CenterLeftIcon} from "react-native-heroicons/mini";
 import {UpcomingEvent} from "../components/upcomingEvent";
 import {GrowthUpcomingEvent} from "../components/Growth/GrowthUpcomingEvent";
-import {DUMMY_GROWTH} from "../constants/GrowthChartZScoreData/DUMMY_GROWTH";
+import {DUMMY_GROWTH, DUMMY_Milestones} from "../constants/GrowthChartZScoreData/DUMMY_GROWTH";
 import GrowthDisplays from "../components/Growth/GrowthDisplays";
 import ProgressBar from "../components/ProgressBar";
-import MilestonesList from "../components/Milestones/MilestonesList";
+import CompleteMilestonesList from "../components/Milestones/CompleteMilestonesList";
+import {selectMilestone, selectMilestones, setMilestone} from "../slices/milestoneSlice";
 
 let baby = babyDetails[2];
 const deviceWidth = Dimensions.get('window').width;
@@ -27,11 +28,12 @@ export default function MilestonesScreen() {
     let baby = babyDetails[2];
     let dispatch = useDispatch();
     useEffect(() => {
-        dispatch(setGrowth(DUMMY_GROWTH));
-    },[DUMMY_GROWTH]);
+        dispatch(setMilestone(DUMMY_Milestones));
+    },[DUMMY_Milestones]);
 
     let growthDetails = useSelector(selectGrowth);
-    const latestGrowthDetail = growthDetails[0];
+    let milestonesDetails = useSelector(selectMilestone);
+
 
     const navigation = useNavigation();
     return (
@@ -113,7 +115,7 @@ export default function MilestonesScreen() {
                 <View className={"h-full"}>
                     <View className={"flex-row justify-between px-3 pt-3"}>
                         <Text className={"font-semibold text-xl text-gray-500"} style={{letterSpacing:1,fontSize:16}} >
-                            Milestones to be completed
+                            completed Milestones
                         </Text>
                         <TouchableOpacity>
                             <Text className={"text-gray-500"} style={{letterSpacing:1,}} >
@@ -123,36 +125,21 @@ export default function MilestonesScreen() {
                         </TouchableOpacity>
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false} className={"p-2 pb-3"}>
-                        <MilestonesList growthData={growthDetails} />
+                        <CompleteMilestonesList milestoneData={milestonesDetails} />
                     </ScrollView>
                 </View>
 
-                {/*completed Milestones*/}
 
-                {/*<View>*/}
-                {/*    <View className={"flex-row justify-between px-3 pt-3"}>*/}
-                {/*        <Text className={"font-semibold text-xl text-gray-500"} style={{letterSpacing:1,fontSize:16}} >*/}
-                {/*            Completed Milestones*/}
-                {/*        </Text>*/}
-                {/*        <TouchableOpacity>*/}
-                {/*            <Text className={"text-gray-500"} style={{letterSpacing:1,}} >*/}
-                {/*                See More*/}
-                {/*                <ArrowRightIcon  size="16" color="gray" />*/}
-                {/*            </Text>*/}
-                {/*        </TouchableOpacity>*/}
-                {/*    </View>*/}
-                {/*    <GrowthMeasurementList growthData={growthDetails} />*/}
-                {/*</View>*/}
 
                 {/*/!*Side Button*!/*/}
                 {/*<View  className={"absolute"}>*/}
                 <TouchableOpacity
-                    className={"absolute bottom-24 right-5 rounded-full shadow-2xl p-1"}
+                    className={"absolute bottom-16 right-5 rounded-full shadow-2xl p-1"}
                     style={{backgroundColor:themeColors.btnColor,shadowColor: "#000"}}
                     onPress={() => navigation.navigate('GrowthChart')}
                 >
-                    <Image source={require("../assets/images/analysisIcon.png")} className={"w-12 h-12 rounded-full"}/>
-                    {/*<ChartBarSquareIcon   size="40" color="white" />*/}
+                    {/*<Image source={require("../assets/images/analysisIcon.png")} className={"w-12 h-12 rounded-full"}/>*/}
+                    <PlusSmallIcon   size="40" color="white" />
                 </TouchableOpacity>
 
                 {/*<TouchableOpacity*/}

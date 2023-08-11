@@ -39,6 +39,7 @@ import {TimeScreen} from "../screens/TimeScreen";
 import {SleepTimelineScreen} from "../screens/SleepTimelineScreen";
 import MilestonesScreen from "../screens/MilestonesScreen";
 import MilestonesListScreen from "../screens/MilestonesScreens/MilestonesListScreen";
+import MilestoneManageScreen from "../screens/MilestonesScreens/MilestoneManageScreen";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -92,6 +93,7 @@ export function Navigation() {
                 {/* Growth feature screens */}
                 <Stack.Screen name="Milestones" component={MilestonesScreen} />
                 <Stack.Screen name="MilestonesList" component={MilestonesListScreen} />
+                <Stack.Screen name="MilestoneManage" component={MilestoneManageScreen} />
 
                 <Stack.Screen name="Expense" component={ExpenseScreen} />
                 {/*<Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />*/}

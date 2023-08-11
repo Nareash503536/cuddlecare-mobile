@@ -1,26 +1,26 @@
-const twoMonthMilestones = {
-    "Social/Emotional Milestones": [
-        { id: 0, value: "Calms down when spoken to or picked up" },
-        { id: 1, value: "Looks at your face" },
-        { id: 2, value: "Seems happy to see you when you walk up to her" },
-        { id: 3, value: "Smiles when you talk to or smile at her" }
+export const twoMonthMilestones = {
+    "Social_Milestones": [
+        { id: 0, value: "Calms down when spoken to or picked up",status:true},
+        { id: 1, value: "Looks at your face",status:true },
+        { id: 2, value: "Seems happy to see you when you walk up to her",status:false },
+        { id: 3, value: "Smiles when you talk to or smile at her",status:true  }
     ],
-    "Language/Communication Milestones": [
-        { id: 0, value: "Makes sounds other than crying" },
-        { id: 1, value: "Reacts to loud sounds" }
+    "Communication_Milestones": [
+        { id: 0, value: "Makes sounds other than crying",status:false  },
+        { id: 1, value: "Reacts to loud sounds",status:true  }
     ],
-    "Cognitive Milestones": [
-        { id: 0, value: "Watches you as you move" },
-        { id: 1, value: "Looks at a toy for several seconds" }
+    "Cognitive_Milestones": [
+        { id: 0, value: "Watches you as you move",status:false  },
+        { id: 1, value: "Looks at a toy for several seconds",status:false  }
     ],
-    "Movement/Physical Development Milestones": [
-        { id: 0, value: "Holds head up when on tummy" },
-        { id: 1, value: "Moves both arms and both legs" },
-        { id: 2, value: "Opens hands briefly" }
+    "Physical_Development_Milestones": [
+        { id: 0, value: "Holds head up when on tummy",status:false  },
+        { id: 1, value: "Moves both arms and both legs",status:false  },
+        { id: 2, value: "Opens hands briefly",status:false  }
     ]
 };
 
-const fourMonthMilestones = {
+export const fourMonthMilestones = {
     "Social/Emotional Milestones": [
         { id: 0, value: "Smiles on his own to get your attention" },
         { id: 1, value: "Chuckles (not yet a full laugh) when you try to make her laugh" },
@@ -44,7 +44,7 @@ const fourMonthMilestones = {
     ]
 };
 
-const sixMonthMilestones = {
+export const sixMonthMilestones = {
     "Social/Emotional Milestones": [
         { id: 0, value: "Knows familiar people" },
         { id: 1, value: "Likes to look at himself in a mirror" },
@@ -67,7 +67,7 @@ const sixMonthMilestones = {
     ]
 };
 
-const nineMonthMilestones = {
+export const nineMonthMilestones = {
     "Social/Emotional Milestones": [
         { id: 0, value: "Is shy, clingy, or fearful around strangers" },
         { id: 1, value: "Shows several facial expressions, like happy, sad, angry, and surprised" },
@@ -91,7 +91,7 @@ const nineMonthMilestones = {
     ]
 };
 
-const twelveMonthMilestones = {
+export const twelveMonthMilestones = {
     "Social/Emotional Milestones": [
         { id: 0, value: "Plays games with you, like pat-a-cake" }
     ],
@@ -112,7 +112,7 @@ const twelveMonthMilestones = {
     ]
 };
 
-const fifteenMonthMilestones = {
+export const fifteenMonthMilestones = {
     "Social/Emotional Milestones": [
         { id: 0, value: "Copies other children while playing, like taking toys out of a container when another child does" },
         { id: 1, value: "Shows you an object she likes" },

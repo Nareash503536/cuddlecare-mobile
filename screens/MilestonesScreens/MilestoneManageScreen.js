@@ -1,5 +1,4 @@
 import {SafeAreaView} from "react-native-safe-area-context";
-import GrowthForm from "../../components/Growth/GrowthForm";
 import {GlobalStyles} from "../../constants/styles";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Button from "../../components/UI/Button";
@@ -11,14 +10,18 @@ import {storeGrowth} from "../../util/http";
 import React, {useState} from "react";
 import ErrorOverlay from "../../components/UI/ErrorOverlay";
 import {ArrowLeftIcon} from "react-native-heroicons/outline";
+import MilestoneForm from "../../components/Milestones/MilestoneForm";
+import {addMilestone} from "../../slices/milestoneSlice";
 
 
 //generate array of objects including dummy values for growth
 
-export default function GrowhtManageScreen() {
+export default function MilestoneManageScreen({route}) {
+    const { milestone, status } = route.params;
     let navigation = useNavigation();
     const dispatch = useDispatch();
     const [error, setError] = useState();
+    console.log(milestone)
     function deleteExpenseHandler() {
         // expensesCtx.deleteExpense(editedExpenseId);
         navigation.goBack();
@@ -28,11 +31,12 @@ export default function GrowhtManageScreen() {
         navigation.goBack();
     }
 
-    async function confirmHandler(growthData) {
+    async function confirmHandler(completeMilestoneData) {
+        console.log(completeMilestoneData)
         try{
             // const id = await storeGrowth(growthData);
-            let id = Math.floor(Math.random() * 100) + 1;
-            dispatch(addGrowth({...growthData,id:id}));
+            const id = Math.floor(Math.random() * 100) + 1
+            dispatch(addMilestone({...completeMilestoneData,id:id}));
         }catch (error) {
             setError('Netword Error');
         }
@@ -52,9 +56,10 @@ export default function GrowhtManageScreen() {
             <View className={"flex-row justify-center my-5"}>
                 <Text className={"flex-row justify-center text-2xl text-gray-500"}
                       style={styles.title}
-                > Growth Measurements</Text>
+                >Complete Milestone</Text>
             </View>
-            <GrowthForm
+            <MilestoneForm
+                milestone={milestone}
                 onCancel={cancelHandler}
                 onSubmit={confirmHandler}
             />
@@ -80,3 +85,4 @@ const styles = StyleSheet.create({
         color: themeColors.colorDark,
     },
 });
+// {"date": "", "description": "dsfsdf", "milestone": "Holds head up when on tummy"}

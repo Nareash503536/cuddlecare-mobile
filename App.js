@@ -9,10 +9,9 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      {/*<AuthProvider>*/}
-      {/*  <AppNav />*/}
-      {/*</AuthProvider>*/}
-        <Navigation/>
+      <AuthProvider>
+       <AppNav />
+      </AuthProvider>
     </Provider>
   );
 }

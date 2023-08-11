@@ -4,32 +4,27 @@ import {themeColors} from "../../theme";
 import {ArrowUpIcon, CalendarDaysIcon, CheckIcon, ClockIcon} from "react-native-heroicons/solid";
 import {dateDiff,getDateenUSFormat} from "../../util/date";
 import {babyDetails} from "../../constants";
-import {useNavigation} from "@react-navigation/native";
-export default function  Milestone({ value,status}) {
+export default function  CompletedMilestone({ milestone,description,date}) {
     let baby = babyDetails[2];
-    const navigation = useNavigation();
 
+    // if(status){
     return (
-        <TouchableOpacity className={"pt-3"}
-            onPress={() => {
-                navigation.navigate('MilestoneManage', {
-                    milestone: value,
-                    status:status,
-                    });
-                }
-            }
-        >
-            <View className={"flex-row justify- rounded-xl p-3 shadow-sm  mx-2 space-x-3"} style={[styles.uncomplete,!status ?{borderColor:themeColors.colorDanger}:{borderColor:"limegreen"}] }>
+        <TouchableOpacity className={"pt-3"}>
 
-                    <View className={"flex-1"}>
-                        <Text className={" flex text-gray-500 py-1 "}>{value}</Text>
+            <View className={"flex-row rounded-xl p-3 shadow-2xl  mx-2 space-x-3"} style={{backgroundColor:"white",shadowColor: "#000"}}>
+
+                <View className={"flex justify-center flex-1"}>
+                    <View><Text className={" text-gray-500  font-semibold"} >{milestone}</Text></View>
+
+                    <View><Text className={" text-gray-500 py-1"} >
+                        {description.substring(0, 60)+"..."}</Text>
                     </View>
 
-                    <View className={"items-center justify-center"}>
-                        {!status ? <View className={"rounded-full w-4 h-4"} style={{borderWidth:2,borderColor:themeColors.colorDanger}}></View>:<View><Image className={"w-4 h-4"} source={require("../../assets/images/done.png")}/></View>}
-
-                        {/*<View><Image className={"w-4 h-4"} source={require("../../assets/images/done.png")}/></View>*/}
+                    <View className={"flex-row items-center space-x-1"}>
+                        <ClockIcon size="18" color="limegreen" />
+                        <Text className={"text-gray-500"}>{getDateenUSFormat(date)}</Text>
                     </View>
+                </View>
 
             </View>
         </TouchableOpacity>
@@ -65,3 +60,4 @@ const styles = StyleSheet.create({
 //
 // </View>
 // </TouchableOpacity>
+

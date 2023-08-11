@@ -63,6 +63,12 @@ export const mainFeatures = [
         image: require('../assets/images/chart.png'),
         location: 'GrowthDetails',
     },
+    //
+    // {
+    //     name: 'Symtom',
+    //     image: require('../assets/images/symptom.png'),
+    //     location: 'SymptomScreen',
+    // },
 
     {
         name: 'Symptom',
