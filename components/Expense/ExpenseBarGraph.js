@@ -1,12 +1,8 @@
 import {Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {BarChart, LineChart, PieChart} from "react-native-chart-kit";
-<<<<<<< HEAD
 import {ExpenseApi} from "../../api/ExpenseApi";
 import {useEffect, useState} from "react";
-=======
-import {ExpenseApi} from "../../Api/ExpenseApi";
 import React, {useContext, useEffect, useState} from "react";
->>>>>>> 0bcbc478c368112e38f9fa37e4b83a60bb431e2a
 import { Dimensions } from "react-native";
 import {TopBar} from "../TopBar";
 import {themeColors} from "../../theme";
