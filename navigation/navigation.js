@@ -16,6 +16,9 @@ import{FeedingScreen} from "../screens/FeedingScreen";
 import SleepScreen from "../screens/SleepScreen";
 import TimeScreen from "../screens/TimeScreen";
 import SleepTimelineScreen from "../screens/SleepTimelineScreen";
+import SleepBarChart from "../screens/SleepBarChart";
+
+import DiaperScreen from "../screens/DiaperScreen";
 
 import {ExpenseScreen} from "../screens/ExpenseScreen";
 import ExpenseForm from "../components/Expense/ExpenseForm";
@@ -94,6 +97,9 @@ export function Navigation() {
                 <Stack.Screen name="Sleeping" component={SleepScreen} />
                 <Stack.Screen name="Time" component={TimeScreen} />
                 <Stack.Screen name="SleepTimeline" component={SleepTimelineScreen} />
+                <Stack.Screen name="SleepChart" component={SleepBarChart}/>
+
+                <Stack.Screen name="DiaperScreen" component={DiaperScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
