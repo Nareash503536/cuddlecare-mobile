@@ -1,5 +1,5 @@
-import React from "react";
-import {Text, View, Image, TouchableOpacity, Platform} from 'react-native'
+import React, {useContext} from "react";
+import {Text, View, Image, TouchableOpacity, Button} from 'react-native'
 import {StatusBar} from "expo-status-bar";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {themeColors} from "../theme";
@@ -12,11 +12,15 @@ import {UpcomingEvent} from "../components/upcomingEvent";
 import {Logs} from "../components/logs";
 import {HomeIcon,CalendarDaysIcon,ClipboardDocumentListIcon,PresentationChartLineIcon} from "react-native-heroicons/outline";
 import {useNavigation} from "@react-navigation/native";
+import { AuthContext } from "../Context/AuthContext";
+import RemindersButton from "../components/RemindersButton";
 
 export function BabyScreen() {
     let baby = babyDetails[2];
     let featuresDetails = mainFeatures;
     let navigation = useNavigation();
+
+    const { logout } = useContext(AuthContext);
 
     return (
         <View className={"flex-1 relative "}>
@@ -69,6 +73,16 @@ export function BabyScreen() {
 
                 {/*feature carousel*/}
                 <View  className={" mt-1 "}>
+                    {/*<Button*/}
+                    {/*    title="Logout"*/}
+                    {/*    onPress={logout}*/}
+                    {/*/>*/}
+                    <View>
+                        <RemindersButton/>
+                    </View>
+                    <View>
+                        <Button title={"community"} onPress={() => navigation.navigate('Community')}/>
+                    </View>
                     <Carousel
                         data={featuresDetails}
                         renderItem={({item})=> <Features item={item} />}

@@ -14,8 +14,13 @@ import {BudgetApi, BudgetApiTotalBudget, BudgetEnddate} from "../api/BudgetApi";
 import CalendarPicker from "../components/CalendarPicker";
 import InfoBars from "../components/Expense/InfoBars";
 import {GlobalStyles} from "../constants/styles";
+import {useContext} from "react";
+import {AuthContext} from "../Context/AuthContext";
 import DropdownComponent from "../components/Expense/DropdownComponent";
+import axios from "axios";
+import {BASE_URL} from "../config";
 export function ExpenseScreen (){
+    const {updateKeys} = useContext(AuthContext);
     let navigation = useNavigation();
     const [expenseDetails, setexpenseDetails] = useState(null);
     const[budgetDetails, setbudgetDetails] = useState(null);
@@ -26,6 +31,16 @@ export function ExpenseScreen (){
     const[exception, setException] = useState("No data found");
     const [selectedDate, setSelectedDate] = useState(null);
     const [category, setCategory] = useState("Expense");
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+
+    // Get the first day of the current month
+    const firstDay = new Date(currentYear, currentMonth, 1);
+
+    // Get the last day of the current month
+    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+
 
     const categories = [
         {label:'Expenses',value:'Expense'},
@@ -38,6 +53,7 @@ export function ExpenseScreen (){
         setSelectedDate(getDate);
 
     }
+
 
     function StringtoDate(DateString){
     const [day,month,year] = DateString.split("/");
@@ -95,23 +111,40 @@ export function ExpenseScreen (){
     const noDataFoundbudget = dateFilteredBudget?dateFilteredBudget.length === 0:false;
 
     useEffect(() => {
+
         fetchExpense();
         gettotalExpense();
         gettotalBudget();
         fetchBudget();
         fetchEnddate();
         fetchFirstdate();
+
     },[]);
+
+    // const getExpense = async () => {
+    //     await updateKeys();
+    //     try {
+    //         const apiURL = BASE_URL + "/expenses/all";
+    //         const response = await axios.get(apiURL,null);
+    //         setexpenseDetails(response.data);
+    //         console.log(response.data);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
     const fetchExpense = async () => {
+        await updateKeys();
         try {
-            const response = await ExpenseApi();
-            setexpenseDetails(response);
-            console.log(response);
+            const apiURL = BASE_URL + "/expenses/all";
+            const response = await axios.get(apiURL,null);
+            setexpenseDetails(response.data);
+
         } catch (e) {
             console.log("expense:"+e);
         }
     };
     const fetchBudget = async () => {
+        await updateKeys();
         try {
             const response = await BudgetApi();
             setbudgetDetails(response);
@@ -129,23 +162,29 @@ export function ExpenseScreen (){
         }
     };
     const fetchFirstdate = async () => {
+        await updateKeys();
         try {
-            const response = await ExpenseFirstdate();
-            setFirstdate(response);
+            const apiURL = BASE_URL + "/expenses/firstDate";
+            const response = await axios.get(apiURL,null);
+            setFirstdate(response.data);
 
         } catch (e) {
             console.log(e);
         }
     };
     const gettotalExpense = async () => {
+        await updateKeys();
         try {
-            const response = await ExpenseApiTotalExpense();
-            setTotalExpense(response);
+            const apiURL = BASE_URL + "/expenses/totalExpense";
+            const response = await axios.get(apiURL,null);
+console.log("total expense",response);
+            setTotalExpense(response.data);
         } catch (e) {
-            console.log(e);
+            console.log("total expense",e);
         }
     };
     const gettotalBudget = async () => {
+        await updateKeys();
         try {
             const response = await BudgetApiTotalBudget();
 
@@ -175,7 +214,7 @@ export function ExpenseScreen (){
                                 paddingVertical: 10,
                                 paddingHorizontal: 20,
                             }}>
-                                <LinearGradient colors={['#56b1da','#badee3','#82e0ed']} style={{...styles.Box}}>
+                                <LinearGradient colors={[themeColors.btnColor,'#badee3','#82e0ed']} style={{...styles.Box}}>
                                     <View style={{width:'100%',flexDirection:'column' ,justifyContent:'center'}}>
                                         <View style={{width:'100%',alignItems:'center',gap:5}}>
                                             <Text
@@ -189,9 +228,9 @@ export function ExpenseScreen (){
                                                 {TotalIncome? 'Current Balance':'Total Expenses'}
                                             </Text>
                                             {firstdate&&(
-                                                <Text style={{fontFamily:'',color:GlobalStyles.colors.primary700,fontSize:12}}>{TotalIncome?new Date(TotalIncome.startdate).toLocaleDateString()+'-'+new Date(TotalIncome.enddate).toLocaleDateString():(Enddate?new Date(Enddate).toLocaleDateString():new Date(firstdate).toLocaleDateString())+'- Present'}</Text>
+                                                <Text style={{fontFamily:'',color:GlobalStyles.colors.primary700,fontSize:12}}>{firstDay.toLocaleDateString()} - {lastDay.toLocaleDateString()}</Text>
                                             )}
-                                            <Text style={{color:'white',fontSize: 32,fontWeight: 700}}>Rs.{TotalIncome?((TotalIncome?TotalIncome.amount:0.00)-(TotalExpense?TotalExpense:0.00)):(TotalExpense?TotalExpense:0.00)}</Text>
+                                            <Text style={{color:'white',fontSize: 32,fontWeight: 700}}>Rs.{(TotalExpense?TotalExpense:0.00)}</Text>
 
                                         </View>
                                         {TotalIncome&&(
@@ -260,13 +299,11 @@ export function ExpenseScreen (){
                     {selectedDate&&<View className={"justify-center"}><Text className={"text-center text-xl"} style={{color:themeColors.btnColor}}>{StringtoDate(selectedDate)}</Text></View>}
 
 <View>
-    {category === 'Budget' ? (
-        budgetDetails && <InfoBars details={dateFilteredBudget} keyField='budgetID' category='Budget' />
-    ) : (
-        expenseDetails && <InfoBars details={dateFileteredExpense} keyField='expenseID' category='Expense' />
-    )}
 
-    {noDataFound &&noDataFoundbudget &&(
+    {expenseDetails && (<InfoBars details={dateFileteredExpense} keyField='expenseID' category='Expense' />)}
+
+
+    {noDataFound &&(
         <View>
             <Text className={"text-center font-bold text-2xl my-3"} style={{ color: GlobalStyles.colors.primary700 }}>No Data found</Text>
         </View>
@@ -285,7 +322,7 @@ export function ExpenseScreen (){
             <TouchableOpacity
                 className={"absolute bottom-10 right-5 rounded-full p-1"}
                 style={{backgroundColor:themeColors.btnColor,position:'absolute'}}
-                onPress={() => navigation.navigate('ExpenseTab')}
+                onPress={() => navigation.navigate('ExpenseForm')}
             >
                 <PlusSmallIcon size="40" color="white"  />
             </TouchableOpacity>

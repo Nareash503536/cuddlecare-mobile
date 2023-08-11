@@ -42,13 +42,13 @@ export const mainFeatures = [
     {
         name: 'Feeding',
         image: require('../assets/images/milkBottle.png'),
-        location: 'FeedingScreen',
+        location: 'Feeding',
     },
 
     {
         name: 'Sleeping',
         image: require('../assets/images/sleep.png'),
-        location: 'SleepingScreen',
+        location: 'Sleeping',
     },
 
     {
@@ -65,14 +65,20 @@ export const mainFeatures = [
     },
 
     {
-        name: 'Symtom',
+        name: 'Symptom',
         image: require('../assets/images/symptom.png'),
-        location: 'SymptomScreen',
+        location: 'SymptomList',
     },
 
     {
         name: 'Immulization',
         image: require('../assets/images/syringe.png'),
         location: 'ImmunizationScreen',
+    },
+
+    {
+        name: 'Expense',
+        image: require('../assets/images/symptom.png'),
+        location: 'Expense',
     },
 ]

@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 8,
     backgroundColor: themeColors.colorDark,
+
   },
   flat: {
     backgroundColor: 'transparent',
@@ -44,5 +45,6 @@ const styles = StyleSheet.create({
     opacity: 0.75,
     backgroundColor: GlobalStyles.colors.primary100,
     borderRadius: 4,
+
   },
 });

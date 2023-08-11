@@ -119,7 +119,7 @@ export function Form() {
 
 
     return (
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={'padding'}>
+        // <KeyboardAvoidingView style={{ flex: 1 }} behavior={'padding'}>
             <View>
                 <Formik
                     initialValues={{ email: '', password: '' }}>
@@ -178,7 +178,7 @@ export function Form() {
                     </View>
                 </View>
             </View>
-        </KeyboardAvoidingView>
+        // </KeyboardAvoidingView>
 
 
     )

@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, SafeAreaView} from 'react-native';
 import Input from '../Growth/Input';
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Button from "../UI/Button";
 import {GlobalStyles} from "../../constants/styles";
 import DateTimePicker from "./DateTimePicker";
@@ -10,9 +10,13 @@ import {ExpenseApiPost, ExpenseEdit} from "../../api/ExpenseApi";
 import {themeColors} from "../../theme";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {TopBar} from "../TopBar";
+import {AuthContext} from "../../Context/AuthContext";
+import axios from "axios";
+import {BASE_URL} from "../../config";
 
 
 export default function ExpenseForm() {
+    const {updateKeys} = useContext(AuthContext);
     let navigation = useNavigation();
     const route = useRoute();
     console.log("route params here",route.params);
@@ -62,29 +66,45 @@ export default function ExpenseForm() {
         navigation.goBack();
     }
 
-    const EditExpense = () => {
-        console.log("came to me");
-        ExpenseEdit({
+    const EditExpense = async () => {
+        await updateKeys();
+        let editExpenseData = {
             amount: +inputs.amount.value,
             expenseName: inputs.expenseName.value,
             notes: inputs.notes.value,
             date: inputs.date.value, //getFormattedDate(inputs.date.value)
+        }
+        const jsonData = JSON.stringify(editExpenseData);
+        const apiURL = BASE_URL + "/expenses/edit/"+Editdata.expenseID;
+        const response = await axios.put(apiURL,jsonData,{
+            headers: {
+                "Content-Type": "application/json",
+            },
 
-        },Editdata.expenseID).then((res) => {
+        }).then((res) => {
             console.log(res);
         }).catch((err) => {
             console.log(err);
         });
     }
 
-    const PostExpense = () => {
+    const PostExpense = async () => {
+        await updateKeys();
         console.log(inputs.amount.value, inputs.expenseName.value, inputs.notes.value,inputs.date.value);
-        ExpenseApiPost({
+
+        const apiURL = BASE_URL + "/expenses";
+
+        let expenseData = {
             amount: +inputs.amount.value,
             expenseName: inputs.expenseName.value,
             notes: inputs.notes.value,
             date: inputs.date.value,
-
+        }
+        const jsonData = JSON.stringify(expenseData);
+        const response = await axios.post(apiURL, jsonData, {
+            headers: {
+                "Content-Type": "application/json",
+            },
         }).then((res) => {
             console.log(res);
         }).catch((err) => {
@@ -149,7 +169,7 @@ export default function ExpenseForm() {
 
     return (
         <SafeAreaView className={"flex-1 relative mt-8"}>
-            {Editdata&&<><TopBar/><View  className={"mb-10"}></View></>}
+         <TopBar/><View  className={"mb-10"}></View>
             <View className={"flex-row justify-center my-5"}>
 
                 <Text className={"flex-row justify-center text-2xl text-gray-500"} style={{  color: themeColors.colorDark}}>{title?title:"Add expense"}</Text>

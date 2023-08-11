@@ -11,6 +11,14 @@ import { RemindersList } from '../screens/RemindersList';
 import React from 'react';
 import {GrowthDetailsScreen} from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
+import{FeedingScreen} from "../screens/FeedingScreen";
+
+import {SleepScreen} from "../screens/SleepScreen";
+import {TimeScreen} from "../screens/TimeScreen";
+import {SleepTimelineScreen} from "../screens/SleepTimelineScreen";
+import {SleepBarChart} from "../screens/SleepBarChart";
+
+import {DiaperScreen} from "../screens/DiaperScreen";
 
 import {ExpenseScreen} from "../screens/ExpenseScreen";
 import ExpenseForm from "../components/Expense/ExpenseForm";
@@ -21,6 +29,11 @@ import {CommunityScreen} from "../screens/CommunityScreen";
 import {themeColors} from "../theme";
 import {CalendarDaysIcon, HomeIcon} from "react-native-heroicons/outline";
 import {StyleSheet, View} from "react-native";
+import {BreastFeeding} from "../components/Feeding/BreastFeeding";
+import {SolidFood} from "../components/Feeding/SolidFood";
+
+import {SymptomList} from "../screens/Symptom/SymptomList";
+import SymptomAdd from "../screens/Symptom/SymptomAdd";
 import {SleepScreen} from "../screens/SleepScreen";
 import {TimeScreen} from "../screens/TimeScreen";
 import {SleepTimelineScreen} from "../screens/SleepTimelineScreen";
@@ -74,15 +87,22 @@ export function Navigation() {
                 <Stack.Screen name="GrowhtManage" component={GrowhtManageScreen} />
 
                 <Stack.Screen name="GrowthChart" component={GrowthChartScreen} />
+                <Stack.Screen name="Feeding" component={FeedingScreen} />
 
                 <Stack.Screen name="Expense" component={ExpenseScreen} />
-                <Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />
+                {/*<Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />*/}
                 <Stack.Screen name="ExpenseForm" component={ExpenseForm} />
                 <Stack.Screen name="ExpenseChart" component={ExpenseBarGraph} />
+                <Stack.Screen name="SymptomList" component={SymptomList} />
+                <Stack.Screen name="SymptomAdd" component={SymptomAdd} />
+
 
                 <Stack.Screen name="Sleeping" component={SleepScreen} />
                 <Stack.Screen name="Time" component={TimeScreen} />
                 <Stack.Screen name="SleepTimeline" component={SleepTimelineScreen} />
+                <Stack.Screen name="SleepChart" component={SleepBarChart}/>
+
+                <Stack.Screen name="DiaperScreen" component={DiaperScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
