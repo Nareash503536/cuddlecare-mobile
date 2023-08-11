@@ -1,7 +1,6 @@
 import {Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {BarChart, LineChart, PieChart} from "react-native-chart-kit";
-import {ExpenseApi} from "../../api/ExpenseApi";
-import {useEffect, useState} from "react";
+import {ExpenseApi} from "../../Api/ExpenseApi";
 import React, {useContext, useEffect, useState} from "react";
 import { Dimensions } from "react-native";
 import {TopBar} from "../TopBar";

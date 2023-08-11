@@ -183,7 +183,7 @@ export function TimeScreen(){
 
     const lastSleep = async () => {
         const currentDate = new Date().toISOString().slice(0, 10);
-        const apiURL = BASE_URL + "/api/sleep/last-sleep/" + currentDate;
+        const apiURL = BASE_URL + "/Api/sleep/last-sleep/" + currentDate;
         try {
             await updateKeys();
             // const response = await SleepApiGetLast();
