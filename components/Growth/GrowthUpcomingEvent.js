@@ -23,9 +23,6 @@ export function GrowthUpcomingEvent(
                 <TouchableOpacity className={"rounded-full p-2 border border-white"} style={{backgroundColor:themeColors.btnColorop(1),borderColor:"white"}} >
                     <CalendarDaysIcon size="27" color="white"  />
                 </TouchableOpacity>
-                <TouchableOpacity className={"rounded-full p-2 border border-white"} style={{borderColor:"white"}} onPress={navigation.navigate("Expense")}>
-                    <CheckIcon size="27" color="white"  />
-                </TouchableOpacity>
             </View>
 
         </View>

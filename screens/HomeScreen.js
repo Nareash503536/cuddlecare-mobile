@@ -79,10 +79,9 @@ export function HomeScreen() {
                    <View>
                         <RemindersButton/>
                    </View>
-                   <View>
-                       <Button title={"community"} onPress={() => navigation.navigate('Community')}/>
-                   </View>
-
+                   {/*<View>*/}
+                   {/*    <Button title={"community"} onPress={() => navigation.navigate('Community')}/>*/}
+                   {/*</View>*/}
             </SafeAreaView>
         </View>
     )

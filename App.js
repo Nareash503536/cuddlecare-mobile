@@ -7,11 +7,11 @@ import {LogBox} from "react-native";
 export default function App() {
     LogBox.ignoreAllLogs(true);
 
-  return (
-    <Provider store={store}>
-      <AuthProvider>
-       <AppNav />
-      </AuthProvider>
-    </Provider>
-  );
+    return (
+        <Provider store={store}>
+            <AuthProvider>
+                <AppNav />
+            </AuthProvider>
+        </Provider>
+    );
 }

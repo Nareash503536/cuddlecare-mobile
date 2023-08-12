@@ -14,6 +14,7 @@ import {HomeIcon,CalendarDaysIcon,ClipboardDocumentListIcon,PresentationChartLin
 import {useNavigation} from "@react-navigation/native";
 import { AuthContext } from "../Context/AuthContext";
 import RemindersButton from "../components/RemindersButton";
+import FilledButton from "../components/filledButton";
 
 export function BabyScreen() {
     let baby = babyDetails[2];
@@ -73,16 +74,16 @@ export function BabyScreen() {
 
                 {/*feature carousel*/}
                 <View  className={" mt-1 "}>
-                    {/*<Button*/}
-                    {/*    title="Logout"*/}
-                    {/*    onPress={logout}*/}
-                    {/*/>*/}
-                    <View>
+                    <Button
+                        title="Logout"
+                        onPress={logout}
+                    />
+                    <View className={"my-2"}>
                         <RemindersButton/>
                     </View>
-                    <View>
-                        <Button title={"community"} onPress={() => navigation.navigate('Community')}/>
-                    </View>
+                    {/*<View>*/}
+                    {/*    <Button title={"community"} onPress={() => navigation.navigate('Community')}/>*/}
+                    {/*</View>*/}
                     <Carousel
                         data={featuresDetails}
                         renderItem={({item})=> <Features item={item} />}

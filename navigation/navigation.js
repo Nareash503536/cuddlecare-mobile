@@ -77,10 +77,9 @@ export function Navigation() {
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="AppOverview" component={AppOverview} />
 
-
-                {/*<Stack.Screen name="RemindersList" component={RemindersList}/>*/}
-                {/*<Stack.Screen name="Reminders" component={Reminders}/>*/}
-                {/*<Stack.Screen name="ReminderDetails" component={ReminderDetails}/>*/}
+                <Stack.Screen name="RemindersList" component={RemindersList}/>
+                <Stack.Screen name="Reminders" component={Reminders}/>
+                <Stack.Screen name="ReminderDetails" component={ReminderDetails}/>
 
                 {/* Growth feature screens */}
                 <Stack.Screen name="GrowthDetails" component={GrowthDetailsScreen} />
@@ -99,7 +98,6 @@ export function Navigation() {
                 <Stack.Screen name="ExpenseChart" component={ExpenseBarGraph} />
                 <Stack.Screen name="SymptomList" component={SymptomList} />
                 <Stack.Screen name="SymptomAdd" component={SymptomAdd} />
-
 
                 <Stack.Screen name="Sleeping" component={SleepScreen} />
                 <Stack.Screen name="Time" component={TimeScreen} />

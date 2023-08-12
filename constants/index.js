@@ -58,30 +58,11 @@ export const mainFeatures = [
 
     },
 
-    // {
-    //     name: 'Sleeping',
-    //     image: require('../assets/images/sleep.png'),
-    //     location: 'SleepingScreen',
-    // },
-    //
-    // {
-    //     name: 'Diaper',
-    //     image: require('../assets/images/diaper.png'),
-    //     location: 'DiaperScreen',
-    //
-    // },
-    //
     {
         name: 'Growth',
-        image: require('../assets/images/chart.png'),
+        image: require('../assets/images/growth.png'),
         location: 'GrowthDetails',
     },
-    //
-    // {
-    //     name: 'Symtom',
-    //     image: require('../assets/images/symptom.png'),
-    //     location: 'SymptomScreen',
-    // },
 
     {
         name: 'Symptom',
@@ -90,18 +71,19 @@ export const mainFeatures = [
     },
 
     {
-        name: 'Immulization',
+        name: 'Immunization',
         image: require('../assets/images/syringe.png'),
         location: 'ImmunizationScreen',
     },
 
     {
         name: 'Expense',
-        image: require('../assets/images/symptom.png'),
+        image: require('../assets/images/expense.png'),
         location: 'Expense',
     },
+
     {
-        name: 'Milstones',
+        name: 'Milestones',
         image: require('../assets/images/syringe.png'),
         location: 'Milestones',
     },
