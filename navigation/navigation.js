@@ -101,7 +101,7 @@ export function Navigation() {
                 <Stack.Screen name="SymptomList" component={SymptomList} />
                 <Stack.Screen name="SymptomAdd" component={SymptomAdd} />
 
-                <Stack.Screen name="Sleeping" component={SleepScreen} />
+                {/* <Stack.Screen name="Sleeping" component={SleepScreen} />
                 <Stack.Screen name="Time" component={TimeScreen} />
                 <Stack.Screen name="SleepTimeline" component={SleepTimelineScreen} />
                 {/* <Stack.Screen name="SleepChart" component={SleepBarChart} /> */}
