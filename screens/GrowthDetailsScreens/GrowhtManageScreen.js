@@ -30,7 +30,8 @@ export default function GrowhtManageScreen() {
 
     async function confirmHandler(growthData) {
         try{
-            const id = await storeGrowth(growthData);
+            // const id = await storeGrowth(growthData);
+            let id = Math.floor(Math.random() * 100) + 1;
             dispatch(addGrowth({...growthData,id:id}));
         }catch (error) {
             setError('Netword Error');

@@ -33,7 +33,7 @@ export function GrowthDetailsScreen() {
 
 const navigation = useNavigation();
     return (
-        <View className={"flex-1 bg-white "}>
+        <View className={"flex-1 bg-white "} style={{backgroundColor:"white"}}>
             <SafeAreaView className={"flex-1 relative"}>
                 <StatusBar barStyle={"light"}/>
                 {/*Top bar*/}
@@ -64,15 +64,15 @@ const navigation = useNavigation();
                     {/*name and growth status*/}
                     <View className={"flex flex-1 pl-3 pt-2"}>
                         <View>
-                            <Text className={"text-gray-500 text-2xl font-semibold"} >{baby.name}</Text>
+                            <Text className={"text-gray-500 text-2xl font-semibold"} style={{color:"gray"}}>{baby.name}</Text>
                         </View>
                         <View className={"flex-row space-x-2"}>
-                            <Text className={"text-gray-500 font-bold"} >Age </Text>
-                            <Text className={"text-gray-500 text-sm"} >{dateDiff(baby.dob,(new Date()))}</Text>
+                            <Text className={"text-gray-500 font-bold"} style={{color:"gray"}}>Age </Text>
+                            <Text className={"text-gray-500 text-sm"} style={{color:"gray"}}>{dateDiff(baby.dob,(new Date()))}</Text>
                         </View>
                         <View className={"flex-row space-x-2"}>
-                            <Text className={"text-gray-500 font-bold"} >8 </Text>
-                            <Text className={"text-gray-500 text-sm"} >Measurements</Text>
+                            <Text className={"text-gray-500 font-bold"} style={{color:"gray"}}>8 </Text>
+                            <Text className={"text-gray-500 text-sm"} style={{color:"gray"}}>Measurements</Text>
                         </View>
 
                         {/*<View className={"flex-row flex-1 justify-between space-x-1"} >*/}
@@ -104,11 +104,11 @@ const navigation = useNavigation();
 
                 {/*<View*/}
                 <View className={"flex-row justify-between px-3 pt-3"}>
-                    <Text className={"font-semibold text-xl text-gray-500"} style={{letterSpacing:1,fontSize:16}} >
+                    <Text className={"font-semibold text-xl text-gray-500"} style={{letterSpacing:1,fontSize:16,color:"gray"}} >
                         Growth Measurements
                     </Text>
                     <TouchableOpacity>
-                        <Text className={"text-gray-500"} style={{letterSpacing:1,}} >
+                        <Text className={"text-gray-500"} style={{letterSpacing:1,color:"gray"}} >
                             See More
                             <ArrowRightIcon  size="16" color="gray" />
                         </Text>

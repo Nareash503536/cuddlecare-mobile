@@ -13,14 +13,14 @@ import { GrowthDetailsScreen } from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
 import { FeedingScreen } from "../screens/FeedingScreen";
 
-import { SleepScreen } from "../screens/SleepScreen";
-import { TimeScreen } from "../screens/TimeScreen";
-import { SleepTimelineScreen } from "../screens/SleepTimelineScreen";
-// import { SleepBarChart } from "../screens/SleepBarChart";
+import {SleepScreen} from "../screens/SleepScreen";
+import {TimeScreen} from "../screens/TimeScreen";
+import {SleepTimelineScreen} from "../screens/SleepTimelineScreen";
+import {SleepBarChart} from "../screens/SleepBarChart";
 
-// import { DiaperScreen } from "../screens/DiaperScreen";
+import {DiaperScreen} from "../screens/DiaperScreen";
 
-import { ExpenseScreen } from "../screens/ExpenseScreen";
+import {ExpenseScreen} from "../screens/ExpenseScreen";
 import ExpenseForm from "../components/Expense/ExpenseForm";
 import ExpenseTabs from "../components/Expense/ExpenseTabs";
 import ExpenseBarGraph from "../components/Expense/ExpenseBarGraph";
@@ -34,9 +34,9 @@ import { SolidFood } from "../components/Feeding/SolidFood";
 
 import { SymptomList } from "../screens/Symptom/SymptomList";
 import SymptomAdd from "../screens/Symptom/SymptomAdd";
-// import MilestonesScreen from "../screens/MilestonesScreen";
-// import MilestonesListScreen from "../screens/MilestonesScreens/MilestonesListScreen";
-// import MilestoneManageScreen from "../screens/MilestonesScreens/MilestoneManageScreen";
+import MilestonesScreen from "../screens/MilestonesScreen";
+import MilestonesListScreen from "../screens/MilestonesScreens/MilestonesListScreen";
+import MilestoneManageScreen from "../screens/MilestonesScreens/MilestoneManageScreen";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -74,14 +74,14 @@ const Stack = createNativeStackNavigator();
 export function Navigation() {
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator screenOptions={{headerShown:false}}>
                 <Stack.Screen name="Start" component={StartScreen} />
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="AppOverview" component={AppOverview} />
 
-                <Stack.Screen name="RemindersList" component={RemindersList} />
-                <Stack.Screen name="Reminders" component={Reminders} />
-                <Stack.Screen name="ReminderDetails" component={ReminderDetails} />
+                <Stack.Screen name="RemindersList" component={RemindersList}/>
+                <Stack.Screen name="Reminders" component={Reminders}/>
+                <Stack.Screen name="ReminderDetails" component={ReminderDetails}/>
 
                 {/* Growth feature screens */}
                 <Stack.Screen name="GrowthDetails" component={GrowthDetailsScreen} />
@@ -89,9 +89,9 @@ export function Navigation() {
                 <Stack.Screen name="GrowthChart" component={GrowthChartScreen} />
                 <Stack.Screen name="Feeding" component={FeedingScreen} />
                 {/* Growth feature screens */}
-                {/* <Stack.Screen name="Milestones" component={MilestonesScreen} />
+                <Stack.Screen name="Milestones" component={MilestonesScreen} />
                 <Stack.Screen name="MilestonesList" component={MilestonesListScreen} />
-                <Stack.Screen name="MilestoneManage" component={MilestoneManageScreen} /> */}
+                <Stack.Screen name="MilestoneManage" component={MilestoneManageScreen} />
 
                 <Stack.Screen name="Expense" component={ExpenseScreen} />
                 {/*<Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />*/}
@@ -101,12 +101,12 @@ export function Navigation() {
                 <Stack.Screen name="SymptomList" component={SymptomList} />
                 <Stack.Screen name="SymptomAdd" component={SymptomAdd} />
 
-                {/* <Stack.Screen name="Sleeping" component={SleepScreen} />
+                <Stack.Screen name="Sleeping" component={SleepScreen} />
                 <Stack.Screen name="Time" component={TimeScreen} />
                 <Stack.Screen name="SleepTimeline" component={SleepTimelineScreen} />
-                {/* <Stack.Screen name="SleepChart" component={SleepBarChart} /> */}
+                <Stack.Screen name="SleepChart" component={SleepBarChart}/>
 
-                {/* <Stack.Screen name="DiaperScreen" component={DiaperScreen} /> */}
+                <Stack.Screen name="DiaperScreen" component={DiaperScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

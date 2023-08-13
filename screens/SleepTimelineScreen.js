@@ -1,4 +1,4 @@
-import {View, Text, FlatList, Image, Pressable} from "react-native";
+import {View, Text, FlatList, Image, Pressable, TouchableOpacity} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import SleepHeader from "../components/sleepHeader";
 import React, {useEffect} from "react";
@@ -6,8 +6,13 @@ import {ClockIcon} from "react-native-heroicons/solid";
 import {SleepApiGetAll, SleepApiGetTotal} from "../Api/SleepApi";
 import { PieChart } from 'react-native-chart-kit';
 import {useNavigation} from "@react-navigation/native";
-// import BottomNavbar from "../components/bottomNavbar";
+import {AuthContext} from "../Context/AuthContext";
+import {BASE_URL} from "../config";
+import axios from "axios";
+import {themeColors} from "../theme";
+import {ChartBarSquareIcon} from "react-native-heroicons/outline";
 export function SleepTimelineScreen() {
+    const { updateKeys } = React.useContext(AuthContext);
     const [sleepList, setSleepList] = React.useState([]);
     const [totalSleep, setTotalSleep] = React.useState(0);
     const navigation = useNavigation();
@@ -17,8 +22,12 @@ export function SleepTimelineScreen() {
     }, []);
 
     const totalTime = async () => {
+        const currentDate = new Date().toISOString().slice(0, 10);
+        const apiURL = BASE_URL + "/api/sleep/total-sleep-duration/" + currentDate;
         try {
-            const response = await SleepApiGetTotal();
+            await updateKeys();
+            // const response = await SleepApiGetTotal();
+            const response = await axios.get(apiURL, null);
             if (response.data === "") {
                 setTotalSleep(0);
                 return;
@@ -45,11 +54,14 @@ export function SleepTimelineScreen() {
     };
 
     const getAll = async () => {
+        const currentDate = new Date().toISOString().slice(0, 10);
+        const apiURL = BASE_URL + "/api/sleep/all-sleeps/" + currentDate;
         try {
-            const response = await SleepApiGetAll();
+            await updateKeys();
+            // const response = await SleepApiGetAll();
+            const response = await axios.get(apiURL, null);
             // console.log(response.data);
             const sleeps = response.data;
-
             const sleepDuration = (time) => {
                 const totalSleepTime = time;
                 const [hoursStr, minutesStr, secondsStr] = totalSleepTime.split(':');
@@ -108,7 +120,7 @@ export function SleepTimelineScreen() {
                 <Text className={"font-bold text-2xl"}>Sleep Timeline</Text>
             </View>
             <FlatList
-                style={{height: "49%"}}
+                style={{height: "58%"}}
                 data={sleepList.sleeps}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id.toString()}
@@ -138,16 +150,20 @@ export function SleepTimelineScreen() {
                     </View>
                 </View>
                 <Pressable onPress={() => navigation.navigate("Sleeping")}>
-                    <View className={"flex items-center h-50 border-2 bg-primary p-2 mx-8 rounded-full border-secondary"}>
+                    <View className={"flex items-center h-50 border-2 bg-primary p-2 mx-8 my-1 rounded-full border-secondary"}>
                         <View className={"flex flex-row items-center justify-center"}>
                             <Text className={"pl-4 font-bold text-base"} style={{color:"white"}}>Add New Sleeping Activity</Text>
                         </View>
                     </View>
                 </Pressable>
             </View>
-            <View className={"mt-14"}>
-                <BottomNavbar/>
-            </View>
+            <TouchableOpacity
+                className={"absolute bottom-64 right-5 rounded-full p-1"}
+                style={{backgroundColor:themeColors.btnColor}}
+                onPress={() => navigation.navigate('SleepChart')}
+            >
+                <ChartBarSquareIcon size="40" color="white" />
+            </TouchableOpacity>
         </SafeAreaView>
     )
 }
