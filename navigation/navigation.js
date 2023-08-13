@@ -2,16 +2,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import {StartScreen} from "../screens/StartScreen";
-import {HomeScreen} from "../screens/HomeScreen";
-import {BabyScreen} from "../screens/BabyScreen";
+import { StartScreen } from "../screens/StartScreen";
+import { HomeScreen } from "../screens/HomeScreen";
+import { BabyScreen } from "../screens/BabyScreen";
 import { Reminders } from '../screens/Reminders';
 import { ReminderDetails } from '../screens/ReminderDetails';
 import { RemindersList } from '../screens/RemindersList';
 import React from 'react';
-import {GrowthDetailsScreen} from "../screens/GrowthDetailsScreen";
+import { GrowthDetailsScreen } from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
-import{FeedingScreen} from "../screens/FeedingScreen";
+import { FeedingScreen } from "../screens/FeedingScreen";
 
 import {SleepScreen} from "../screens/SleepScreen";
 import {TimeScreen} from "../screens/TimeScreen";
