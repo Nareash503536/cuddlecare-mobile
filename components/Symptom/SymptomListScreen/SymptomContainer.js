@@ -2,65 +2,19 @@ import { SymptomSet } from "./SymptomSet";
 import images from "../../../constants/images";
 import { FlatList, Image, Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { ButtonStyles } from "../ButtonStyle";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Modal, Center, Button, FormControl, Input, VStack, HStack } from "native-base";
-import SymptomsAPI from "../../../Api/SymptomsApi";
-import { AuthContext } from "../../../Context/AuthContext";
-import Toast from 'react-native-toast-message';
-import { SymptomListContext } from "../../../screens/Symptom/SymptomList";
 
 export default function SymptomContainer() {
 
     const [symptomArray, setSymptomArray] = useState(Array(11).fill(false));
     const [showModal, setShowModal] = useState(false);
-    const { updateKeys } = useContext(AuthContext);
-    const { setLoading } = useContext(SymptomListContext);
- 
- 
-    const saveSymptoms = async(date, time, additionalNotes, babyID) => {
-        //check if all symptomArray elements are still false
-        let allFalse = true;
-        for(let i = 0; i < symptomArray.length; i++){
-            if(symptomArray[i] === true){
-                allFalse = false;
-                break;
-            }
-        }
-        if(allFalse){
-            Toast.show({
-                type: "error",
-                text1: "No symptoms selected",
-                text2: "Please select at least one symptom",
-            })
-            return;
-        }
-        setLoading(true);
-        await updateKeys();
-        let response = await SymptomsAPI().addSymptoms(
-            date, time, additionalNotes, symptomArray, babyID);
-        if(response === undefined)
-            Toast.show({
-                type: "error",
-                text1: "Error saving symptoms",
-                text2: "There was an error saving your symptoms. Please try again.",
-            })
-        else{
-            Toast.show({
-                type: "success",
-                text1: "Symptoms saved",
-                text2: "Your symptoms have been saved successfully",
-            })
-            console.log(response);
-        }
-        setShowModal(false);
-        setSymptomArray(Array(11).fill(false));
-        setLoading(false);
-    }
 
     const Example = () => {
-        const [additionalNotes, setAdditionalNotes] = useState("");
+
         const date = new Date();
+        console.log(date);
         let inputTime = date.toISOString().slice(11, 16);
         let hour = parseInt(inputTime.slice(0, 2));
         let minute = inputTime.slice(3, 5);
@@ -79,9 +33,8 @@ export default function SymptomContainer() {
             inputTime = hour.toString() + ":" + minute + " AM";
         }
 
-        let inputDate = date.toISOString().slice(0, 10);
+        inputDate = date.toISOString().slice(0, 10);
 
-        const handleText = (text) => setAdditionalNotes(text);
 
         return <Center>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -101,7 +54,7 @@ export default function SymptomContainer() {
                         </VStack>
                         <FormControl>
                             <FormControl.Label>Additional notes</FormControl.Label>
-                            <Input value={additionalNotes} onChangeText={handleText}/>
+                            <Input />
                         </FormControl>
                     </Modal.Body>
                     <Modal.Footer>
@@ -111,9 +64,9 @@ export default function SymptomContainer() {
                             }}>
                                 Cancel
                             </Button>
-                            <Button 
-                                onPress={() => saveSymptoms(inputDate, inputTime, additionalNotes, 1)}
-                            >
+                            <Button onPress={() => {
+                                setShowModal(false);
+                            }}>
                                 Save
                             </Button>
                         </Button.Group>
@@ -197,7 +150,7 @@ export default function SymptomContainer() {
                 className={"flex-row mt-8"}
                 style={ButtonStyles.Button}
                 name="Save"
-                onPress={() => setShowModal(true)}
+                onPress={() => { setShowModal(true); }}
             >
                 <Text className="text-white font-extrabold text-lg">
                     Save
