@@ -21,16 +21,17 @@ export default function SymptomContainer() {
     const handleSaveSymptom = () => {
         setShowModal(true);
         //for loop symptom Array
-        for (let i = 0; i < symptomArray.length; i++) {
-            SymptomData.push(
-                {
-                    date: { startDate },
-                    time: { startTime },
-                    //get respective symptom from SymptomSet
-                    symptom: {symptom: SymptomSet[i].image}
-                }
-            )
-        }
+        console.log(startTime);
+        // for (let i = 0; i < symptomArray.length; i++) {
+        //     SymptomData.push(
+        //         {
+        //             date: { startDate },
+        //             time: { startTime },
+        //             //get respective symptom from SymptomSet
+        //             symptom: {symptom: SymptomSet[i].image}
+        //         }
+        //     )
+        // }
     }
 
     const Example = () => {
@@ -47,7 +48,7 @@ export default function SymptomContainer() {
                             </HStack>
                             <HStack alignItems="center" justifyContent="space-between">
                                 <Text fontWeight="medium">Time of check</Text>
-                                <Text color="blueGray.400">{startTime}</Text>
+                                {/* <Text color="blueGray.400">Time: {startTime}</Text> */}
                             </HStack>
                         </VStack>
                         <FormControl>

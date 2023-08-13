@@ -70,11 +70,6 @@ export default function SelectDateTime() {
                 onPress={showStartDatePicker}
                 className={"border-b-2 pl-8"}
             >
-                {/* <TextInput
-                    value={startDate}
-                    placeholder="Date of check"
-                    editable={false}
-                /> */}
                 <Text className="opacity-50">
                     {startDate ? startDate.toString() : "Date of check"}
                 </Text>
@@ -93,11 +88,6 @@ export default function SelectDateTime() {
                 onPress={showStartTimePicker}
                 className="border-b-2 pl-8"
                 >
-                {/* <TextInput
-                    value={startTime.toString()}
-                    placeholder="Time of check"
-                    editable={false}
-                /> */}
                 <Text className="opacity-50">
                     {startTime ? startTime.toString() : "Time of check"}
                 </Text>
