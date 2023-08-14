@@ -98,20 +98,12 @@ export default function SymptomContainer() {
                             </HStack>
                             <HStack alignItems="center" justifyContent="space-between">
                                 <Text fontWeight="medium">Time of check</Text>
-<<<<<<< HEAD
-                                {/* <Text color="blueGray.400">Time: {startTime}</Text> */}
-=======
-                                <Text color="blueGray.400">{startTime}</Text>
->>>>>>> 5e7636d (Just The UI of the symptom is done)
                             </HStack>
+                                <Text color="blueGray.400">{startTime}</Text>
                         </VStack>
                         <FormControl>
                             <FormControl.Label>Additional notes</FormControl.Label>
-<<<<<<< HEAD
                             <Input value={additionalNotes} onChangeText={handleText} />
-=======
-                            <Input />
->>>>>>> 5e7636d (Just The UI of the symptom is done)
                         </FormControl>
                     </Modal.Body>
                     <Modal.Footer>
@@ -121,13 +113,7 @@ export default function SymptomContainer() {
                             }}>
                                 Cancel
                             </Button>
-<<<<<<< HEAD
                             <Button onPress={() => saveSymptoms(startDate, startTime, additionalNotes, 1) }>
-=======
-                            <Button onPress={() => {
-                                setShowModal(false);
-                            }}>
->>>>>>> 5e7636d (Just The UI of the symptom is done)
                                 Save
                             </Button>
                         </Button.Group>

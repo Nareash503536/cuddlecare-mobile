@@ -27,8 +27,9 @@ export const SymptomTimeline = () => {
                 timeContainerStyle={{ minWidth: 52 }}
                 timeStyle={{
                     textAlign: 'center',
-                    // backgroundColor: '#91C9CE',
-                    color: 'gray', padding: 5,
+                    backgroundColor: '#91C9CE',
+                    color: 'white',
+                    padding: 5,
                     borderRadius: 13,
                     marginBottom: 10,
                     marginLeft: 10,
