@@ -35,7 +35,7 @@ export default function SymptomContainer() {
             inputTime = hour.toString() + ":" + minute + " AM";
         }
 
-        inputDate = date.toISOString().slice(0, 10);
+        let inputDate = date.toISOString().slice(0, 10);
 
 
         return <Center>

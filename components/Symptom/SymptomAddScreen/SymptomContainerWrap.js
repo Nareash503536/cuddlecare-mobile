@@ -6,8 +6,6 @@ import React, { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Modal, Center, Button, FormControl, Input, VStack, HStack } from "native-base";
 import { symptomContext } from "../../../screens/Symptom/SymptomAdd";
-import { SymptomData } from "../SymptomData";
-import Timeline from 'react-native-timeline-flatlist'
 
 export default function SymptomContainer() {
 
