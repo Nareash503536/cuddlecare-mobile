@@ -6,8 +6,6 @@ import React, { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Modal, Center, Button, FormControl, Input, VStack, HStack } from "native-base";
 import { symptomContext } from "../../../screens/Symptom/SymptomAdd";
-import { SymptomData } from "../SymptomData";
-import Timeline from 'react-native-timeline-flatlist'
 
 export default function SymptomContainer() {
 
@@ -48,7 +46,7 @@ export default function SymptomContainer() {
                             </HStack>
                             <HStack alignItems="center" justifyContent="space-between">
                                 <Text fontWeight="medium">Time of check</Text>
-                                {/* <Text color="blueGray.400">Time: {startTime}</Text> */}
+                                <Text color="blueGray.400">{startTime}</Text>
                             </HStack>
                         </VStack>
                         <FormControl>

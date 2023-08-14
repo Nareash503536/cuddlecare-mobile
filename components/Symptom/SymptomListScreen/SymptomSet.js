@@ -20,7 +20,7 @@ export const SymptomSet = [{
         image: "vomiting"
     },{
         id: 6,
-        name: "Low enery",
+        name: "Low energy",
         image: "lowEnergy"
     }, {
         id: 7,
