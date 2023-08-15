@@ -1,8 +1,8 @@
 import {FlatList, ScrollView, Text, TouchableOpacity, View,Image} from "react-native";
-import {FoodListSet} from "./foodListSet";
+import {FoodListSet} from "./Lists/foodListSet";
 import images from "../../constants/images";
 import React from "react";
-import {ReactionsListSet} from "./reactionsListSet";
+import {ReactionsListSet} from "./Lists/reactionsListSet";
 import {scale} from "nativewind/dist/tailwind/native/scale";
 
 export  function ReactionsList() {

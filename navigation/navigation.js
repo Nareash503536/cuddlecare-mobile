@@ -37,6 +37,7 @@ import SymptomAdd from "../screens/Symptom/SymptomAdd";
 import MilestonesScreen from "../screens/MilestonesScreen";
 import MilestonesListScreen from "../screens/MilestonesScreens/MilestonesListScreen";
 import MilestoneManageScreen from "../screens/MilestonesScreens/MilestoneManageScreen";
+import SolidFoodsHeader from "../components/Feeding/SolidFoodsListScreen/SolidFoodsHeader";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -86,6 +87,7 @@ export function Navigation() {
                 <Stack.Screen name="GrowhtManage" component={GrowhtManageScreen} />
                 <Stack.Screen name="GrowthChart" component={GrowthChartScreen} />
                 <Stack.Screen name="Feeding" component={FeedingScreen} />
+                <Stack.Screen name="SolidFoodTab" component={SolidFoodsHeader} />
                 {/* Growth feature screens */}
                 <Stack.Screen name="Milestones" component={MilestonesScreen} />
                 <Stack.Screen name="MilestonesList" component={MilestonesListScreen} />

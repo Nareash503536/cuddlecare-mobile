@@ -119,7 +119,7 @@ export default function InfoBars({details , keyField ,category}) {
                                     </TouchableOpacity>
                                 )
                             )}
-                            <TouchableOpacity onLongPress={() => setShowButtons(prevState => ({ ...prevState, [item[keyField]]: true }))}
+                            <TouchableOpacity onPress={() => setShowButtons(prevState => ({ ...prevState, [item[keyField]]: true }))}
 
                                               style={{...styles.btn}}
                                               className={"flex-row mt-4 justify-between"}>

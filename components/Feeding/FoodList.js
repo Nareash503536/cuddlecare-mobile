@@ -1,9 +1,12 @@
 import {FlatList, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import {FoodListSet} from "./foodListSet";
+import {FoodListSet} from "./Lists/foodListSet";
 import images from "../../constants/images";
 import React from "react";
 import {Image} from "react-native";
+import SolidFoodsHeader from "./SolidFoodsListScreen/SolidFoodsHeader";
+import {useNavigation} from "@react-navigation/native";
 export function FoodList() {
+    const navigation = useNavigation();
     return (
         <View>
             <FlatList data={FoodListSet}  keyExtractor={(item) => item.id} showsHorizontalScrollIndicator={false} renderItem={({item})=> (
@@ -13,7 +16,7 @@ export function FoodList() {
                         borderRadius: 10,
                     }}
                 >
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('SolidFoodTab', { screen: item.name })}>
                         <Image  source={images[item.image]}
                                 className={"w-20 h-20 mx-auto"}
                                 style={{transform:[{scale:0.6}]}}

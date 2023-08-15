@@ -1,10 +1,10 @@
 export const FoodListSet = [{
     id: 1,
-    name: "vegetable",
+    name: "Vegetables",
     image: "vegetable"
 },{
     id: 2,
-    name: "fruits",
+    name: "Fruits",
     image: "fruits"
 },{
     id: 3,
@@ -12,7 +12,7 @@ export const FoodListSet = [{
     image: "grains"
 },{
     id: 4,
-    name: "puree",
+    name: "Puree",
     image: "puree"
 }, {
     id: 5,
@@ -28,7 +28,7 @@ export const FoodListSet = [{
     image: "drinks"
 }, {
     id: 8,
-    name: "snacks",
+    name: "Snacks",
     image: "snacks"
 }
 ]

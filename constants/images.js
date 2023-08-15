@@ -42,7 +42,6 @@ import vegetable from "../assets/images/Food/vegetable.png";
 import snacks from "../assets/images/Food/snacks.png";
 import grains from "../assets/images/Food/grains.png";
 
-
 export default {logo, 
                 appName, 
                 addCaregiver, 
