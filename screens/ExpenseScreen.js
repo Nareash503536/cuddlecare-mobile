@@ -114,8 +114,8 @@ export function ExpenseScreen (){
 
         fetchExpense();
         gettotalExpense();
-        gettotalBudget();
-        fetchBudget();
+        // gettotalBudget();
+        // fetchBudget();
         fetchEnddate();
         fetchFirstdate();
 

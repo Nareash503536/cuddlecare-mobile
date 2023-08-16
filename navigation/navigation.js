@@ -17,9 +17,9 @@ import {SleepBarChart} from "../screens/SleepBarChart";
 
 import {DiaperScreen} from "../screens/DiaperScreen";
 
-import SleepScreen from "../screens/SleepScreen";
-import TimeScreen from "../screens/TimeScreen";
-import SleepTimelineScreen from "../screens/SleepTimelineScreen";
+import {SleepScreen} from "../screens/SleepScreen";
+import {TimeScreen} from "../screens/TimeScreen";
+import {SleepTimelineScreen} from "../screens/SleepTimelineScreen";
 
 import {ExpenseScreen} from "../screens/ExpenseScreen";
 import ExpenseForm from "../components/Expense/ExpenseForm";
@@ -39,9 +39,6 @@ import MilestonesScreen from "../screens/MilestonesScreen";
 import MilestonesListScreen from "../screens/MilestonesScreens/MilestonesListScreen";
 import MilestoneManageScreen from "../screens/MilestonesScreens/MilestoneManageScreen";
 import SolidFoodsHeader from "../components/Feeding/SolidFoodsListScreen/SolidFoodsHeader";
-
-import {SymptomList} from "../screens/Symptom/SymptomList";
-import SymptomAdd from "../screens/Symptom/SymptomAdd";
 
 import SymptomTimelineScreen from  "../screens/Symptom/SymptomTimelineScreen";
 
@@ -104,8 +101,7 @@ export function Navigation() {
                 <Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />
                 <Stack.Screen name="ExpenseForm" component={ExpenseForm} />
                 <Stack.Screen name="ExpenseChart" component={ExpenseBarGraph} />
-                <Stack.Screen name="SymptomList" component={SymptomList} />
-                <Stack.Screen name="SymptomAdd" component={SymptomAdd} />
+                {/*<Stack.Screen name="SymptomList" component={SymptomList} />*/}
                 <Stack.Screen name="SymptomList" component={SymptomList} />
                 <Stack.Screen name="SymptomAdd" component={SymptomAdd} />
 
