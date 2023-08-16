@@ -8,7 +8,7 @@ import Input from "../Form Component/Input";
 import {themeColors} from "../../theme";
 import {GlobalStyles} from "../../constants/styles";
 import SelectDateTime from "./SelectDateTime";
-import {useRoute} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import {FoodListSet} from "./Lists/foodListSet";
 import {TrashIcon} from "react-native-heroicons/outline";
 import {PencilSquareIcon} from "react-native-heroicons/solid";
@@ -18,7 +18,7 @@ export const solidfoodContext = createContext();
 export function SolidFood() {
     const route = useRoute();
     console.log("route params here",route.params);
-    const { vegetableArray: vegArray } = route.params || {};
+    let { vegetableArray: vegArray } = route.params || {};
     console.log("veg Array", vegArray);
 
     const [isStartDatePickerVisible, setStartDatePickerVisible] = useState(false);
@@ -26,6 +26,7 @@ export function SolidFood() {
     const [isStartTimePickerVisible, setStartTimePickerVisible] = useState(false);
     const [startTime, setStartTime] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+    let navigation = useNavigation();
 
     const inputStyles = [styles.input];
     const textInputConfig = {
@@ -37,6 +38,11 @@ export function SolidFood() {
     const showModal = () => {
         setModalVisible(!modalVisible);
     }
+    const clearAll = () => {
+        setModalVisible(!modalVisible);
+        navigation.navigate('Sfeeding');
+    }
+
     if (textInputConfig && textInputConfig.multiline) {
         inputStyles.push(styles.inputMultiline)
     }
@@ -55,7 +61,7 @@ export function SolidFood() {
             <ScrollView>
 
                 {vegArray ? (
-                    <>
+                    <View className={"px-3"}>
                         <SelectDateTime />
                         <Text style={[styles.label]} className={"text-center"}>
                            Selected items
@@ -101,7 +107,7 @@ export function SolidFood() {
                 <TouchableOpacity style={styles.savebtn} onPress={()=>showModal()}>
                     <Text  style={styles.buttonText}>Save</Text>
                 </TouchableOpacity>
-                    </>
+                    </View>
 
                 ) : (
             <>
@@ -133,7 +139,7 @@ export function SolidFood() {
 
                                 <Pressable
                                     style={styles.Button}
-                                    onPress={() => setModalVisible(!modalVisible)}
+                                    onPress={() => clearAll()}
                                     >
                                     <Text   style={{color:'white',alignSelf:'center'}}>Done</Text>
                                 </Pressable>
