@@ -71,7 +71,7 @@ const textInputConfig = {
         inputStyles.push(styles.invalidInput)
     }
     return (
-        <SafeAreaView  >
+        <SafeAreaView className={"px-5"} >
             <DateAndTime/>
 <View   className={"flex-col align-middle justify-center  "}>
     <Text style={[styles.label,!inputs.quantity.isValid && styles.inbalidLable ]} className={"text-center mb-2"}>Choose a type </Text>
@@ -138,7 +138,7 @@ const textInputConfig = {
 
 const styles = StyleSheet.create({
     savebtn:{
-        width: 200,
+        width: "100%",
         height: 50,
         borderRadius: 4,
         padding: 8,
