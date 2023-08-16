@@ -6,14 +6,23 @@ import React, { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Modal, Center, Button, FormControl, Input, VStack, HStack } from "native-base";
 import { symptomContext } from "../../../screens/Symptom/SymptomAdd";
+import SymptomsAPI from "../../../Api/SymptomsApi";
+import { AuthContext } from "../../../Context/AuthContext";
+import Toast from 'react-native-toast-message';
+
 
 export default function SymptomContainer() {
 
     const [symptomArray, setSymptomArray] = useState(Array(11).fill(false))
     const [showModal, setShowModal] = useState(false);
+    const { updateKeys } = useContext(AuthContext);
+
     const {
         startTime,
-        startDate
+        setStartTime,
+        startDate,
+        setStartDate,
+        setIsLoading
     } = useContext(symptomContext);
 
     const handleSaveSymptom = () => {
@@ -32,7 +41,50 @@ export default function SymptomContainer() {
         // }
     }
 
+    const saveSymptoms = async (date, time, additionalNotes, babyID) => {
+        let allFalse = true;
+        for (let i = 0; i < symptomArray.length; i++) {
+            if (symptomArray[i] === true) {
+                allFalse = false;
+                break;
+            }
+        }
+        if (allFalse) {
+            Toast.show({
+                type: "error",
+                text1: "No symptoms selected",
+                text2: "Please select at least one symptom",
+            })
+            return;
+        }
+        setIsLoading(true);
+        await updateKeys();
+        let response = await SymptomsAPI().addSymptoms(
+            date, time, additionalNotes, symptomArray, babyID);
+        if (response === undefined)
+            Toast.show({
+                type: "error",
+                text1: "Error saving symptoms",
+                text2: "There was an error saving your symptoms. Please try again.",
+            })
+        else {
+            Toast.show({
+                type: "success",
+                text1: "Symptoms saved",
+                text2: "Your symptoms have been saved successfully",
+            })
+            console.log(response);
+        }
+        setShowModal(false);
+        setSymptomArray(Array(11).fill(false));
+        setIsLoading(false);
+        setStartDate("");
+        setStartTime("");
+    }
+
     const Example = () => {
+        const [additionalNotes, setAdditionalNotes] = useState("");
+        const handleText = (text) => setAdditionalNotes(text);
         return <Center>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
                 <Modal.Content maxWidth="400px">
@@ -51,7 +103,7 @@ export default function SymptomContainer() {
                         </VStack>
                         <FormControl>
                             <FormControl.Label>Additional notes</FormControl.Label>
-                            <Input />
+                            <Input value={additionalNotes} onChangeText={handleText} />
                         </FormControl>
                     </Modal.Body>
                     <Modal.Footer>
@@ -61,9 +113,7 @@ export default function SymptomContainer() {
                             }}>
                                 Cancel
                             </Button>
-                            <Button onPress={() => {
-                                setShowModal(false);
-                            }}>
+                            <Button onPress={() => saveSymptoms(startDate, startTime, additionalNotes, 1) }>
                                 Save
                             </Button>
                         </Button.Group>

@@ -38,6 +38,8 @@ import MilestonesScreen from "../screens/MilestonesScreen";
 import MilestonesListScreen from "../screens/MilestonesScreens/MilestonesListScreen";
 import MilestoneManageScreen from "../screens/MilestonesScreens/MilestoneManageScreen";
 
+import SymptomTimelineScreen from  "../screens/Symptom/SymptomTimelineScreen";
+
 const BottomTabs = createBottomTabNavigator();
 
 function AppOverview() {
@@ -107,6 +109,8 @@ export function Navigation() {
                 <Stack.Screen name="SleepChart" component={SleepBarChart}/>
 
                 <Stack.Screen name="DiaperScreen" component={DiaperScreen} />
+                <Stack.Screen name="SymptomTimelineScreen" component={SymptomTimelineScreen} />
+                
             </Stack.Navigator>
         </NavigationContainer>
     )
