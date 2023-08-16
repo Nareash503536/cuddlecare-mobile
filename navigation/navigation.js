@@ -26,14 +26,14 @@ import ExpenseForm from "../components/Expense/ExpenseForm";
 import ExpenseTabs from "../components/Expense/ExpenseTabs";
 import ExpenseBarGraph from "../components/Expense/ExpenseBarGraph";
 import GrowthChartScreen from "../screens/GrowthDetailsScreens/GrowthChartScreen";
-import {CommunityScreen} from "../screens/CommunityScreen";
-import {themeColors} from "../theme";
-import {CalendarDaysIcon, HomeIcon} from "react-native-heroicons/outline";
-import {StyleSheet, View} from "react-native";
-import {BreastFeeding} from "../components/Feeding/BreastFeeding";
-import {SolidFood} from "../components/Feeding/SolidFood";
+import { CommunityScreen } from "../screens/CommunityScreen";
+import { themeColors } from "../theme";
+import { CalendarDaysIcon, HomeIcon } from "react-native-heroicons/outline";
+import { StyleSheet, View } from "react-native";
+import { BreastFeeding } from "../components/Feeding/BreastFeeding";
+import { SolidFood } from "../components/Feeding/SolidFood";
 
-import {SymptomList} from "../screens/Symptom/SymptomList";
+import { SymptomList } from "../screens/Symptom/SymptomList";
 import SymptomAdd from "../screens/Symptom/SymptomAdd";
 import MilestonesScreen from "../screens/MilestonesScreen";
 import MilestonesListScreen from "../screens/MilestonesScreens/MilestonesListScreen";
@@ -45,32 +45,36 @@ import SymptomAdd from "../screens/Symptom/SymptomAdd";
 
 import SymptomTimelineScreen from  "../screens/Symptom/SymptomTimelineScreen";
 
+import SymptomTimelineScreen from  "../screens/Symptom/SymptomTimelineScreen";
+
 const BottomTabs = createBottomTabNavigator();
 
 function AppOverview() {
     return (
         <BottomTabs.Navigator screenOptions={{
-            headerShown:false,
-            tabBarShowLabel:false,
-            tabBarStyle:{height:60,position:'absolute',bottom:10,borderRadius:90,marginHorizontal:5}}} >
+            headerShown: false,
+            tabBarShowLabel: false,
+            tabBarStyle: { height: 60, position: 'absolute', bottom: 10, borderRadius: 90, marginHorizontal: 5 }
+        }} >
 
             <Stack.Screen name="Baby" component={BabyScreen}
-            options={{
-                tabBarLabel: 'Home',
-                tabBarIcon: ({focused}) => (
-                    <View className={"rounded-full p-2"} style={{backgroundColor:focused? themeColors.colornormal:"white"}}>
-                        {focused? <HomeIcon size="27" color="white" />: <HomeIcon size="27" color="gray" />}
+                options={{
+                    tabBarLabel: 'Home',
+                    tabBarIcon: ({ focused }) => (
+                        <View className={"rounded-full p-2"} style={{ backgroundColor: focused ? themeColors.colornormal : "white" }}>
+                            {focused ? <HomeIcon size="27" color="white" /> : <HomeIcon size="27" color="gray" />}
+                        </View>
+                    ),
+                }} />
+
+            <Stack.Screen name="Community" component={CommunityScreen} options={{
+                tabBarLabel: 'Community',
+                tabBarIcon: ({ focused }) => (
+                    <View className={"rounded-full p-2"} style={{ backgroundColor: focused ? themeColors.colornormal : "white" }}>
+                        {focused ? <CalendarDaysIcon size="27" color="white" /> : <CalendarDaysIcon size="27" color="gray" />}
                     </View>
                 ),
             }} />
-
-            <Stack.Screen name="Community" component={CommunityScreen} options={{
-                  tabBarLabel: 'Community',
-                  tabBarIcon: ({focused}) => (
-                      <View className={"rounded-full p-2"} style={{backgroundColor:focused? themeColors.colornormal:"white"}}>
-                          {focused? <CalendarDaysIcon size="27" color="white" />: <CalendarDaysIcon size="27" color="gray" />}
-                      </View>
-                  ),}}/>
         </BottomTabs.Navigator>
     );
 }
