@@ -203,11 +203,7 @@ export default function SymptomContainer() {
                     Save
                 </Text>
             </TouchableOpacity>
-<<<<<<< HEAD
-            <Example />
-=======
             <Example/>
->>>>>>> 5e7636d (Just The UI of the symptom is done)
         </ScrollView>
     )
 }
