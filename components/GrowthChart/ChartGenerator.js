@@ -1,6 +1,6 @@
 import {View, Text, Alert, Switch, Dimensions} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {StatusBar} from "expo-status-bar";
 import {
     BWSD0,
@@ -46,6 +46,10 @@ import {
     BBSD3neg, BxAxisPoints, ByAxisPoints, GBSD0, GBSD1, GBSD1neg, GBSD2, GBSD2neg, GBSD3, GBSD3neg
 } from "../../constants/GrowthChartZScoreData/bmiZscoreData";
 
+import { Modal, Center, Button, FormControl, Input, VStack, HStack } from "native-base";
+import GrowthChartScreen from "../../screens/GrowthDetailsScreens/GrowthChartScreen";
+import {getDateenUSFormat} from "../../util/date";
+
 
 const deviceHight = Dimensions.get('window').height;
 
@@ -59,6 +63,7 @@ const objectMapping = {
     "BBSD3neg": BBSD3neg,"BBSD2neg": BBSD2neg,"BBSD1neg": BBSD1neg,"BBSD0": BBSD0,"BBSD1": BBSD1,"BBSD2": BBSD2,"BBSD3": BBSD3,"ByAxisPoints":ByAxisPoints,"BxAxisPoints":BxAxisPoints,
     "GBSD3neg": GBSD3neg,"GBSD2neg": GBSD2neg,"GBSD1neg": GBSD1neg,"GBSD0": GBSD0,"GBSD1": GBSD1,"GBSD2": GBSD2,"GBSD3": GBSD3,
 }
+
 export function ChartGenerator(
     {
         Gender="Girl",
@@ -67,13 +72,50 @@ export function ChartGenerator(
     }
 ) {
 
+    const [showModal, setShowModal] = useState(false);
     const [axisLabal, setAxisLabal] = useState({});
+    const [selectGrowthData, setSelectGrowthData] = useState({});
     let axisLabals = {};
 
     useEffect(() => {
         chartPropFactory();
         setAxisLabal(axisLabals);
     }, []);
+
+    function showChartModal(data){
+        setSelectGrowthData(data)
+        console.log(selectGrowthData.date)
+        setShowModal(true);
+    }
+    const DataModal = () => {
+        return <Center>
+            <Modal isOpen={showModal} onClose={() => setShowModal(false)} size="lg">
+                <Modal.Content maxWidth="350">
+                    <Modal.CloseButton />
+                    <Modal.Header>{getDateenUSFormat(selectGrowthData.date)}</Modal.Header>
+                    <Modal.Body>
+                        <VStack space={3}>
+                            <HStack alignItems="center" justifyContent="space-between">
+                                <Text fontWeight="medium">{chartType} Measurement</Text>
+                                <Text color="blueGray.400">{selectGrowthData.value} {chartType =="Weight" ? "kg":"cm"}</Text>
+                            </HStack>
+                            <HStack alignItems="center" justifyContent="space-between">
+                                <Text fontWeight="medium">Baby Age</Text>
+                                <Text color="blueGray.400">{selectGrowthData.month} month</Text>
+                            </HStack>
+                        </VStack>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button flex="1" onPress={() => {
+                            setShowModal(false);
+                        }}>
+                            Continue
+                        </Button>
+                    </Modal.Footer>
+                </Modal.Content>
+            </Modal>
+        </Center>
+    };
 
     function propFactory(prefixString) {
         switch (chartType) {
@@ -107,13 +149,13 @@ export function ChartGenerator(
                 circleColor={"#daa520"}
                 axisColor='#9dd'
                 tooltipVisible={true}
-                onPressItem={(data)=> Alert.alert(`Month-> ${data.month} : Weight-> ${data.value}`)}
+                onPressItem={(data)=> showChartModal(data)}
                 yAxisPoints={objectMapping[prefixString[1]+'yAxisPoints']}
                 xAxisPoints={objectMapping[prefixString[1]+'xAxisPoints']}
             />
         )
-
     }
+
     function chartPropFactory(){
         if(Gender ==="Boy"){
             return propFactory("B");
@@ -125,9 +167,6 @@ export function ChartGenerator(
     return (
         <SafeAreaView className={'bg-white flex-1' } style={{backgroundColor:"white"}}>
             <StatusBar barStyle={'dark-content'}/>
-
-
-
             <View>
                 {chartPropFactory()}
             </View>
@@ -138,7 +177,8 @@ export function ChartGenerator(
             <View className={'bg-transparent absolute right-4 '} style={{bottom: deviceHight*0.05}} >
                 <Text className={"text-gray-400"} style={{color:"gray"}}>{axisLabal["xLable"]}</Text>
             </View>
-
+            <DataModal />
         </SafeAreaView>
     )
+
 }

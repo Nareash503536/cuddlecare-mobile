@@ -47,7 +47,3 @@ export const selectGrowthById = (state,id) => state.growth.growth.filter(growth=
 
 export default growthSlice.reducer;
 
-// addExpense: ({ description, amount, date }) => {},
-// setExpenses: (expenses) => {},
-// deleteExpense: (id) => {},
-// updateExpense: (id, { description, amount, date }) => {},

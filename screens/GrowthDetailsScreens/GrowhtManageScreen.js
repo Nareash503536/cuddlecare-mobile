@@ -5,24 +5,26 @@ import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Button from "../../components/UI/Button";
 import {useNavigation} from "@react-navigation/native";
 import {themeColors} from "../../theme";
-import {useDispatch} from "react-redux";
-import {addGrowth} from "../../slices/growthSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {addGrowth, selectGrowth, selectGrowthById} from "../../slices/growthSlice";
 import {storeGrowth} from "../../util/http";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ErrorOverlay from "../../components/UI/ErrorOverlay";
 import {ArrowLeftIcon} from "react-native-heroicons/outline";
 
 
 //generate array of objects including dummy values for growth
 
-export default function GrowhtManageScreen() {
+export default function GrowhtManageScreen({ route }) {
+    let selectedGrowth=[];
+    if(route.params) {
+        const {id} = route.params;
+        selectedGrowth = useSelector(state => selectGrowthById(state, id));
+    }
+
     let navigation = useNavigation();
     const dispatch = useDispatch();
     const [error, setError] = useState();
-    function deleteExpenseHandler() {
-        // expensesCtx.deleteExpense(editedExpenseId);
-        navigation.goBack();
-    }
 
     function cancelHandler() {
         navigation.goBack();
@@ -55,6 +57,7 @@ export default function GrowhtManageScreen() {
                 > Growth Measurements</Text>
             </View>
             <GrowthForm
+                defaultValues={selectedGrowth}
                 onCancel={cancelHandler}
                 onSubmit={confirmHandler}
             />

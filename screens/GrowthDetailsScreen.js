@@ -74,22 +74,6 @@ const navigation = useNavigation();
                             <Text className={"text-gray-500 font-bold"} style={{color:"gray"}}>8 </Text>
                             <Text className={"text-gray-500 text-sm"} style={{color:"gray"}}>Measurements</Text>
                         </View>
-
-                        {/*<View className={"flex-row flex-1 justify-between space-x-1"} >*/}
-                        {/*    <View className={" flex px-5 py-1 items-center rounded-2xl"} style={{backgroundColor:themeColors.bgWhite(0.4)}} >*/}
-                        {/*        <Text className={"text-white"} >Weight</Text>*/}
-                        {/*        <Text className={"text-lg "} style={{color:themeColors.colorExtraDark}}>{baby.weight}kg</Text>*/}
-                        {/*    </View>*/}
-                        {/*    <View className={" flex px-5 py-1 items-center rounded-2xl"} style={{backgroundColor:themeColors.bgWhite(0.3)}} >*/}
-                        {/*        <Text className={"text-white"}>Size</Text>*/}
-                        {/*        <Text className={"text-lg "} style={{color:themeColors.colorExtraDark}}>{baby.height}cm</Text>*/}
-                        {/*    </View>*/}
-                        {/*    <View className={" flex px-5 py-1 items-center rounded-2xl"} style={{backgroundColor:themeColors.bgWhite(0.3)}} >*/}
-                        {/*        <Text className={"text-white"}>Age</Text>*/}
-                        {/*        <Text className={"text-lg"} style={{color:themeColors.colorExtraDark}} >{baby.year}y {baby.month}m</Text>*/}
-                        {/*    </View>*/}
-                        {/*</View>*/}
-
                     </View>
                 </View>
 
@@ -115,6 +99,7 @@ const navigation = useNavigation();
                     </TouchableOpacity>
                 </View>
 
+                {/*Growth Measurement List*/}
                 <GrowthMeasurementList growthData={growthDetails} />
 
                 {/*Side Button*/}

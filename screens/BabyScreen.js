@@ -15,22 +15,39 @@ import {useNavigation} from "@react-navigation/native";
 import { AuthContext } from "../Context/AuthContext";
 import RemindersButton from "../components/RemindersButton";
 import FilledButton from "../components/filledButton";
+import { Drawer } from 'react-native-drawer-layout';
+import DrawerContent from "../components/Drawer/DrawerContent";
+
 
 export function BabyScreen() {
     let baby = babyDetails[2];
     let featuresDetails = mainFeatures;
     let navigation = useNavigation();
+    const [open, setOpen] = React.useState(false);
 
-    const { logout } = useContext(AuthContext);
+
+    // const { logout } = useContext(AuthContext);
 
     return (
+        <Drawer
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            renderDrawerContent={() => {
+                return (
+                    <DrawerContent/>
+                );
+            }}
+        >
         <View className={"flex-1 relative "}>
             <StatusBar style={"light"}/>
             <Image blurRadius={3} source={require("../assets/images/background2.png")} className={"absolute h-full w-full"}/>
             <SafeAreaView>
                 {/*Top bar*/}
                 <View className="mx-4  mt-1 flex-row  items-center">
-                    <TouchableOpacity className={"rounded-full p-1"} style={{backgroundColor:themeColors.btnColor}} >
+                    <TouchableOpacity className={"rounded-full p-1"} style={{backgroundColor:themeColors.btnColor}}
+                        onPress={() => setOpen((prevOpen) => !prevOpen)}
+                    >
                         <Bars3CenterLeftIcon size="27" color="white" />
                     </TouchableOpacity>
 
@@ -117,30 +134,8 @@ export function BabyScreen() {
                     </View>
                     <Logs/>
                 </View>
-
-                {/*Bottom Bar*/}
-                {/*<View  className={"mb-1 bg-white rounded-3xl mt-5 border border-gray-300 mx-1"}  >*/}
-                {/*    <View  className={" w-full flex-row justify-around py-2"}>*/}
-                {/*        <TouchableOpacity className={"rounded-full p-2"} style={{backgroundColor:themeColors.colornormal}}>*/}
-                {/*            <HomeIcon  size="25" color="white" />*/}
-                {/*        </TouchableOpacity>*/}
-                {/*        <TouchableOpacity className={"rounded-full p-2"}>*/}
-                {/*            <CalendarDaysIcon size="27" color="gray" />*/}
-                {/*        </TouchableOpacity>*/}
-                {/*        <TouchableOpacity className={"rounded-full p-2"} >*/}
-                {/*            <ClipboardDocumentListIcon size="27" color="gray" />*/}
-                {/*        </TouchableOpacity>*/}
-                {/*        <TouchableOpacity className={"rounded-full p-2"}>*/}
-                {/*            <PresentationChartLineIcon  size="27" color="gray" />*/}
-                {/*        </TouchableOpacity>*/}
-                {/*        <TouchableOpacity className={"rounded-full p-2"}>*/}
-                {/*            <BellIcon   size="27" color="gray" />*/}
-                {/*        </TouchableOpacity>*/}
-                {/*    </View>*/}
-                {/*</View>*/}
-
             </SafeAreaView>
         </View>
-
+        </Drawer>
     )
 }

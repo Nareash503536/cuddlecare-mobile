@@ -8,7 +8,7 @@ import {useNavigation} from "@react-navigation/native";
 import DateTimePicker from "../Form Component/DateTimePicker";
 import {getFormattedDate, getFormattedTime} from "../../util/date";
 
-export default function GrowthForm({onCancel,onSubmit}) {
+export default function GrowthForm({defaultValues,onCancel,onSubmit}){
     let navigation = useNavigation();
 
     const [inputs, setInputs] = useState({

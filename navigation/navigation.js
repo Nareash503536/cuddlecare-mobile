@@ -49,14 +49,14 @@ function AppOverview() {
         <BottomTabs.Navigator screenOptions={{
             headerShown:false,
             tabBarShowLabel:false,
-            tabBarStyle:{height:60,position:'absolute',bottom:10,borderRadius:90,marginHorizontal:5}}} >
+            tabBarStyle:{height:50,position:"absolute",bottom:-2,borderTopRightRadius:20,borderTopLeftRadius:20}}} >
 
             <Stack.Screen name="Baby" component={BabyScreen}
             options={{
                 tabBarLabel: 'Home',
                 tabBarIcon: ({focused}) => (
                     <View className={"rounded-full p-2"} style={{backgroundColor:focused? themeColors.colornormal:"white"}}>
-                        {focused? <HomeIcon size="27" color="white" />: <HomeIcon size="27" color="gray" />}
+                        {focused? <HomeIcon size="22" color="white" />: <HomeIcon size="22" color="gray" />}
                     </View>
                 ),
             }} />
