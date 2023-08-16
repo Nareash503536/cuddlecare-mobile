@@ -28,7 +28,7 @@ export function FoodList() {
                 </ScrollView>
 
             )}
-                      horizontal={true}
+                     numColumns={4}
             />
         </View>
     )

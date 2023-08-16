@@ -9,44 +9,72 @@ import DropdownComponent from "../DropdownComponent";
 
 import {COLORS} from "../../../constants/theme";
 import images from "../../../constants/images";
+import {useNavigation} from "@react-navigation/native";
+import {SolidFood} from "../SolidFood";
 
 export default function VegetablesList(){
+    let navigation = useNavigation();
     const [vegetableArray, setVegetableArray] =useState([]);
     const [modalVisible, setModalVisible] = useState(false);
 const datas = [
-            { label: 'mg', value: 'MilliGram' },
-            { label: 'g', value: 'Grams' },
-            { label: 'kg', value: 'Kilograms' },
-            { label: 'ml', value: 'Milliliters' },
-            { label: 'l', value: 'Liters' },
+            { label: 'mg', value: 'mg' },
+            { label: 'g', value: 'g' },
+            { label: 'kg', value: 'kg' },
+            { label: 'ml', value: 'ml' },
+            { label: 'l', value: 'l' },
             { label: 'cup', value: 'cup' },
 
     ];
     const [items, setitems] = useState({
-        Item: {
+
             Quantity:0,
-            Units:'',
+            Units:'mg',
             Name: '',
-        },
+            id:'',
     });
     const handleCategoryChange = (name ,value) => {
 console.log("name is here",name,"value is here",value);
-        setitems({...items,[name]:value});
+        setitems({...items,Units:value});
     }
-    const handleQuantityChange = (item,value) => {
+    const handleQuantityChange = (value) => {
+console.log(value);
+        setitems({...items,
+                Quantity:value,
 
-            setitems({...items,[Quantity]:value,[Name]:item});
+
+
+            });
+
     }
+    const handleSubmit = () => {
+
+        setVegetableArray([...vegetableArray, items]);
+        setModalVisible(!modalVisible);
+
+        console.log(vegetableArray);
+    }
+    const OnClickVegetable = (id,name) => {
+        if (vegetableArray.find(item=>item.id===id)) {
+            const updatedArray = vegetableArray.filter(vegetable=> vegetable.id !== id);
+            setVegetableArray(updatedArray);
+        }
+        else{
+            setModalVisible(!modalVisible);
+            setitems({...items,Name:name,id:id});
+        }
+    }
+
     const AddVegetable = (id) => {
-
-        if (vegetableArray.includes(id)) {
+// console.log("does it work",vegetableArray.find(item=>item.id===id));
+        if (vegetableArray.find(item=>item.id===id)) {
 
             const updatedArray = vegetableArray.filter(vegetableId => vegetableId !== id);
             setVegetableArray(updatedArray);
         } else {
 
-            setVegetableArray([...vegetableArray, id]);
+            setVegetableArray([...vegetableArray, items]);
              setModalVisible(!modalVisible);
+
         }
     }
     return(
@@ -67,7 +95,7 @@ console.log("name is here",name,"value is here",value);
                        borderRadius: 10
                    }}
                >
-                       <TouchableOpacity    className={"m-2.5 flex-col justify-center items-center"} onPress={()=>AddVegetable(item.id)} >
+                       <TouchableOpacity    className={"m-2.5 flex-col justify-center items-center"} onPress={()=>OnClickVegetable(item.id,item.name)} >
                            <Image  source={item.image}
                                    className={"w-20 h-20  rounded-full "}
                                    style={{transform:[{scale:0.8}]}}/>
@@ -75,7 +103,7 @@ console.log("name is here",name,"value is here",value);
                                {item.name}
                            </Text>
                            {
-                               vegetableArray.includes(item.id) ?
+                               vegetableArray.find(veg=>veg.id===item.id) ?
                                    <Image
                                        source={images.accept}
                                        className={"w-5 h-5 mx-auto absolute"}
@@ -88,11 +116,13 @@ console.log("name is here",name,"value is here",value);
            numColumns={4}
 
            />
-            <View className={"flex-row justify-around items-center"} style={{backgroundColor:'white',height:60}}>
+            <View className={"flex-row justify-around items-center rounded-2xl my-2"} style={{backgroundColor:'white',height:70,width:'90%',alignSelf:'center'}}>
                 <Text className={"text-xl "} style={{color:COLORS.gray}}>Total items: {vegetableArray.length}</Text>
                 <Pressable
                     style={styles.Button1}
-                    >
+                    onPress={() => navigation.navigate('Sfeeding', { vegetableArray })}
+
+                >
                     <Text   style={{color:'white',alignSelf:'center'}}>Save</Text>
                 </Pressable>
             </View>
@@ -113,7 +143,7 @@ console.log("name is here",name,"value is here",value);
                                 textInputConfig={{
                                     keyboardType: 'decimal-pad',
                                     placeholder: '0.00',
-                                     onChangeText: inputChangedHandler.bind(this, 'amount'),
+                                    onChangeText: handleQuantityChange.bind(this),
 
 
                                 }}
@@ -128,7 +158,7 @@ console.log("name is here",name,"value is here",value);
                                 </Pressable>
                                 <Pressable
                                     style={styles.Button}
-                                    onPress={() => setModalVisible(!modalVisible)}>
+                                    onPress={() => handleSubmit()}>
                                     <Text   style={{color:'white',alignSelf:'center'}}>Done</Text>
                                 </Pressable>
                             </View>
