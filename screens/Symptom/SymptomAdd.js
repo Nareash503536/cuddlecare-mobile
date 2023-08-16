@@ -7,8 +7,31 @@ import React, { createContext, useState } from "react";
 import { View } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { COLORS } from "../../constants/theme";
+import { useNavigation } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native";
+import { Image } from "react-native";
+import images from "../../constants/images";
+import { themeColors } from "../../theme";
 
 export const symptomContext = createContext();
+
+const SymptomAddButton = () => {
+
+    const navigation = useNavigation();
+
+    return (
+        <TouchableOpacity
+            className={"absolute bottom-20 right-5 shadow-2xl rounded-full p-2"}
+            style={{ backgroundColor: themeColors.btnColor, shadowColor: "#000" }}
+            onPress={() => navigation.navigate('SymptomList')}
+        >
+            <Image
+                source={images.view}
+                className="h-8 w-8"
+            />
+        </TouchableOpacity>
+    )
+}
 
 export default function SymptomAdd() {
     const [isStartDatePickerVisible, setStartDatePickerVisible] = useState(false);
@@ -40,6 +63,7 @@ export default function SymptomAdd() {
                             <SelectDateTime />
                             <SymptomContainerWrap />
                         </ScrollView>
+                        <SymptomAddButton />
                     </SafeAreaView>
 
             }

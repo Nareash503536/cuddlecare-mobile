@@ -16,6 +16,7 @@ export default function SymptomContainer() {
     const [symptomArray, setSymptomArray] = useState(Array(11).fill(false))
     const [showModal, setShowModal] = useState(false);
     const { updateKeys } = useContext(AuthContext);
+    const navigation = useNavigation();
 
     const {
         startTime,
@@ -98,8 +99,8 @@ export default function SymptomContainer() {
                             </HStack>
                             <HStack alignItems="center" justifyContent="space-between">
                                 <Text fontWeight="medium">Time of check</Text>
-                            </HStack>
                                 <Text color="blueGray.400">{startTime}</Text>
+                            </HStack>
                         </VStack>
                         <FormControl>
                             <FormControl.Label>Additional notes</FormControl.Label>
