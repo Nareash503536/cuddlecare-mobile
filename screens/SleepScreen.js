@@ -99,7 +99,7 @@ export function SleepScreen() {
 
             const sleepEndTime = new Date(response.data.sleepEndTime);
             const currentTime = new Date();
-            const timeDifferenceInMillis = sleepEndTime - currentTime;
+            const timeDifferenceInMillis = currentTime - sleepEndTime;
             const timeDifferenceInHours = timeDifferenceInMillis / (1000 * 60 * 60);
             const timeDifferenceRounded = Math.round(timeDifferenceInHours);
             const timeDifference = () => {

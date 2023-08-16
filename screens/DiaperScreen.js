@@ -74,6 +74,31 @@ export function DiaperScreen(){
         }
     };
 
+    const [selectedColor, setSelectedColor] = useState('#FF5733');
+    const predefinedColors = ['#000000', '#DAE8F1', '#43DD0D', '#FAF809', '#FA1F09', '#925237'];
+
+    const handleColorSelect = (color) => {
+        setSelectedColor(color);
+    };
+
+    const ColorSelection = ({ colors, selectedColor, onSelect }) => {
+        return (
+            <View style={styles.colorContainer}>
+                {colors.map((color, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        onPress={() => onSelect(color)}
+                        style={[
+                            styles.colorCircle,
+                            { backgroundColor: color, borderColor: selectedColor === color ? '#91C9CE' : 'transparent' },
+                        ]}
+                    />
+                ))}
+            </View>
+        );
+    };
+
+
     return(
         <SafeAreaView>
             <View>
@@ -117,7 +142,8 @@ export function DiaperScreen(){
                         value={note}
                         onChangeText={text => setNote(text)}
                     />
-                    <View className={"flex flex-row m-5 mt-8"}>
+                    <Text className={"text-center py-2"}>What's in the Diaper</Text>
+                    <View className={"flex flex-row m-5 mt-4"}>
                         <View className={"flex-1 mx-5"}>
                             <Pressable onPress={toggleCheckboxPee}>
                                 {isCheckedPee ? (
@@ -145,9 +171,47 @@ export function DiaperScreen(){
                             </Pressable>
                         </View>
                     </View>
+                    {isCheckedPoo && (
+                        <View className>
+                            <Text className={"text-center"}>Style the poo (optional) :</Text>
+                            <ColorSelection colors={predefinedColors} selectedColor={selectedColor} onSelect={handleColorSelect} />
+                        </View>
+                    )}
                     <FilledButton title={"Save"} icon={"save"}/>
                 </View>
             </View>
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    colorPreview: {
+        width: 50,
+        height: 50,
+        marginTop: 10,
+    },
+    selectedColorText: {
+        marginTop: 10,
+        fontSize: 16,
+    },
+    colorContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    colorCircle: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        borderWidth: 3,
+        borderColor: '',
+        marginHorizontal: 10,
+    },
+});
