@@ -16,6 +16,7 @@ export default function SymptomContainer() {
     const [symptomArray, setSymptomArray] = useState(Array(11).fill(false))
     const [showModal, setShowModal] = useState(false);
     const { updateKeys } = useContext(AuthContext);
+    const navigation = useNavigation();
 
     const {
         startTime,
@@ -28,16 +29,16 @@ export default function SymptomContainer() {
     const handleSaveSymptom = () => {
         setShowModal(true);
         //for loop symptom Array
-        for (let i = 0; i < symptomArray.length; i++) {
-            SymptomData.push(
-                {
-                    date: { startDate },
-                    time: { startTime },
-                    //get respective symptom from SymptomSet
-                    symptom: {symptom: SymptomSet[i].image}
-                }
-            )
-        }
+        // for (let i = 0; i < symptomArray.length; i++) {
+        //     SymptomData.push(
+        //         {
+        //             date: { startDate },
+        //             time: { startTime },
+        //             //get respective symptom from SymptomSet
+        //             symptom: {symptom: SymptomSet[i].image}
+        //         }
+        //     )
+        // }
     }
 
     const saveSymptoms = async (date, time, additionalNotes, babyID) => {
@@ -79,6 +80,7 @@ export default function SymptomContainer() {
         setIsLoading(false);
         setStartDate("");
         setStartTime("");
+        navigation.navigate("SymptomListScreen");
     }
 
     const Example = () => {

@@ -28,6 +28,7 @@ import vomiting from "../assets/images/BabySymptoms/vomiting.png";
 import accept from "../assets/images/accept.png";
 import time from "../assets/images/time.png";
 import calendarInSymptoms from "../assets/images/calendarInSymptoms.png";
+import view from "../assets/images/view.png";
 
 
 export default {logo, 
@@ -57,5 +58,6 @@ export default {logo,
                 vomiting,
                 accept,
                 time,
-                calendarInSymptoms
+                calendarInSymptoms,
+                view
             };

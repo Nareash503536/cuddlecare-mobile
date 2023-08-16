@@ -5,7 +5,7 @@ import SymptomContainer from "../../components/Symptom/SymptomListScreen/Symptom
 import { PlusSmallIcon } from "react-native-heroicons/solid";
 import { themeColors } from "../../theme";
 import { useNavigation } from "@react-navigation/native";
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, RefreshControl } from 'react-native';
 import { SymptomCalendar } from '../../components/Symptom/SymptomListScreen/SymptomCalendar';
 import { COLORS } from '../../constants/theme';
 import { ActivityIndicator } from 'react-native';
@@ -41,7 +41,18 @@ export const SymptomList = () => {
                     <ActivityIndicator size="large" color={COLORS.primary} />
                 </View> :
                 <SafeAreaView>
-                    <ScrollView>
+                    <ScrollView
+                        refreshControl = {
+                            <RefreshControl
+                                refreshing={isLoading}
+                                onRefresh={() => {
+                                    setLoading(true);
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 2000);
+                                }}
+                            />
+                        }>
                         <SymptomHeader />
                         <SymptomContainer />
                         <SymptomCalendar />

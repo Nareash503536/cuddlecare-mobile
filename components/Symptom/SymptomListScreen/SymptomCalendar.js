@@ -105,7 +105,7 @@ export function SymptomCalendar() {
                                 todayTextColor: '#fff',
                                 todayBackgroundColor: '#91C9CE',
                                 arrowColor: '#91C9CE',
-                                selectedDayBackgroundColor: '#00adf5',
+                                selectedDayBackgroundColor: '#BADEE3',
                                 selectedDayTextColor: '#ffffff'
                             }}
                         />
