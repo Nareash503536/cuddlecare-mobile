@@ -43,6 +43,8 @@ import SolidFoodsHeader from "../components/Feeding/SolidFoodsListScreen/SolidFo
 import {SymptomList} from "../screens/Symptom/SymptomList";
 import SymptomAdd from "../screens/Symptom/SymptomAdd";
 
+import SymptomTimelineScreen from  "../screens/Symptom/SymptomTimelineScreen";
+
 const BottomTabs = createBottomTabNavigator();
 
 function AppOverview() {
@@ -114,6 +116,8 @@ export function Navigation() {
                 <Stack.Screen name="SleepChart" component={SleepBarChart}/>
 
                 <Stack.Screen name="DiaperScreen" component={DiaperScreen} />
+                <Stack.Screen name="SymptomTimelineScreen" component={SymptomTimelineScreen} />
+                
             </Stack.Navigator>
         </NavigationContainer>
     )

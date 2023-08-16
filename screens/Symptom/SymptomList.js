@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { createContext, useState } from 'react';
 import { SafeAreaView, TouchableOpacity, Text } from 'react-native';
 import SymptomHeader from "../../components/Symptom/SymptomListScreen/SymptomHeader";
 import SymptomContainer from "../../components/Symptom/SymptomListScreen/SymptomContainer";
@@ -6,8 +6,9 @@ import { PlusSmallIcon } from "react-native-heroicons/solid";
 import { themeColors } from "../../theme";
 import { useNavigation } from "@react-navigation/native";
 import { View, ScrollView } from 'react-native';
-import { SymptomTimeline } from '../../components/Symptom/SymptomListScreen/SymptomTimeline';
 import { SymptomCalendar } from '../../components/Symptom/SymptomListScreen/SymptomCalendar';
+import { COLORS } from '../../constants/theme';
+import { ActivityIndicator } from 'react-native';
 
 const SymptomAddButton = () => {
 
@@ -24,17 +25,30 @@ const SymptomAddButton = () => {
     )
 }
 
-export const SymptomList = () => {
-    return (
-        <SafeAreaView>
-            <ScrollView>
-                <SymptomHeader />
-                <SymptomContainer />
-                {/* <SymptomTimeline /> */}
-                <SymptomCalendar/>
-            </ScrollView>
-            <SymptomAddButton />
 
-        </SafeAreaView>
+export const SymptomListContext = createContext();
+
+export const SymptomList = () => {
+    const [isLoading, setLoading] = useState(false);
+
+    return (
+        <SymptomListContext.Provider value={{
+            setLoading
+        }}>
+            {isLoading ? 
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                    {/* <LottieView source={animation.Spinner} autoPlay loop /> */}
+                    <ActivityIndicator size="large" color={COLORS.primary} />
+                </View> :
+                <SafeAreaView>
+                    <ScrollView>
+                        <SymptomHeader />
+                        <SymptomContainer />
+                        <SymptomCalendar />
+                    </ScrollView>
+                    <SymptomAddButton />
+                </SafeAreaView>
+            }
+        </SymptomListContext.Provider>
     )
 }
