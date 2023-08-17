@@ -91,10 +91,10 @@ export function BabyScreen() {
 
                 {/*feature carousel*/}
                 <View  className={" mt-1 "}>
-                    <Button
-                        title="Logout"
-                        onPress={logout}
-                    />
+                    {/*<Button*/}
+                    {/*    title="Logout"*/}
+                    {/*    onPress={logout}*/}
+                    {/*/>*/}
                     <View className={"my-2"}>
                         <RemindersButton/>
                     </View>

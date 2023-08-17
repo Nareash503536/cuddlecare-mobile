@@ -17,7 +17,7 @@ export function FoodList() {
                     }}
                 >
                     <TouchableOpacity onPress={()=>navigation.navigate('SolidFoodTab', { screen: item.name })}>
-                        <Image  source={images[item.image]}
+                        <Image  source={item.image}
                                 className={"w-20 h-20 mx-auto"}
                                 style={{transform:[{scale:0.6}]}}
                         />
@@ -28,6 +28,7 @@ export function FoodList() {
                 </ScrollView>
 
             )}
+                      // horizontal={true}
                      numColumns={4}
             />
         </View>
