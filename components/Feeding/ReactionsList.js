@@ -24,7 +24,7 @@ export  function ReactionsList() {
             <FlatList  data={ReactionsListSet}  keyExtractor={(item) => item.id} renderItem={({item})=> (
 
                     <TouchableOpacity    className={"m-1"} onPress={()=>getReactions(item.id)} >
-                        <Image  source={images[item.image]}
+                        <Image  source={item.image}
                                 className={"w-20 h-20"}
                                 style={{transform:[{scale:0.8}]}}/>
                         <Text className="text-center">
