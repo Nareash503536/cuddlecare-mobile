@@ -20,7 +20,7 @@ import DropdownComponent from "../components/Expense/DropdownComponent";
 import axios from "axios";
 import {BASE_URL} from "../config";
 export function ExpenseScreen (){
-    // const {updateKeys} = useContext(AuthContext);
+    const {updateKeys} = useContext(AuthContext);
     let navigation = useNavigation();
     const [expenseDetails, setexpenseDetails] = useState(null);
     const[budgetDetails, setbudgetDetails] = useState(null);
