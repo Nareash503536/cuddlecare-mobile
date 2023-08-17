@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {TouchableOpacity, View, Text, StyleSheet, Image, Pressable} from "react-native";
+import {TouchableOpacity, View, Text, StyleSheet, Image, Pressable, TouchableHighlight} from "react-native";
 import {themeColors} from "../../theme";
 import {ArrowUpIcon, CalendarDaysIcon, CheckIcon, ClockIcon} from "react-native-heroicons/solid";
 import {dateDiff,getDateenUSFormat} from "../../util/date";
@@ -87,12 +87,10 @@ export default function  CompletedMilestone({ id,milestone,description,date}) {
     };
     // if(status){
     return (
-        <TouchableHighlight
+        <Pressable
             onPress={()=> setShowModal(true)}
             className={"pt-3"}>
-
             <View className={"flex-row rounded-xl p-3 shadow-2xl  mx-2 space-x-3"} style={{backgroundColor:"white",shadowColor: "#000"}}>
-
                 <View className={"flex justify-center flex-1"}>
                     <View><Text className={" text-gray-500  font-semibold"} style={{color:"gray"}}>{milestone}</Text></View>
 
@@ -105,10 +103,9 @@ export default function  CompletedMilestone({ id,milestone,description,date}) {
                         <Text className={"text-gray-500"} style={{color:"gray"}}>{getDateenUSFormat(date)}</Text>
                     </View>
                 </View>
-
+                <DataModal/>
             </View>
-            <DataModal/>
-        </TouchableHighlight>
+        </Pressable>
     )
 }
 

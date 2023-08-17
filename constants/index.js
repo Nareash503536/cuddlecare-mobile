@@ -84,7 +84,7 @@ export const mainFeatures = [
 
     {
         name: 'Milestones',
-        image: require('../assets/images/syringe.png'),
+        image: require('../assets/images/milestones.png'),
         location: 'Milestones',
     },
 ]

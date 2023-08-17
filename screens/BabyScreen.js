@@ -25,9 +25,6 @@ export function BabyScreen() {
     let navigation = useNavigation();
     const [open, setOpen] = React.useState(false);
 
-
-    // const { logout } = useContext(AuthContext);
-
     return (
         <Drawer
             open={open}
@@ -91,10 +88,6 @@ export function BabyScreen() {
 
                 {/*feature carousel*/}
                 <View  className={" mt-1 "}>
-                    {/*<Button*/}
-                    {/*    title="Logout"*/}
-                    {/*    onPress={logout}*/}
-                    {/*/>*/}
                     <View className={"my-2"}>
                         <RemindersButton/>
                     </View>

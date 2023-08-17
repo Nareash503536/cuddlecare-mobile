@@ -17,18 +17,13 @@ export function DateTimePicker ({inputHandler,name,mode,value,lable,invalid,mind
     };
 
     const handleConfirm = (data) => {
-
         if(mode =="time"){
-
             setDateTimePicker(getFormattedTime(data))
             inputHandler(name,data);
-
         }else
         {
-
             setDateTimePicker(getFormattedDate(data))
             inputHandler(name,data);
-
         }
         hideDatePicker();
     };

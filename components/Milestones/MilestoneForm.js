@@ -75,8 +75,7 @@ const formIsValid =
     !inputs.description.isValid;
 
     return (
-        <ScrollView >
-
+        <ScrollView>
             <View className={"flex-1 pb-2 pl-8"}>
                 <View>
                     <Text style={{color: themeColors.colorDark}}>Event Image</Text>
@@ -85,7 +84,6 @@ const formIsValid =
                     <Image className={'w-20 h-20'} source={require('../../assets/images/imagePicker.png')}/>
                 </View>
             </View>
-
             <Input
                 label="Milestone"
                 invalid ={!inputs.milestone.isValid}
@@ -115,12 +113,9 @@ const formIsValid =
                 inputHandler={inputChangedHandler}
                 maxdate={new Date()}
             />
-
-
             {formIsValid &&
             <Text className={"text-center text-red-500 my-2"}
             >Invalid input value - please check your entered data!</Text>}
-
             <View style={styles.buttons} className={"mt-2"}>
                 <Button style={styles.button} mode="flat" onPress={onCancel}>
                     Cancel
@@ -129,7 +124,6 @@ const formIsValid =
                     {'Add'} {/*{isEditing ? 'Update' : 'Add'}*/}
                 </Button>
             </View>
-
         </ScrollView>
     );
 }

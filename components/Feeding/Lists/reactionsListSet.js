@@ -2,6 +2,7 @@ import allergic from "../../../assets/images/Food/allergic.png";
 import liked_it from "../../../assets/images/Food/liked_it.png";
 import loved_it from "../../../assets/images/Food/loved_it.png";
 import hated_it from "../../../assets/images/Food/hated_it.png";
+
 export const ReactionsListSet = [{
     id: 1,
     name: "allergic",

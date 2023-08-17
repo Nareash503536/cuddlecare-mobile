@@ -9,9 +9,12 @@ import {
     UserIcon
 } from "react-native-heroicons/outline";
 import BabyProfile from "./BabyProfile";
+import {useContext} from "react";
+import {AuthContext} from "../../Context/AuthContext";
 
- const deviceWidth = Dimensions.get("window").width;
+const deviceWidth = Dimensions.get("window").width;
 export default function DrawerContent (){
+    const { logout } = useContext(AuthContext);
     return (
         <SafeAreaView className={"flex flex-1"} style={{backgroundColor:"white"}}>
             <View className={"mt-5 flex-row space-x-3 items-center"} style={{paddingLeft:deviceWidth*0.04}}>
@@ -85,7 +88,7 @@ export default function DrawerContent (){
                         <Text className=" flex-1" style={{color:"gray",fontSize:16}}>Settings</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={logout}>
                     <View className={"flex-row px-2 py-2 space-x-3 "}>
                         <ArrowRightOnRectangleIcon className="h-8 w-8" color={"gray"}/>
                         <Text className=" flex-1" style={{color:"gray",fontSize:16}}>Log out</Text>

@@ -51,7 +51,7 @@ export function BabyForm() {
 
     return (
         <>
-            <KeyboardAvoidingView style={{ flex: 1 }} behavior={"position"}>
+            {/*<KeyboardAvoidingView style={{ flex: 1 }} behavior={"position"}>*/}
                 <View>
                     <Text className={"text-center text-3xl font-bold"}>
                         Registration
@@ -146,13 +146,13 @@ export function BabyForm() {
                     disabled={BabyInfo.BabyName === "" ||
                         BabyInfo.BabyGender === "" ||
                         BabyInfo.BabyRelationship === "" ||
-                        BabyInfo.BabyDOB === "" ? true : false}
+                        BabyInfo.BabyDOB === ""}
                 >
                     <Text className="text-white">
                         Next
                     </Text>
                 </TouchableOpacity>
-            </KeyboardAvoidingView>
+            {/*</KeyboardAvoidingView>*/}
         </>
     )
 }

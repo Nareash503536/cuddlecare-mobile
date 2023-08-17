@@ -53,24 +53,25 @@ export default function MilestoneManageScreen({route}) {
 
     return (
         <SafeAreaView>
-            <View className={"flex-row justify-center my-5"}>
-                <Text className={"flex-row justify-center text-2xl text-gray-500"}
-                      style={styles.title}
-                >Complete Milestone</Text>
+            <View>
+                <View className={"flex-row justify-center my-5"}>
+                    <Text className={"flex-row justify-center text-2xl text-gray-500"}
+                          style={styles.title}
+                    >Complete Milestone</Text>
+                </View>
+                <MilestoneForm
+                    milestone={milestone}
+                    onCancel={cancelHandler}
+                    onSubmit={confirmHandler}
+                />
+                <TouchableOpacity
+                    className={"absolute top-12 left-5 rounded-full p-1"}
+                    style={{backgroundColor:themeColors.colorDark}}
+                    onPress={() => navigation.goBack()}
+                >
+                    <ArrowLeftIcon size="22" color="white"  />
+                </TouchableOpacity>
             </View>
-            <MilestoneForm
-                milestone={milestone}
-                onCancel={cancelHandler}
-                onSubmit={confirmHandler}
-            />
-            <TouchableOpacity
-                className={"absolute top-12 left-5 rounded-full p-1"}
-                style={{backgroundColor:themeColors.colorDark}}
-                onPress={() => navigation.goBack()}
-            >
-                <ArrowLeftIcon size="22" color="white"  />
-            </TouchableOpacity>
-
         </SafeAreaView>
     )
 }

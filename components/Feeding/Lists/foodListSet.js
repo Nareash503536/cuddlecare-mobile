@@ -5,10 +5,7 @@ import grains from "../../../assets/images/Food/grains.png";
 import vegetable from "../../../assets/images/Food/vegetable.png"
 import dairyproducts from "../../../assets/images/Food/dairy-products.png";
 import meat from "../../../assets/images/Food/meat.png";
-
 import drinks from "../../../assets/images/Food/drinks.png";
-
-
 
 export const FoodListSet = [{
     id: 1,
@@ -28,15 +25,15 @@ export const FoodListSet = [{
     image: puree
 }, {
     id: 5,
-    name: "dairyproducts",
+    name: "Dairy Products",
     image: dairyproducts
 },{
     id: 6,
-    name: "meat",
+    name: "Meat",
     image: meat
 }, {
     id: 7,
-    name: "drinks",
+    name: "Drinks",
     image: drinks
 }, {
     id: 8,

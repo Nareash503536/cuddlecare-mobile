@@ -113,8 +113,6 @@ export default function ExpenseForm() {
     }
     function inputChangedHandler(inputIdentifier, enteredValue)
     {
-        console.log("input change handler",inputIdentifier,enteredValue);
-
         setInputs((curinputs) => {
             return {
                 ...curinputs,
@@ -196,10 +194,9 @@ export default function ExpenseForm() {
                 <DateTimePicker
                     mode='Date'
                     lable={"Pick a Date"}
-                    name='date'
                     value={Editdata?getFormattedDate(new Date(Editdata.date)).toString():getFormattedDate(new Date())}
                     inputHandler={inputChangedHandler}
-
+                    name='date'
                 />
                 <Input
                     label="Notes"

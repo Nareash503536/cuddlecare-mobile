@@ -57,7 +57,7 @@ export default function MilestonesListScreen() {
     ]);
 
     return (
-        <>
+        <View>
             <TabView
                 navigationState={{ index, routes }}
                 renderScene={renderScene}
@@ -80,6 +80,6 @@ export default function MilestonesListScreen() {
             >
                 <ClipboardDocumentListIcon size="40" color="white"  />
             </TouchableOpacity>
-        </>
+        </View>
     );
 }
