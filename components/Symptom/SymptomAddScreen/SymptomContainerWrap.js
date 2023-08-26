@@ -28,18 +28,6 @@ export default function SymptomContainer() {
 
     const handleSaveSymptom = () => {
         setShowModal(true);
-        //for loop symptom Array
-        console.log(startTime);
-        // for (let i = 0; i < symptomArray.length; i++) {
-        //     SymptomData.push(
-        //         {
-        //             date: { startDate },
-        //             time: { startTime },
-        //             //get respective symptom from SymptomSet
-        //             symptom: {symptom: SymptomSet[i].image}
-        //         }
-        //     )
-        // }
     }
 
     const saveSymptoms = async (date, time, additionalNotes, babyID) => {
@@ -104,7 +92,7 @@ export default function SymptomContainer() {
                         </VStack>
                         <FormControl>
                             <FormControl.Label>Additional notes</FormControl.Label>
-                            <Input value={additionalNotes} onChangeText={handleText} />
+                            <Input value={additionalNotes} onChangeText={handleText} isRequired={true}/>
                         </FormControl>
                     </Modal.Body>
                     <Modal.Footer>

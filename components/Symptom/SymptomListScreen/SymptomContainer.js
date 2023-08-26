@@ -101,7 +101,7 @@ export default function SymptomContainer() {
                         </VStack>
                         <FormControl>
                             <FormControl.Label>Additional notes</FormControl.Label>
-                            <Input value={additionalNotes} onChangeText={handleText}/>
+                            <Input value={additionalNotes} onChangeText={handleText} isRequired={true} />
                         </FormControl>
                     </Modal.Body>
                     <Modal.Footer>
@@ -199,7 +199,7 @@ export default function SymptomContainer() {
                 name="Save"
                 onPress={() => setShowModal(true)}
             >
-                <Text className="text-white font-extrabold text-lg">
+                <Text className="text-white font-extrabold text-lg" style={{color: "#fff"}}>
                     Save
                 </Text>
             </TouchableOpacity>

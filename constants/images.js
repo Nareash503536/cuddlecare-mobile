@@ -29,6 +29,7 @@ import accept from "../assets/images/accept.png";
 import time from "../assets/images/time.png";
 import calendarInSymptoms from "../assets/images/calendarInSymptoms.png";
 import view from "../assets/images/view.png";
+import NoSymptomsFound from "../assets/images/NoSymptomsFound.png";
 
 
 export default {logo, 
@@ -59,5 +60,6 @@ export default {logo,
                 accept,
                 time,
                 calendarInSymptoms,
-                view
+                view,
+                NoSymptomsFound
             };

@@ -19,7 +19,7 @@ export function SymptomCalendar() {
             try {
                 // Assuming updateKeys and SymptomsAPI().getSymptoms are both async functions
                 await updateKeys();
-                const symptomDates = await SymptomsAPI().getSymptoms(1);
+                const symptomDates = await SymptomsAPI().getSymptomDates(1);
                 setMarkedDatesSymptoms(symptomDates);
             } catch (error) {
                 // Handle errors if needed
@@ -47,11 +47,6 @@ export function SymptomCalendar() {
         setMarkedDates(prevMarkedDates => ({ ...prevMarkedDates, ...updatedDates }));
     }, [markedDatesSymptoms]);
 
-    useEffect(
-        () => {
-            console.log(markedDates);
-        }, [markedDates]);
-
     const [selected, setSelected] = useState('');
     const date = new Date();
     const currentDate = date.toISOString().slice(0, 10);
@@ -61,10 +56,10 @@ export function SymptomCalendar() {
         <>
             {
                 isLoading ?
-                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                {/* <LottieView source={animation.Spinner} autoPlay loop /> */}
-                <ActivityIndicator size="large" color={COLORS.primary} />
-            </View> :
+                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                        {/* <LottieView source={animation.Spinner} autoPlay loop /> */}
+                        <ActivityIndicator size="large" color={COLORS.primary} />
+                    </View> :
                     <View
                         style={{
                             backgroundColor: "#fff",
@@ -97,7 +92,6 @@ export function SymptomCalendar() {
                             }}
                             current={currentDate}
                             onDayPress={day => {
-                                console.log(day.dateString);
                                 Navigation.navigate("SymptomTimelineScreen", { date: day.dateString });
                             }}
                             markedDates={markedDates}
@@ -112,6 +106,6 @@ export function SymptomCalendar() {
                     </View>
             }
         </>
-        
+
     )
 }
