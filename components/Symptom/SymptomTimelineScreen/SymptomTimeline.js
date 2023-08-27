@@ -57,10 +57,6 @@ export const SymptomTimeline = () => {
         }
     }
 
-    useEffect(() => {
-        console.log(symptomData);
-    }, [symptomData]);
-
     const HandleEditSymptomBaby = () => {
         const [isTimePickerVisible, setTimePickerVisible] = useState(false);
 
@@ -281,13 +277,15 @@ export const SymptomTimeline = () => {
                                 </SafeAreaView>
                                 :
                                 <SafeAreaView>
-                                    <ScrollView className={"h-3/4"}
+                                    <ScrollView 
+                                        nestedScrollEnabled={true}
                                         style={{
                                             backgroundColor: "#fff",
                                             shadowColor: '#000',
                                             elevation: 20,
                                             borderRadius: 10,
-                                            marginHorizontal: 20
+                                            margin: 20,
+                                            height: 350
                                         }}
                                         refreshControl={
                                             <RefreshControl

@@ -41,7 +41,6 @@ export default function SelectDateTime() {
 
     const handleStartTimeConfirm = (time) => {
         let inputTime = time.toISOString().slice(11, 16);
-        //convert time to digital clock
         let hour = parseInt(inputTime.slice(0, 2));
         let minute = inputTime.slice(3, 5);
         if (hour > 12) {
@@ -102,6 +101,7 @@ export default function SelectDateTime() {
                 onConfirm={handleStartTimeConfirm}
                 onCancel={hideStartTimePicker}
                 timeZoneOffsetInMinutes={0}
+                maximumDate={new Date(Date.now() - 86400000)}
             />
         </View>
     )

@@ -61,6 +61,8 @@ export default function SymptomContainer() {
     const Example = () => {
         const [additionalNotes, setAdditionalNotes] = useState("");
         const date = new Date();
+        date.setHours(date.getHours() + 5);
+        date.setMinutes(date.getMinutes() + 30);
         let inputTime = date.toISOString().slice(11, 16);
         let hour = parseInt(inputTime.slice(0, 2));
         let minute = inputTime.slice(3, 5);

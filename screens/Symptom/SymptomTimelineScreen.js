@@ -1,8 +1,9 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, ActivityIndicator, View, TouchableOpacity } from 'react-native';
+import { ScrollView, ActivityIndicator, View, TouchableOpacity, Text } from 'react-native';
 import React, { createContext, useState } from "react";
 import SymptomHeader from "../../components/Symptom/SymptomListScreen/SymptomHeader";
-import { SymptomTimeline } from '../../components/Symptom/SymptomListScreen/SymptomTimeline';
+import { SymptomTimeline } from '../../components/Symptom/SymptomTimelineScreen/SymptomTimeline';
+import { SymptomPlot } from '../../components/Symptom/SymptomTimelineScreen/SymptomPlot';
 import { COLORS } from "../../constants/theme";
 import { useNavigation } from "@react-navigation/native";
 import images from "../../constants/images";
@@ -45,18 +46,19 @@ export default function SymptomTimelineScreen() {
                     </View > :
                     <SafeAreaView>
 
-                        <SymptomHeader />
-                        <View>
+                        <ScrollView>
                             <timelineContext.Provider
                                 value={{
                                     setIsLoading,
                                     isLoading
                                 }}
                             >
+                                <SymptomHeader />
                                 <SymptomTimeline />
+                                <SymptomPlot/>
                             </timelineContext.Provider>
-                        </View>
-                        {/* <SymptomAddButton /> */}
+                        </ScrollView>
+                        <SymptomAddButton />
                     </SafeAreaView>
             }
         </>

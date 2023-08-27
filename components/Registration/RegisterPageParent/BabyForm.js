@@ -98,6 +98,7 @@ export function BabyForm() {
                                 onConfirm={handleConfirm}
                                 onCancel={hideDatePicker}
                                 maximumDate={new Date(Date.now() - 86400000)}
+                                minimumDate={new Date(Date.now() - 157788000000)}
                             />
 
                             <Dropdown

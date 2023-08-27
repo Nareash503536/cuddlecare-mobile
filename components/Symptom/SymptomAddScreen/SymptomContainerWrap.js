@@ -46,6 +46,20 @@ export default function SymptomContainer() {
             })
             return;
         }
+        //Only allow past srilankan time
+        let now = new Date();
+        let nowSriLankan = new Date(now.getTime() + (330 * 60 * 1000));
+        let nowSriLankanString = nowSriLankan.toISOString();
+        let nowSriLankanDate = nowSriLankanString.split("T")[0];
+        let nowSriLankanTime = nowSriLankanString.split("T")[1].split(".")[0];
+        if (date > nowSriLankanDate || (date === nowSriLankanDate && time > nowSriLankanTime)) {
+            Toast.show({
+                type: "error",
+                text1: "Invalid date/time",
+                text2: "Future date/time is not allowed. Please select a past date/time.",
+            })
+            return;
+        }
         setIsLoading(true);
         await updateKeys();
         let response = await SymptomsAPI().addSymptoms(
@@ -181,7 +195,7 @@ export default function SymptomContainer() {
                     startTime === "" ? true : false
                 }
             >
-                <Text className="text-white font-extrabold text-lg">
+                <Text className="text-white font-extrabold text-lg" style={{ color: "#fff" }}>
                     Save
                 </Text>
             </TouchableOpacity>
