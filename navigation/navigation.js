@@ -28,19 +28,22 @@ import ExpenseBarGraph from "../components/Expense/ExpenseBarGraph";
 import GrowthChartScreen from "../screens/GrowthDetailsScreens/GrowthChartScreen";
 import {CommunityScreen} from "../screens/CommunityScreen";
 import {themeColors} from "../theme";
-import {CalendarDaysIcon, HomeIcon} from "react-native-heroicons/outline";
+import { CalendarDaysIcon, HomeIcon, UserCircleIcon } from "react-native-heroicons/outline";
 import {StyleSheet, View} from "react-native";
 import {BreastFeeding} from "../components/Feeding/BreastFeeding";
 import {SolidFood} from "../components/Feeding/SolidFood";
 
-import {SymptomList} from "../screens/Symptom/SymptomList";
-import SymptomAdd from "../screens/Symptom/SymptomAdd";
 import MilestonesScreen from "../screens/MilestonesScreen";
 import MilestonesListScreen from "../screens/MilestonesScreens/MilestonesListScreen";
 import MilestoneManageScreen from "../screens/MilestonesScreens/MilestoneManageScreen";
 import SolidFoodsHeader from "../components/Feeding/SolidFoodsListScreen/SolidFoodsHeader";
 
 import SymptomTimelineScreen from  "../screens/Symptom/SymptomTimelineScreen";
+import { SymptomList } from "../screens/Symptom/SymptomList";
+import SymptomAdd from "../screens/Symptom/SymptomAdd";
+
+import Profile from "../screens/UserProfile/Profile";
+import EditProfile from "../screens/UserProfile/EditProfile";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -68,6 +71,15 @@ function AppOverview() {
                         {focused? <CalendarDaysIcon size="27" color="white" />: <CalendarDaysIcon size="27" color="gray" />}
                     </View>
                 ),}}/>
+                
+            <Stack.Screen name="Profile" component={Profile} options={{
+                tabBarLabel: 'Profile',
+                tabBarIcon: ({ focused }) => (
+                    <View className={"rounded-full p-2"} style={{ backgroundColor: focused ? themeColors.colornormal : "white" }}>
+                        {focused ? <UserCircleIcon size="27" color="white" /> : <UserCircleIcon size="27" color="gray" />}
+                    </View>
+                ),
+            }} />
         </BottomTabs.Navigator>
     );
 }
@@ -101,10 +113,12 @@ export function Navigation() {
                 <Stack.Screen name="ExpenseTab" component= {ExpenseTabs} />
                 <Stack.Screen name="ExpenseForm" component={ExpenseForm} />
                 <Stack.Screen name="ExpenseChart" component={ExpenseBarGraph} />
-                {/*<Stack.Screen name="SymptomList" component={SymptomList} />*/}
+
                 <Stack.Screen name="SymptomList" component={SymptomList} />
                 <Stack.Screen name="SymptomAdd" component={SymptomAdd} />
 
+                <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name="EditProfile" component={EditProfile} />
 
                 <Stack.Screen name="Sleeping" component={SleepScreen} />
                 <Stack.Screen name="Time" component={TimeScreen} />

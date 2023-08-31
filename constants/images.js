@@ -31,6 +31,8 @@ import calendarInSymptoms from "../assets/images/calendarInSymptoms.png";
 import view from "../assets/images/view.png";
 import NoSymptomsFound from "../assets/images/NoSymptomsFound.png";
 
+import UserImage from "../assets/images/TestImages/user1.jpg";
+
 
 export default {logo, 
                 appName, 
@@ -61,5 +63,6 @@ export default {logo,
                 time,
                 calendarInSymptoms,
                 view,
-                NoSymptomsFound
+                NoSymptomsFound,
+                UserImage
             };
