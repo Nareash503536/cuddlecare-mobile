@@ -32,7 +32,9 @@ import view from "../assets/images/view.png";
 import NoSymptomsFound from "../assets/images/NoSymptomsFound.png";
 
 import UserImage from "../assets/images/TestImages/user1.jpg";
-
+import Profile from "../assets/images/profile.png";
+import EditImage from "../assets/images/EditImage.png"
+import AddImage from "../assets/images/AddImage.jpg"
 
 export default {logo, 
                 appName, 
@@ -64,5 +66,8 @@ export default {logo,
                 calendarInSymptoms,
                 view,
                 NoSymptomsFound,
-                UserImage
+                UserImage,
+                Profile,
+                EditImage,
+                AddImage
             };

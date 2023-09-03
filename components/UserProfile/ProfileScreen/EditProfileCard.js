@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { ArrowLongRightIcon } from 'react-native-heroicons/outline';
-import { COLORS } from "../../constants/theme";
+import { COLORS } from "../../../constants/theme";
 import { useNavigation } from '@react-navigation/core';
 
 export default function EditProfileCard() {
@@ -13,19 +13,20 @@ export default function EditProfileCard() {
             className={"flex-row justify-around items-center"}
             style={{
                 backgroundColor: "#fff",
-                borderRadius: 20,
+                borderRadius: 10,
                 shadowColor: '#000',
+                padding: 10,
                 elevation: 20,
-                height: 100,
                 marginHorizontal: 20,
                 marginBottom: 20,
+                backgroundColor: COLORS.primary
             }}
             onPress={() => navigation.navigate("EditProfile")}
         >
-            <Text className={"text-xl font-extrabold"}>
+            <Text className={"text-xl pr-5 font-bold"} style={{color:"#fff"}}>
                 Edit Profile
             </Text>
-            <ArrowLongRightIcon size="40" color={COLORS.secondary}/>
+            <ArrowLongRightIcon size="20" color="white"/>
         </TouchableOpacity>
     )
 }

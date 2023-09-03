@@ -3,14 +3,65 @@ import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 import { BASE_URL } from "../config";
 import Token_Helper from "../helpers/Token_Helper";
+import UpdateProfileAPI from "../Api/UpdateProfileAPI";
 
 const ACCESS_KEY = "token";
 const REFRESH_KEY = "refreshToken";
+const USER = "user";
+const BABY = "baby";
 export const API_URL = BASE_URL + '/login';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [baby, setBaby] = useState(null);
+    const [babySet, setBabySet] = useState(null);
+
+    useEffect(() => {
+        async function updateUser() {
+            try {
+                await SecureStore.setItemAsync(USER, JSON.stringify(user));
+            } catch (error) {
+                console.log("Update user error: " + error);
+            }
+        }
+        updateUser();
+    }, [user]);
+
+    const saveUser = async(email) => {
+        await updateKeys();
+        try{
+            const user = await UpdateProfileAPI().getUser(email);
+            console.log(user);
+            setUser(user);
+            await SecureStore.setItemAsync(USER, JSON.stringify(user));
+        } catch (error) {
+            console.log("Save user error: " + error);
+        }
+    }
+
+    const saveBaby = async (email) => {
+        await updateKeys();
+        if (user.relationship === "Caregiver")
+        {
+            try{
+                const babies = await UpdateProfileAPI().getCaregiverBabySet(email);
+                setBabySet(babies);
+                setBaby(babies[0]);
+            } catch (error) {
+                console.log("Save caregiver baby error: " + error);
+            }
+        } else {
+            try{
+                const babies = await UpdateProfileAPI().getParentBabySet(email);
+                setBabySet(babies);
+                setBaby(babies[0]);
+            } catch (error) {
+                console.log("Save parent baby error: " + error);
+            }
+        }
+    }
 
     const login = async (username, password) => {
         const apiURL = BASE_URL + "/login";
@@ -32,6 +83,7 @@ export const AuthProvider = ({ children }) => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
             await SecureStore.setItemAsync(ACCESS_KEY, response.data.accessToken);
             await SecureStore.setItemAsync(REFRESH_KEY, response.data.refreshToken);
+            await saveUser(username);
             return response;
         } catch (err) {
             console.log("Login error: " + err);
@@ -67,6 +119,7 @@ export const AuthProvider = ({ children }) => {
         axios.defaults.headers.common['Authorization'] = '';
         SecureStore.deleteItemAsync(ACCESS_KEY);
         SecureStore.deleteItemAsync(REFRESH_KEY);
+        SecureStore.deleteItemAsync(USER);
         setIsLoading(false);
     }
 
@@ -75,6 +128,7 @@ export const AuthProvider = ({ children }) => {
         const loadToken = async () => {
             const accessToken = await SecureStore.getItemAsync(ACCESS_KEY);
             const refreshToken = await SecureStore.getItemAsync(REFRESH_KEY);
+            const user = await SecureStore.getItemAsync(USER);
             if (accessToken && refreshToken) {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 setAuthState({
@@ -82,6 +136,9 @@ export const AuthProvider = ({ children }) => {
                     refreshToken: refreshToken,
                     authenticated: true
                 })
+            }
+            if(user){
+                setUser(JSON.parse(user));
             }
         }
         loadToken()
@@ -104,7 +161,9 @@ export const AuthProvider = ({ children }) => {
             setAuthState,
             isLoading,
             setIsLoading,
-            updateKeys
+            updateKeys,
+            user,
+            setUser
         }}>
             {children}
         </AuthContext.Provider>
