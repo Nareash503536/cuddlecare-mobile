@@ -48,9 +48,93 @@ export default function UpdateProfileAPI() {
         }
     }
 
+    const getParentBabySet = async (email) => {
+        let API_URL = BASE_URL + "/getBabiesByParent";
+        try {
+            let response = await axios.post(API_URL, null, {
+                params: {
+                    email: email
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log("Get parent baby set error: " + error);
+        }
+    }
+
+    const updateBabyByAttribute = async (babyId, attribute, value) => {
+        let API_URL = BASE_URL + "/updateBabyByAttribute";
+        try {
+            let response = await axios.post(API_URL, null, {
+                params: {
+                    id: babyId,
+                    attribute: attribute,
+                    value: value
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log("Update baby by attribute error: " + error);
+        }
+    }
+
+    const uploadBabyPic = async (babyId, uri) => {
+        let API_URL = BASE_URL + "/setBabyPicture";
+        try {
+            let response = await axios.post(API_URL, null, {
+                params: {
+                    id: babyId,
+                    babyPicture: uri
+                }
+            });
+            console.log("Response", response.data);
+            return response.data;
+        } catch (error) {
+            console.log("Upload baby pic error: " + error);
+        }
+    }
+
+    const deleteBaby = async (babyId) => {
+        let API_URL = BASE_URL + "/deleteBaby";
+        console.log("babyId", babyId)
+        try {
+            let response = await axios.post(API_URL, null, {
+                params: {
+                    id: babyId
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log("Delete baby error: " + error);
+        }
+    }
+
+    const addBaby = async(email, babyInfo) => {
+        let API_URL = BASE_URL + "/addBaby";
+        try {
+            let response = await axios.post(API_URL, null, {
+                params: {
+                    email: email,
+                    dob: babyInfo.date.value,
+                    name: babyInfo.name.value,
+                    gender: babyInfo.gender.value
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log("Add baby error: " + error);
+        }
+    }
+
+
     return {
         getUser,
         uploadProfilePic,
-        updateUserByAttribute
+        updateUserByAttribute,
+        getParentBabySet,
+        updateBabyByAttribute,
+        uploadBabyPic,
+        deleteBaby,
+        addBaby
     };
 }

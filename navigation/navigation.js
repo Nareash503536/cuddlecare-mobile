@@ -44,6 +44,9 @@ import SymptomAdd from "../screens/Symptom/SymptomAdd";
 
 import Profile from "../screens/UserProfile/Profile";
 import EditProfile from "../screens/UserProfile/EditProfile";
+import ManageCaregiver from "../screens/UserProfile/ManageCaregiver";
+import ManageBaby from "../screens/UserProfile/ManageBaby";
+import AddBabyScreen from "../screens/UserProfile/AddBabyScreen";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -90,7 +93,7 @@ export function Navigation() {
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown:false}}>
                 <Stack.Screen name="Start" component={StartScreen} />
-                <Stack.Screen name="Home" component={HomeScreen} />
+                {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
                 <Stack.Screen name="AppOverview" component={AppOverview} />
 
                 <Stack.Screen name="RemindersList" component={RemindersList}/>
@@ -119,6 +122,8 @@ export function Navigation() {
 
                 <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="EditProfile" component={EditProfile} />
+                <Stack.Screen name="ManageCaregiver" component={ManageCaregiver} />
+                <Stack.Screen name="ManageBaby" component={ManageBaby} />
 
                 <Stack.Screen name="Sleeping" component={SleepScreen} />
                 <Stack.Screen name="Time" component={TimeScreen} />
@@ -127,6 +132,7 @@ export function Navigation() {
 
                 <Stack.Screen name="DiaperScreen" component={DiaperScreen} />
                 <Stack.Screen name="SymptomTimelineScreen" component={SymptomTimelineScreen} />
+                <Stack.Screen name="AddBabyScreen" component={AddBabyScreen} />
 
             </Stack.Navigator>
         </NavigationContainer>

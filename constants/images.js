@@ -35,6 +35,7 @@ import UserImage from "../assets/images/TestImages/user1.jpg";
 import Profile from "../assets/images/profile.png";
 import EditImage from "../assets/images/EditImage.png"
 import AddImage from "../assets/images/AddImage.jpg"
+import NoBabiesWarning from "../assets/images/NoBabiesWarning.png"
 
 export default {logo, 
                 appName, 
@@ -69,5 +70,6 @@ export default {logo,
                 UserImage,
                 Profile,
                 EditImage,
-                AddImage
+                AddImage,
+                NoBabiesWarning
             };

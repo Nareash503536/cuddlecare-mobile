@@ -8,7 +8,8 @@ import UpdateProfileAPI from "../Api/UpdateProfileAPI";
 const ACCESS_KEY = "token";
 const REFRESH_KEY = "refreshToken";
 const USER = "user";
-const BABY = "baby";
+const BABYSET = "babies";
+const BABY = 'baby';
 export const API_URL = BASE_URL + '/login';
 
 export const AuthContext = createContext();
@@ -20,14 +21,32 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         async function updateUser() {
-            try {
-                await SecureStore.setItemAsync(USER, JSON.stringify(user));
-            } catch (error) {
-                console.log("Update user error: " + error);
+            if(user)
+            {
+                try {
+                    await SecureStore.setItemAsync(USER, JSON.stringify(user));
+                } catch (error) {
+                    console.log("Update user error: " + error);
+                }
             }
         }
         updateUser();
     }, [user]);
+
+    useEffect(() => {
+        async function updateBabySet() {
+            if (babySet) {
+                try {
+                    await SecureStore.setItemAsync(BABYSET, JSON.stringify(babySet));
+                    console.log(babySet);
+                    setBaby(babySet[0]);
+                } catch (error) {
+                    console.log("Update baby set error: " + error);
+                }
+            }
+        }
+        updateBabySet();
+    }, [babySet]);
 
     const saveUser = async(email) => {
         await updateKeys();
@@ -53,13 +72,11 @@ export const AuthProvider = ({ children }) => {
                 console.log("Save caregiver baby error: " + error);
             }
         } else {
-            try{
-                const babies = await UpdateProfileAPI().getParentBabySet(email);
-                setBabySet(babies);
-                setBaby(babies[0]);
-            } catch (error) {
-                console.log("Save parent baby error: " + error);
-            }
+            const babies = await UpdateProfileAPI().getParentBabySet(email);
+            await SecureStore.setItemAsync(BABYSET, JSON.stringify(babies));
+            await SecureStore.setItemAsync(BABY, JSON.stringify(babies[0]));
+            setBabySet(babies);
+            setBaby(babies[0]);
         }
     }
 
@@ -84,6 +101,7 @@ export const AuthProvider = ({ children }) => {
             await SecureStore.setItemAsync(ACCESS_KEY, response.data.accessToken);
             await SecureStore.setItemAsync(REFRESH_KEY, response.data.refreshToken);
             await saveUser(username);
+            await saveBaby(username);
             return response;
         } catch (err) {
             console.log("Login error: " + err);
@@ -120,6 +138,8 @@ export const AuthProvider = ({ children }) => {
         SecureStore.deleteItemAsync(ACCESS_KEY);
         SecureStore.deleteItemAsync(REFRESH_KEY);
         SecureStore.deleteItemAsync(USER);
+        SecureStore.deleteItemAsync(BABYSET);
+        SecureStore.deleteItemAsync(BABY);
         setIsLoading(false);
     }
 
@@ -129,6 +149,8 @@ export const AuthProvider = ({ children }) => {
             const accessToken = await SecureStore.getItemAsync(ACCESS_KEY);
             const refreshToken = await SecureStore.getItemAsync(REFRESH_KEY);
             const user = await SecureStore.getItemAsync(USER);
+            const babySet = await SecureStore.getItemAsync(BABYSET);
+            const baby = await SecureStore.getItemAsync(BABY);
             if (accessToken && refreshToken) {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 setAuthState({
@@ -139,6 +161,10 @@ export const AuthProvider = ({ children }) => {
             }
             if(user){
                 setUser(JSON.parse(user));
+            }
+            if(babySet && baby){
+                setBabySet(JSON.parse(babySet));
+                setBaby(JSON.parse(baby));
             }
         }
         loadToken()
@@ -163,7 +189,11 @@ export const AuthProvider = ({ children }) => {
             setIsLoading,
             updateKeys,
             user,
-            setUser
+            setUser,
+            baby,
+            setBaby,
+            babySet,
+            setBabySet,
         }}>
             {children}
         </AuthContext.Provider>

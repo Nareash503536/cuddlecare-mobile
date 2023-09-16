@@ -1,4 +1,4 @@
-import {Text, View } from "react-native";
+import {Text, View, ActivityIndicator } from "react-native";
 import React, { createContext, useState } from "react";
 import UserInfo from "../../components/UserProfile/ProfileScreen/UserInfo";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,7 +9,7 @@ export const ProfileContext = createContext();
 
 export default function Profile(){
 
-    const [profilePic ,setProfilePic] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const ViewProfile = () => {
         return(
@@ -30,9 +30,14 @@ export default function Profile(){
 
     return(
         <ProfileContext.Provider value={{
-            profilePic,
-            setProfilePic,
+            setLoading
         }}>
+            {
+                loading ?
+                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                        {/* <LottieView source={animation.Spinner} autoPlay loop /> */}
+                        <ActivityIndicator size="large" color={COLORS.primary} />
+                    </View> :
             <SafeAreaView
                 className={"h-full flex-1 justify-center items-center"}
                 style={{
@@ -55,6 +60,7 @@ export default function Profile(){
                 <UserInfo />
                 <InfoCard />
             </SafeAreaView>
+}
         </ProfileContext.Provider>
     )
 }

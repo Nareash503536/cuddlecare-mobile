@@ -10,7 +10,7 @@ export function StartScreen() {
     let navigation = useNavigation();
     useEffect(() => {
         setTimeout(() => {
-            navigation.navigate("Home");
+            navigation.navigate("AppOverview");
         },2000);
     }, []);
 

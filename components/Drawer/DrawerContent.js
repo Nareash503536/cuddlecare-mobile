@@ -9,22 +9,23 @@ import {
     UserIcon
 } from "react-native-heroicons/outline";
 import BabyProfile from "./BabyProfile";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {AuthContext} from "../../Context/AuthContext";
+import images from "../../constants/images";
 
 const deviceWidth = Dimensions.get("window").width;
 export default function DrawerContent (){
-    const { logout } = useContext(AuthContext);
+    const { logout, user } = useContext(AuthContext);
     return (
         <SafeAreaView className={"flex flex-1"} style={{backgroundColor:"white"}}>
             <ScrollView>
                 <View className="h-full">
                     <View className={"mt-5 flex-row space-x-3 items-center"} style={{ paddingLeft: deviceWidth * 0.04 }}>
                         <View >
-                            <Image source={require("../../assets/images/kavindu.png")} className={" rounded-full w-14 h-14"} />
+                            <Image source={user.profilePicture ? { uri: user.profilePicture } : images.AddImage} className={" rounded-full w-14 h-14"} />
                         </View>
                         <View className={"flex"}>
-                            <Text className={"text-lg font-semibold "}>Kavindu Pramod</Text>
+                            <Text className={"text-lg font-semibold "}>{user.username}</Text>
                             <Text className={"text-gray-400"} style={{ color: "gray" }}>Member since: Jan 12, 2023</Text>
                         </View>
                     </View>

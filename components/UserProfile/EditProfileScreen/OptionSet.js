@@ -34,7 +34,7 @@ export default function OptionSet() {
 
             <View className={"border border-t-0 w-4/5 mx-auto my-3 opacity-5"}></View>
 
-            <TouchableOpacity className={"mx-5 flex-row justify-between items-center"} onPress={() => setShowEmailModal(true)}>
+            {/* <TouchableOpacity className={"mx-5 flex-row justify-between items-center"} onPress={() => setShowEmailModal(true)}>
                 <View className={"flex-row items-center"}>
                     <View>
                         <EnvelopeIcon color={"#000"} size={30} />
@@ -47,9 +47,7 @@ export default function OptionSet() {
                 <View>
                     <ChevronRightIcon color={"#000"} size={15} />
                 </View>
-            </TouchableOpacity>
-
-            <View className={"border border-t-0 w-4/5 mx-auto my-3 opacity-5"}></View>
+            </TouchableOpacity> */}
 
             <TouchableOpacity className={"mx-5 flex-row justify-between items-center"} onPress={() => setShowMobileModal(true)}>
                 <View className={"flex-row items-center"}>
@@ -92,7 +90,10 @@ export default function OptionSet() {
                     </View>
                     <View className={"ml-5"}>
                         <Text >Gender</Text>
-                        <Text className={"font-extrabold text-base"}>{gender}</Text>
+                        {gender == 'female' ?
+                            <Text className={"font-extrabold text-base"}>Female</Text> :
+                            <Text className={"font-extrabold text-base"}>Male</Text>
+                        }
                     </View>
                 </View>
                 <View>

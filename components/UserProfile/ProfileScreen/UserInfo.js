@@ -6,6 +6,7 @@ import { COLORS } from "../../../constants/theme";
 import { AuthContext } from '../../../Context/AuthContext';
 import EditProfileCard from "./EditProfileCard";
 import * as ImagePicker from 'expo-image-picker';
+import { CameraIcon  } from "react-native-heroicons/solid"
 // import { launchImageLibrary } from 'react-native-image-picker';
 // import * as ImagePicker from 'react-native-image-picker';
 import { ProfileContext } from '../../../screens/UserProfile/Profile';
@@ -17,6 +18,7 @@ import Toast from 'react-native-toast-message';
 export default function UserInfo() {
 
     const { user, setUser, updateKeys } = useContext(AuthContext);
+    const { setLoading } = useContext(ProfileContext);
 
     const uploadImage = (image) => {
         const data = new FormData();
@@ -38,7 +40,7 @@ export default function UserInfo() {
                     setUser(updateUser);
                     Toast.show({
                         type: 'success',
-                        position: 'bottom',
+                        position: 'top',
                         text1: 'Profile Picture Updated',
                         visibilityTime: 2000,
                         autoHide: true,
@@ -47,14 +49,14 @@ export default function UserInfo() {
                 } else {
                     Toast.show({
                         type: 'error',
-                        position: 'bottom',
+                        position: 'top',
                         text1: 'Profile Picture Not Updated',
                         visibilityTime: 2000,
                         autoHide: true,
                         bottomOffset: 40,
                     });
                 }
-                return true;
+                setLoading(false);
             }
             ).catch(err => {
                 console.log(err);
@@ -64,7 +66,7 @@ export default function UserInfo() {
 
 
     const launchGallery = async () => {
-
+        setLoading(true);
         const permissionResult =
             await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -88,7 +90,6 @@ export default function UserInfo() {
             alert('You did not select any image.');
         }
     }
-    console.log(user);
 
     return (
         <View
@@ -146,24 +147,28 @@ export default function UserInfo() {
             </View>
             <View className={"absolute -top-24 left-11"}>
                 <Image
-                    source={user.profilePicture ? { uri: user.profilePicture } : images.UserImage}
+                    source={user.profilePicture ? { uri: user.profilePicture } : images.AddImage}
                     className={"w-48 h-48 rounded-full  "}
                     style={{
                         borderWidth: 10,
                         borderColor: COLORS.primary,
                     }}
                 />
-                <TouchableOpacity onPress={() => launchGallery()} className={"absolute  bottom-0 right-0"}>
-                    <Image
-                        source={images.EditImage}
-                        className={"w-12 h-12 rounded-full "}
+                <TouchableOpacity onPress={() => launchGallery()} className={"absolute  bottom-0 right-2"}>
+                    <CameraIcon
+                        size={40}
+                        style={{
+                            color: "#477276",
+                        }}
                     />
                 </TouchableOpacity>
             </View>
 
             <View className="mt-24">
-                <Text className={"text-3xl font-bold text-center"}>{user.username}</Text>
-                <Text className={"text-2xl font-normal text-center"}>{user.relationship ? user.relationship : "null"}</Text>
+                <View className={"mb-5"}>
+                    <Text className={"text-3xl font-bold text-center"}>{user.username}</Text>
+                    <Text className={"text-2xl font-normal text-center"}>{user.relationship ? user.relationship : "null"}</Text>
+                </View>
                 <EditProfileCard />
             </View>
         </View>
