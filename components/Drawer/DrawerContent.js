@@ -15,7 +15,7 @@ import images from "../../constants/images";
 
 const deviceWidth = Dimensions.get("window").width;
 export default function DrawerContent (){
-    const { logout, user } = useContext(AuthContext);
+    const { logout, user, babySet } = useContext(AuthContext);
     return (
         <SafeAreaView className={"flex flex-1"} style={{backgroundColor:"white"}}>
             <ScrollView>
@@ -33,7 +33,7 @@ export default function DrawerContent (){
                     <View style={{ backgroundColor: "#F6F6F6", height: 3, marginTop: 10 }} />
 
                     <View className={"px-2"} >
-                        <BabyProfile />
+                        <BabyProfile babySet={babySet}/>
                     </View>
 
                     <View style={{ backgroundColor: "#F6F6F6", height: 3, marginTop: 4 }} />
