@@ -1,11 +1,19 @@
 import {FlatList, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import {FoodListSet} from "./Lists/foodListSet";
-import images from "../../constants/images";
+import {FoodListSet} from "../Lists/foodListSet";
+import images from "../../../constants/images";
 import React from "react";
 import {Image} from "react-native";
-import SolidFoodsHeader from "./SolidFoodsListScreen/SolidFoodsHeader";
+import SolidFoodsHeader from "./SolidFoodsHeader";
 import {useNavigation} from "@react-navigation/native";
 export function FoodList() {
+    const showModal = () => {
+        setModalVisible(!modalVisible);
+    }
+    const clearAll = () => {
+        setModalVisible(!modalVisible);
+        navigation.navigate('Sfeeding');
+    }
+
     const navigation = useNavigation();
     return (
         <View>
@@ -16,7 +24,7 @@ export function FoodList() {
                         borderRadius: 10,
                     }}
                 >
-                    <TouchableOpacity onPress={()=>navigation.navigate('SolidFoodTab', { screen: item.name })}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('SolidFoodNav', { screen: item.name })}>
                         <Image  source={item.image}
                                 className={"w-20 h-20 mx-auto"}
                                 style={{transform:[{scale:0.6}]}}

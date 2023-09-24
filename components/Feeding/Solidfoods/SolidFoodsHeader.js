@@ -5,9 +5,11 @@ import ExpenseForm from "../../Expense/ExpenseForm";
 import IncomeForm from "../../Expense/IncomeForm";
 import * as React from "react";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import VegetablesList from "./VegetablesList";
+import VegetablesList from "../SolidFoodsListScreen/VegetablesList";
 import ScreenHeader from "../../ScreenHeader";
 import Food from "../../../assets/images/Food/dairy-products.png";
+import NutrientsCalculator from "./NutrientsCalculator";
+import PureeList from "../SolidFoodsListScreen/PureeList";
 const Tab = createMaterialTopTabNavigator();
 export default function SolidFoodsHeader(){
     return(
@@ -44,8 +46,10 @@ export default function SolidFoodsHeader(){
                 }
 
             >
-                <Tab.Screen name="Puree" component={VegetablesList} options={{tabBarLabel:"Puree"}}/>
+                <Tab.Screen name="Puree" component={PureeList} options={{tabBarLabel:"Puree"}}/>
+
                 <Tab.Screen name="Vegetables" component={VegetablesList} options={{tabBarLabel:"Vegetables"}}/>
+
                 <Tab.Screen name="Fruits" component={VegetablesList} options={{tabBarLabel:"Fruits"}}/>
                 <Tab.Screen name="Grains" component={VegetablesList} options={{tabBarLabel:"Grains"}}/>
                 <Tab.Screen name="Snacks" component={VegetablesList} options={{tabBarLabel:"Snacks"}}/>

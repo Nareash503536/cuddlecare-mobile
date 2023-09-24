@@ -18,65 +18,69 @@ import wheat from "../../../assets/images/Food/puree/wheat.jpg";
 export const PureeListSet = [{
     id: 1,
     name: "Barley",
-    image: barley
+    image: barley,
+    category: "cereals"
 },{
     id: 2,
     name: "Foxtail Millet",
-    image: foxtailMillet
+    image: barley,
+    category: "cereals",
 },{
     id: 3,
     name: "Fruit Smoothies",
+    category: "fruits",
     image: fruitSmoothies
 },{
     id: 4,
-    name: "Broccoli",
-    image: broccoli
+    name: "Wheat",
+    category: "cereals",
+    image: wheat
 }, {
     id: 5,
     name: "Maize",
+    category: "cereals",
     image: maize
 },{
     id: 6,
-    name: "Corn",
-    image: corn
+    name: "Mashed rice",
+    category: "rice",
+    image: rice
 }, {
     id: 7,
     name: "Mashed yam",
+    category: "vegetables",
     image: mashedyam
 }, {
     id: 8,
     name: "Millet",
+    category: "cereals",
     image: millet
 }
     , {
         id: 9,
         name: "Oats",
+        category: "cereals",
         image: oats
     }
     , {
         id: 10,
         name: "Porridge",
+        category: "rice",
         image: porridge
     }
     , {
         id: 11,
         name: "Pumpkin puree",
+        category: "vegetables",
         image: pumpkin
     }
     , {
         id: 12,
         name: "Potato puree",
+        category: "vegetables",
         image:potato
     }
-    , {
-        id: 13,
-        name: "Mashed rice",
-        image: rice
-    }
-    , {
-        id: 14,
-        name: "Wheat",
-        image: wheat
-    }
+
+
 
 ]
