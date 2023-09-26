@@ -37,6 +37,9 @@ import EditImage from "../assets/images/EditImage.png"
 import AddImage from "../assets/images/AddImage.jpg"
 import NoBabiesWarning from "../assets/images/NoBabiesWarning.png"
 
+import success from "../assets/images/success.png"
+import decline from "../assets/images/decline.png"
+
 export default {logo, 
                 appName, 
                 addCaregiver, 
@@ -71,5 +74,7 @@ export default {logo,
                 Profile,
                 EditImage,
                 AddImage,
-                NoBabiesWarning
+                NoBabiesWarning,
+                success,
+                decline
             };

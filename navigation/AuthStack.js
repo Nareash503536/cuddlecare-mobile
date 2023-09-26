@@ -16,15 +16,6 @@ export function AuthStack() {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                // screenOptions={{
-                //     headerStyle: {
-                //         backgroundColor: '#BADEE3',
-                //     },
-                //     headerTintColor: '#fff',
-                //     headerTitleStyle: {
-                //         fontWeight: 'bold',
-                //     },
-                // }}
                 screenOptions={{headerShown:false}}
             >
                 <Stack.Screen name="Register" component={RegisterScreen} />

@@ -90,7 +90,7 @@ export default function OptionSet() {
                     </View>
                     <View className={"ml-5"}>
                         <Text >Gender</Text>
-                        {gender == 'female' ?
+                        {gender == 'Female' ?
                             <Text className={"font-extrabold text-base"}>Female</Text> :
                             <Text className={"font-extrabold text-base"}>Male</Text>
                         }

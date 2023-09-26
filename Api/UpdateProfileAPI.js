@@ -62,6 +62,20 @@ export default function UpdateProfileAPI() {
         }
     }
 
+    const getCaregiverBabySet = async (email) => {
+        let API_URL = BASE_URL + "/getCaregiverBabySet";
+        try {
+            let response = await axios.post(API_URL, null, {
+                params: {
+                    email: email
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.log("Get caregiver baby set error: " + error);
+        }
+    }
+
     const updateBabyByAttribute = async (babyId, attribute, value) => {
         let API_URL = BASE_URL + "/updateBabyByAttribute";
         try {
@@ -135,6 +149,7 @@ export default function UpdateProfileAPI() {
         updateBabyByAttribute,
         uploadBabyPic,
         deleteBaby,
-        addBaby
+        addBaby,
+        getCaregiverBabySet
     };
 }

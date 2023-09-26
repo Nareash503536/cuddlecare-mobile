@@ -21,8 +21,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         async function updateUser() {
-            if(user)
-            {
+            if (user) {
                 try {
                     await SecureStore.setItemAsync(USER, JSON.stringify(user));
                 } catch (error) {
@@ -48,35 +47,31 @@ export const AuthProvider = ({ children }) => {
         updateBabySet();
     }, [babySet]);
 
-    const saveUser = async(email) => {
+    const saveBaby = async () => {
         await updateKeys();
-        try{
+        let babies = [];
+        if (user.relationship === "caregiver") {
+            babies = await UpdateProfileAPI().getCaregiverBabySet(user.email);
+        } else {
+            babies = await UpdateProfileAPI().getParentBabySet(user.email);
+        }
+        await SecureStore.setItemAsync(BABYSET, JSON.stringify(babies));
+        await SecureStore.setItemAsync(BABY, JSON.stringify(babies[0]));
+        setBabySet(babies);
+        setBaby(babies[0]);
+        console.log(babies);
+    }
+
+    const saveUser = async (email) => {
+        await updateKeys();
+        try {
             const user = await UpdateProfileAPI().getUser(email);
             console.log(user);
             setUser(user);
             await SecureStore.setItemAsync(USER, JSON.stringify(user));
+            await saveBaby();
         } catch (error) {
             console.log("Save user error: " + error);
-        }
-    }
-
-    const saveBaby = async (email) => {
-        await updateKeys();
-        if (user.relationship === "Caregiver")
-        {
-            try{
-                const babies = await UpdateProfileAPI().getCaregiverBabySet(email);
-                setBabySet(babies);
-                setBaby(babies[0]);
-            } catch (error) {
-                console.log("Save caregiver baby error: " + error);
-            }
-        } else {
-            const babies = await UpdateProfileAPI().getParentBabySet(email);
-            await SecureStore.setItemAsync(BABYSET, JSON.stringify(babies));
-            await SecureStore.setItemAsync(BABY, JSON.stringify(babies[0]));
-            setBabySet(babies);
-            setBaby(babies[0]);
         }
     }
 
@@ -101,19 +96,18 @@ export const AuthProvider = ({ children }) => {
             await SecureStore.setItemAsync(ACCESS_KEY, response.data.accessToken);
             await SecureStore.setItemAsync(REFRESH_KEY, response.data.refreshToken);
             await saveUser(username);
-            await saveBaby(username);
             return response;
         } catch (err) {
             console.log("Login error: " + err);
         }
     }
 
-    const updateKeys = async() => {
+    const updateKeys = async () => {
         const accessToken = await SecureStore.getItemAsync(ACCESS_KEY);
         const refreshToken = await SecureStore.getItemAsync(REFRESH_KEY);
         const keys = await Token_Helper.getVerifiedKeys(accessToken, refreshToken);
 
-        if(keys){
+        if (keys) {
             setAuthState({
                 accessToken: keys.accessToken,
                 refreshToken: keys.refreshToken,
@@ -128,7 +122,7 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const logout = async() => {
+    const logout = async () => {
         setAuthState({
             accessToken: null,
             refreshToken: null,
@@ -159,10 +153,10 @@ export const AuthProvider = ({ children }) => {
                     authenticated: true
                 })
             }
-            if(user){
+            if (user) {
                 setUser(JSON.parse(user));
             }
-            if(babySet && baby){
+            if (babySet && baby) {
                 setBabySet(JSON.parse(babySet));
                 setBaby(JSON.parse(baby));
             }

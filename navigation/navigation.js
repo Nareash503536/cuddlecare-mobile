@@ -8,7 +8,7 @@ import { BabyScreen } from "../screens/BabyScreen";
 import { Reminders } from '../screens/Reminders';
 import { ReminderDetails } from '../screens/ReminderDetails';
 import { RemindersList } from '../screens/RemindersList';
-import React from 'react';
+import React, {useContext} from 'react';
 import { GrowthDetailsScreen } from "../screens/GrowthDetailsScreen";
 import GrowhtManageScreen from "../screens/GrowthDetailsScreens/GrowhtManageScreen";
 import { FeedingScreen } from "../screens/FeedingScreen";
@@ -28,7 +28,7 @@ import ExpenseBarGraph from "../components/Expense/ExpenseBarGraph";
 import GrowthChartScreen from "../screens/GrowthDetailsScreens/GrowthChartScreen";
 import {CommunityScreen} from "../screens/CommunityScreen";
 import {themeColors} from "../theme";
-import { CalendarDaysIcon, HomeIcon, UserCircleIcon } from "react-native-heroicons/outline";
+import { CalendarDaysIcon, HomeIcon, UserCircleIcon, HeartIcon } from "react-native-heroicons/outline";
 import {StyleSheet, View} from "react-native";
 import {BreastFeeding} from "../components/Feeding/BreastFeeding";
 import {SolidFood} from "../components/Feeding/SolidFood";
@@ -41,6 +41,7 @@ import SolidFoodsHeader from "../components/Feeding/SolidFoodsListScreen/SolidFo
 import SymptomTimelineScreen from  "../screens/Symptom/SymptomTimelineScreen";
 import { SymptomList } from "../screens/Symptom/SymptomList";
 import SymptomAdd from "../screens/Symptom/SymptomAdd";
+import { AuthContext } from '../Context/AuthContext';
 
 import Profile from "../screens/UserProfile/Profile";
 import EditProfile from "../screens/UserProfile/EditProfile";
@@ -48,9 +49,17 @@ import ManageCaregiver from "../screens/UserProfile/ManageCaregiver";
 import ManageBaby from "../screens/UserProfile/ManageBaby";
 import AddBabyScreen from "../screens/UserProfile/AddBabyScreen";
 
+import AcceptRequestScreen from "../screens/CaregiverRequests/AcceptRequestScreen";
+import SendRequestScreen from "../screens/CaregiverRequests/SendRequestScreen";
+
+
 const BottomTabs = createBottomTabNavigator();
 
 function AppOverview() {
+
+    const {user} = useContext(AuthContext);
+    console.log(user);
+
     return (
         <BottomTabs.Navigator screenOptions={{
             headerShown:false,
@@ -74,6 +83,23 @@ function AppOverview() {
                         {focused? <CalendarDaysIcon size="27" color="white" />: <CalendarDaysIcon size="27" color="gray" />}
                     </View>
                 ),}}/>
+
+            {user.relationship === "caregiver"
+                ? <Stack.Screen name="AcceptRequestScreen" component={AcceptRequestScreen} options={{
+                    tabBarLabel: 'Caregiver Requests',
+                    tabBarIcon: ({focused}) => (
+                        <View className={"rounded-full p-2"} style={{backgroundColor:focused? themeColors.colornormal:"white"}}>
+                            {focused? <HeartIcon size="27" color="white" />: <HeartIcon size="27" color="gray" />}
+                        </View>
+                    ),}}/>
+                : <Stack.Screen name="SendRequestScreen" component={SendRequestScreen} options={{
+                    tabBarLabel: 'Caregiver Requests',
+                    tabBarIcon: ({focused}) => (
+                        <View className={"rounded-full p-2"} style={{backgroundColor:focused? themeColors.colornormal:"white"}}>
+                            {focused? <HeartIcon size="27" color="white" />: <HeartIcon size="27" color="gray" />}
+                        </View>
+                    ),}}/>
+            }
                 
             <Stack.Screen name="Profile" component={Profile} options={{
                 tabBarLabel: 'Profile',
@@ -134,6 +160,8 @@ export function Navigation() {
                 <Stack.Screen name="SymptomTimelineScreen" component={SymptomTimelineScreen} />
                 <Stack.Screen name="AddBabyScreen" component={AddBabyScreen} />
 
+                <Stack.Screen name="AcceptRequestScreen" component={AcceptRequestScreen} />
+                <Stack.Screen name="SendRequestScreen" component={SendRequestScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

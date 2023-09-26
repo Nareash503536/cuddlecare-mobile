@@ -6,16 +6,20 @@ import { useNavigation } from "@react-navigation/native";
 
 
 
-function renderBabyProfile({ ...babyDetails }) {
-    return (
-        <View className={"flex mx-2 items-center"}>
-            <Image source={babyDetails.item.babyPicture ? { uri: babyDetails.item.babyPicture } : images.AddImage} style={{ borderWidth: 2, borderColor: "#8AADB2" }} className={"w-12 h-12 rounded-full"} />
-            <Text className={"text-xs"} style={{ color: "gray" }}>{(babyDetails.item.babyName)}</Text>
-        </View>
-    );
-}
-
 export default function BabyProfile(props) {
+
+    const { setBaby, user } = useContext(AuthContext);
+
+    function renderBabyProfile({ ...babyDetails }) {
+
+
+        return (
+            <TouchableOpacity className={"flex mx-2 items-center"} onPress={() => setBaby(babyDetails.item)}>
+                <Image source={babyDetails.item.babyPicture ? { uri: babyDetails.item.babyPicture } : images.AddImage} style={{ borderWidth: 2, borderColor: "#8AADB2" }} className={"w-12 h-12 rounded-full"} />
+                <Text className={"text-xs"} style={{ color: "gray" }}>{(babyDetails.item.babyName)}</Text>
+            </TouchableOpacity>
+        );
+    }
 
     const navigation = useNavigation();
 
@@ -36,7 +40,10 @@ export default function BabyProfile(props) {
                 renderItem={renderBabyProfile}
                 keyExtractor={(baby) => baby.babyID}
                 horizontal
-                ListFooterComponent={additionalComponent}
+                ListFooterComponent={
+                    user.relationship !== "caregiver" ?
+                    additionalComponent : null
+                }
             />
         </View>
     )

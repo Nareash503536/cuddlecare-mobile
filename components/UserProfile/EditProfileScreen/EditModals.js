@@ -98,7 +98,7 @@ export const MobileModal = () => {
                 <Modal.Body>
                     <FormControl mt="3">
                         <FormControl.Label>Enter your mobile number</FormControl.Label>
-                        <Input value={tempMobile} showSoftInputOnFocus={false} onChangeText={handleText} isRequired={true} />
+                        <Input value={tempMobile} onChangeText={handleText} isRequired={true} />
                     </FormControl>
                 </Modal.Body>
                 <Modal.Footer>

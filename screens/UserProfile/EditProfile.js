@@ -64,7 +64,10 @@ export default function EditProfile() {
                             <View className="h-full">
                                 <ProfileHeader />
                                 <OptionSet />
-                                <BabyCaregiverOptionSet />
+                                {
+                                    user.relationship !== "caregiver" &&
+                                    <BabyCaregiverOptionSet />
+                                }
                                 <NameModal />
                                 <MobileModal />
                                 <BirthdayModal />

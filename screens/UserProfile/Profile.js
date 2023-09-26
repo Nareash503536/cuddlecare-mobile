@@ -3,7 +3,6 @@ import React, { createContext, useState } from "react";
 import UserInfo from "../../components/UserProfile/ProfileScreen/UserInfo";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {COLORS} from "../../constants/theme"; 
-import InfoCard from "../../components/UserProfile/ProfileScreen/InfoCard";
 
 export const ProfileContext = createContext();
 
@@ -58,7 +57,6 @@ export default function Profile(){
                 </View>
                 <ViewProfile />
                 <UserInfo />
-                <InfoCard />
             </SafeAreaView>
 }
         </ProfileContext.Provider>

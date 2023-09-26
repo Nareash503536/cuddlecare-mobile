@@ -20,7 +20,7 @@ import { COLORS } from "../constants/theme";
 
 export function BabyScreen() {
 
-    const { baby } = useContext(AuthContext);
+    const { baby, user } = useContext(AuthContext);
 
     // let baby = babyDetails[2];
     let featuresDetails = mainFeatures;
@@ -70,7 +70,7 @@ export function BabyScreen() {
                             {/*name and growth status*/}
                             <View className={"flex  flex-1 pl-3"}>
                                 <View>
-                                    <Text className={"text-white text-2xl font-semibold"} style={{ letterSpacing: 2, color: "white" }}>{baby.name}</Text>
+                                    <Text className={"text-white text-2xl font-semibold"} style={{ letterSpacing: 2, color: "white" }}>{baby.babyName}</Text>
                                 </View>
                                 <View className={"flex-row flex-1 justify-between space-x-1"} >
                                     <View className={" flex px-5 py-1 items-center rounded-2xl"} style={{ backgroundColor: themeColors.bgWhite(0.4) }} >
@@ -83,20 +83,18 @@ export function BabyScreen() {
                                     </View>
                                     <View className={" flex px-5 py-1 items-center rounded-2xl"} style={{ backgroundColor: themeColors.bgWhite(0.3) }} >
                                         <Text className={"text-white"}>Age</Text>
-                                        <Text className={"text-lg"} style={{ color: themeColors.colorExtraDark }} >{baby.year}y {baby.month}m</Text>
+                                        <Text className={"text-lg"} style={{ color: themeColors.colorExtraDark }} >{
+                                            Math.floor((new Date() - new Date(baby.dob)) / (1000 * 60 * 60 * 24 * 30))
+                                        }m</Text>
                                     </View>
                                 </View>
                             </View>
                         </View>
 
-                        {/*feature carousel*/}
                         <View className={" mt-1 "}>
                             <View className={"my-2"}>
                                 <RemindersButton />
                             </View>
-                            {/*<View>*/}
-                            {/*    <Button title={"community"} onPress={() => navigation.navigate('Community')}/>*/}
-                            {/*</View>*/}
                             <Carousel
                                 data={featuresDetails}
                                 renderItem={({ item }) => <Features item={item} />}
@@ -172,13 +170,15 @@ export function BabyScreen() {
                             />
                             <Text className={"text-2xl font-extrabold"} style={{ color: COLORS.fontColor1 }}>No Babies Added!</Text>
                             <Text style={{ color: "grey" }}>Sorry... Add a baby to get started</Text>
-                            <TouchableOpacity className={"mx-5 flex-row justify-between items-center"}>
+                            {
+                                user.relationship !== "caregiver" ?
+                                <TouchableOpacity className={"mx-5 flex-row justify-between items-center"}>
                                 <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("AddBabyScreen")}>
                                     <Text className={"font-extrabold"} style={{ color: COLORS.tertiary }}>
                                         Add Baby
                                     </Text>
                                 </TouchableOpacity>
-                            </TouchableOpacity>
+                            </TouchableOpacity> : null}
                         </View>
 
                     </View>
