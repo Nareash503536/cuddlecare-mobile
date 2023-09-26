@@ -110,6 +110,7 @@ export  default function NutrientsCalculator({children}){
 
     }
 const [foodNutrients, setFoodNutrients] = useState([]);
+    const [TodayCart, setTodayCart] = useState([]);
     //const foodNutrients = NutrientsList();
 
         // const nutrientsData = () => NutrientsList();
@@ -131,7 +132,7 @@ const [foodNutrients, setFoodNutrients] = useState([]);
         console.log("food nutrients",foodNutrients);
     }
     // console.log("good nutrients",foodNutrients);
-    const [TodayCart, setTodayCart] = useState([]);
+
 
          // let TodayCart = [
          //     {

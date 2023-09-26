@@ -17,90 +17,91 @@ import green_peas from "../../../assets/images/Food/vegetables/green_peas.jpg";
 import kathurumurunga from "../../../assets/images/Food/vegetables/kathurumurunga.jpg";
 
 export const VegetablesListSet = [{
-    id: 1,
+    id: 'V1',
     name: "Beans",
     category: "vegetables",
     image: beans
 },{
-    id: 2,
+    id: 'V2',
     name: "Carrot",
     category: "vegetables",
     image: carrots
 },{
-    id: 3,
+    id: 'V3',
     name: "Beetroot",
     category: "vegetables",
     image: beetroot
 },{
-    id: 4,
+    id: 'V4',
     name: "Broccoli",
     category: "vegetables",
     image: broccoli
 }, {
-    id: 5,
+    id: 'V5',
     name: "Cabbage",
     category: "vegetables",
     image: cabbage
 },{
-    id: 6,
+    id: 'V6',
     name: "Corn",
     category: "vegetables",
     image: corn
 }, {
-    id: 7,
+    id: 'V7',
     name: "Onion",
     category: "vegetables",
     image: onion
 }, {
-    id: 8,
+    id: 'V8',
     name: "Leeks",
     category: "vegetables",
     image: leeks
 }
     , {
-        id: 9,
+        id: 'V9',
         name: "Spinach",
         category: "vegetables",
         image: spinach
     }
     , {
-        id: 10,
+        id: 'V10',
         name: "Pumpkin",
         category: "vegetables",
         image: pumpkin
     }
     , {
-        id: 11,
+        id: 'V11',
         name: "Potato",
         category: "vegetables",
         image: potato
     }
     , {
-        id: 12,
+        id: 'V12',
+
         name: "Sweet Potato",
         category: "vegetables",
         image: sweet_potato
     }
     , {
-        id: 13,
+        id: 'V13',
         name: "Cucumber",
         category: "vegetables",
         image: cucumber
     }
     , {
-        id: 14,
+        id: 'V14',
         name: "Gotukola",
         category: "greenLeafyVegetables",
         image: gotukola
     }
     , {
-        id: 15,
+        id: 'V15',
         name: "Green peas",
         category: "vegetables",
         image: green_peas
     }
     , {
-        id: 16,
+        id: 'V16',
         name: "Kathurumurunga",
         category: "greenLeafyVegetables",
         image: kathurumurunga

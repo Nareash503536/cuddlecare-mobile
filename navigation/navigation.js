@@ -56,6 +56,7 @@ import SendRequestScreen from "../screens/CaregiverRequests/SendRequestScreen";
 import {DiaperTimelineScreen} from "../screens/DiaperTimelineScreen";
 import {DiaperBarChart} from "../screens/DiaperBarChart";
 
+import MealPlan from "../components/Feeding/Solidfoods/MealPlan";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -138,7 +139,7 @@ export function Navigation() {
                 <Stack.Screen name="Feeding" component={FeedingScreen} />
                 <Stack.Screen name="SolidFoodNav" component={SolidFoodNav} />
                 {/*<Stack.Screen name="SolidFoodTab" component={SolidFoodsHeader} />*/}
-
+                <Stack.Screen name="Mealplan" component={MealPlan} />
                 {/* Growth feature screens */}
                 <Stack.Screen name="Milestones" component={MilestonesScreen} />
                 <Stack.Screen name="MilestonesList" component={MilestonesListScreen} />

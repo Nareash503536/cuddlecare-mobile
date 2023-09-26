@@ -13,69 +13,69 @@ import potato from "../../../assets/images/Food/puree/potato.jpg";
 
 import rice from "../../../assets/images/Food/puree/rice.jpg";
 import wheat from "../../../assets/images/Food/puree/wheat.jpg";
+import meat from "../../../assets/images/Food/Meat/meat.png"
 
-
-export const PureeListSet = [{
-    id: 'P1',
-    name: "Barley",
-    image: barley,
-    category: "cereals"
+export const AnimalFoodListSet = [{
+    id: 'A1',
+    name: "Chicken",
+    image: meat,
+    category: "animalFood"
 },{
-    id: 'P2',
+    id: 'A2',
     name: "Foxtail Millet",
     image: barley,
     category: "cereals",
 },{
-    id: 'P3',
+    id: 'A3',
     name: "Fruit Smoothies",
     category: "fruits",
     image: fruitSmoothies
 },{
-    id: 'P4',
+    id: 'A4',
     name: "Wheat",
     category: "cereals",
     image: wheat
 }, {
-    id: 'P5',
+    id: 'A5',
     name: "Maize",
     category: "cereals",
     image: maize
 },{
-    id: 'P6',
+    id: 'A6',
     name: "Mashed rice",
     category: "rice",
     image: rice
 }, {
-    id: 'P7',
+    id: 'A7',
     name: "Mashed yam",
     category: "vegetables",
     image: mashedyam
 }, {
-    id: 'P8',
+    id: 'A8',
     name: "Millet",
     category: "cereals",
     image: millet
 }
     , {
-        id: 'P9',
+        id: 'A9',
         name: "Oats",
         category: "cereals",
         image: oats
     }
     , {
-        id: 'P10',
+        id: 'A10',
         name: "Porridge",
         category: "ricePorridge",
         image: porridge
     }
     , {
-        id: 'P11',
+        id: 'A11',
         name: "Pumpkin puree",
         category: "vegetables",
         image: pumpkin
     }
     , {
-        id: 'P12',
+        id: 'A12',
         name: "Potato puree",
         category: "vegetables",
         image:potato
