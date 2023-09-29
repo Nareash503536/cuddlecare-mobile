@@ -52,6 +52,9 @@ import AddBabyScreen from "../screens/UserProfile/AddBabyScreen";
 import AcceptRequestScreen from "../screens/CaregiverRequests/AcceptRequestScreen";
 import SendRequestScreen from "../screens/CaregiverRequests/SendRequestScreen";
 
+import {DiaperTimelineScreen} from "../screens/DiaperTimelineScreen";
+import {DiaperBarChart} from "../screens/DiaperBarChart";
+
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -157,6 +160,9 @@ export function Navigation() {
                 <Stack.Screen name="SleepChart" component={SleepBarChart}/>
 
                 <Stack.Screen name="DiaperScreen" component={DiaperScreen} />
+                <Stack.Screen name="DiaperTimeline" component={DiaperTimelineScreen} />
+                <Stack.Screen name="DiaperBarChart" component={DiaperBarChart} />
+
                 <Stack.Screen name="SymptomTimelineScreen" component={SymptomTimelineScreen} />
                 <Stack.Screen name="AddBabyScreen" component={AddBabyScreen} />
 

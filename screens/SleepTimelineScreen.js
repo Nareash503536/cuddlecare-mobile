@@ -3,7 +3,6 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import SleepHeader from "../components/sleepHeader";
 import React, {useEffect} from "react";
 import {ClockIcon} from "react-native-heroicons/solid";
-import {SleepApiGetAll, SleepApiGetTotal} from "../Api/SleepApi";
 import { PieChart } from 'react-native-chart-kit';
 import {useNavigation} from "@react-navigation/native";
 import {AuthContext} from "../Context/AuthContext";
