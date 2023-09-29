@@ -136,7 +136,7 @@ export const SymptomTimeline = () => {
             <Modal isOpen={editModal} onClose={() => setEditModal(false)}>
                 <Modal.Content maxWidth="400px">
                     <Modal.CloseButton />
-                    <Modal.Header>Contact Us</Modal.Header>
+                    <Modal.Header>Update Symptoms</Modal.Header>
                     <Modal.Body>
                         <FormControl>
                             <FormControl.Label>Time</FormControl.Label>

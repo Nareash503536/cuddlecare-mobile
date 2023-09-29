@@ -89,7 +89,7 @@ export default function SymptomContainer() {
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
                 <Modal.Content maxWidth="400px">
                     <Modal.CloseButton />
-                    <Modal.Header>Contact Us</Modal.Header>
+                    <Modal.Header>Update Symptoms</Modal.Header>
                     <Modal.Body>
                         <VStack space={2}>
                             <HStack alignItems="center" justifyContent="space-between">

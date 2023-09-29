@@ -41,7 +41,7 @@ export function BabyScreen() {
             >
                 <View className={"flex-1 relative "}>
                     <StatusBar style={"light"} />
-                    <Image blurRadius={3} source={require("../assets/images/background2.png")} className={"absolute h-full w-full"} />
+                    <Image source={require("../assets/images/background2.png")} className={"absolute h-full w-full"} />
                     <SafeAreaView>
                         {/*Top bar*/}
                         <View className="mx-4  mt-1 flex-row  items-center">
@@ -53,7 +53,7 @@ export function BabyScreen() {
 
                             <View className=" flex-1 space-x-2 items-center">
                                 <Image source={require('../assets/images/appName.png')}
-                                    style={{ width: 150, height: 30 }} />
+                                    style={{ width: 150, height: 30 }}/>
                             </View>
                             <TouchableOpacity className={"rounded-full p-1"} style={{ backgroundColor: themeColors.btnColor }}>
                                 <BellIcon size="27" color="white" />
