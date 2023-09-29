@@ -125,8 +125,8 @@ export default function UserInfo() {
                     height: 150,
                     width: 150,
                     opacity: 0.3,
-                    left: 120,
-                    top: 150
+                    left: 90,
+                    top: 145
                     // top: 240
                 }}
             >
@@ -141,14 +141,14 @@ export default function UserInfo() {
                     width: 100,
                     opacity: 0.3,
                     bottom: 230,
-                    left: 220,
+                    left: 140,
                 }}
             >
             </View>
-            <View className={"absolute -top-24 left-11"}>
+            <View className={"absolute -top-24 left-6"}>
                 <Image
                     source={user.profilePicture ? { uri: user.profilePicture } : images.AddImage}
-                    className={"w-48 h-48 rounded-full  "}
+                    className={"w-48 h-48 rounded-full "}
                     style={{
                         borderWidth: 10,
                         borderColor: COLORS.primary,
