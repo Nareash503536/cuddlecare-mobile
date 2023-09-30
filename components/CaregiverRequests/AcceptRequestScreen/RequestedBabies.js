@@ -53,7 +53,11 @@ export default function RequestedCaregiver() {
             console.log(response.data);
             setRequestedBabyList(requestedBabyList.filter(baby => baby.babyName !== response.data.babyName));
             console.log("babySet", babySet);
-            setBabySet([...babySet, response.data]);
+            if (babySet) {
+                setBabySet([...babySet, response.data]);
+            }else{
+                setBabySet([response.data]);
+            }
             Toast.show({
                 type: 'success',
                 position: 'top',

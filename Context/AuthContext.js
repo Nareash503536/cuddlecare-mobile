@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
         updateBabySet();
     }, [babySet]);
 
-    const saveBaby = async () => {
+    const saveBaby = async (user) => {
         await updateKeys();
         let babies = [];
         if (user.relationship === "caregiver") {
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
             console.log(user);
             setUser(user);
             await SecureStore.setItemAsync(USER, JSON.stringify(user));
-            await saveBaby();
+            await saveBaby(user);
         } catch (error) {
             console.log("Save user error: " + error);
         }
@@ -135,6 +135,9 @@ export const AuthProvider = ({ children }) => {
         await SecureStore.deleteItemAsync(USER);
         await SecureStore.deleteItemAsync(BABYSET);
         await SecureStore.deleteItemAsync(BABY);
+        setUser(null);
+        setBabySet(null);
+        setBaby(null);
         setIsLoading(false);
     }
 
