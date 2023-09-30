@@ -15,17 +15,53 @@ import { ButtonStyles } from "../../components/Registration/VerifyToLoginScreen/
 import LottieView from 'lottie-react-native';
 import animation from '../../constants/animations';
 import AuthenticationAPI from "../../Api/AuthenticationAPI";
+import UpdateProfileAPI from "../../Api/UpdateProfileAPI";
+
 
 export function GetStartedScreen() {
 
     const [loading, setLoading] = useState(false);
     const ACCESS_KEY = "token";
     const REFRESH_KEY = "refreshToken";
+    const BABYSET = "babies";
+    const BABY = 'baby';
+    const USER = "user";
     const route = useRoute();
     const email = route.params?.email || {};
     const password = route.params?.Password || {};
 
-    const { authState, setAuthState, updateKeys } = useContext(AuthContext);
+    const { authState, setAuthState, updateKeys, setBaby, setBabySet, setUser, user } = useContext(AuthContext);
+
+    const saveBaby = async (email) => {
+        await updateKeys();
+        let babies = [];
+        if (user.relationship !== "caregiver") {
+            babies = await UpdateProfileAPI().getParentBabySet(email);
+            await SecureStore.setItemAsync(BABYSET, JSON.stringify(babies));
+            await SecureStore.setItemAsync(BABY, JSON.stringify(babies[0]));
+            setBabySet(babies);
+            setBaby(babies[0]);
+            console.log(babies);
+        } else {
+            await SecureStore.setItemAsync(BABYSET, JSON.stringify([]));
+            await SecureStore.setItemAsync(BABY, JSON.stringify(null));
+            setBabySet([]);
+            setBaby(null);
+        }
+    }
+
+    const saveUser = async (email) => {
+        await updateKeys();
+        try {
+            const user = await UpdateProfileAPI().getUser(email);
+            console.log(user);
+            setUser(user);
+            await SecureStore.setItemAsync(USER, JSON.stringify(user));
+            await saveBaby(email);
+        } catch (error) {
+            console.log("Save user error: " + error);
+        }
+    }
 
     const setToken = async (email, password) => {
         setLoading(true);
@@ -50,6 +86,7 @@ export function GetStartedScreen() {
             // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
             await SecureStore.setItemAsync(ACCESS_KEY, response.data.accessToken);
             await SecureStore.setItemAsync(REFRESH_KEY, response.data.refreshToken);
+            await saveUser(email);
             console.log(response.data);
         } catch (err) {
             console.log(err);
@@ -79,7 +116,7 @@ export function GetStartedScreen() {
         <NativeBaseProvider>
             <SafeAreaView className={"flex-1"}>
                 {
-                    loading ? 
+                    loading ?
                         // <LottieView source={animation.Spinner} autoPlay loop /> 
                         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                             {/* <LottieView source={animation.Spinner} autoPlay loop /> */}

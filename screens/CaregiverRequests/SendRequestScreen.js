@@ -7,8 +7,9 @@ import DrawerContent from "../../components/Drawer/DrawerContent";
 import Header from '../../components/CaregiverRequests/SendRequestScreen/Header';
 import CurrentCaregiver, { DeleteModal } from '../../components/CaregiverRequests/SendRequestScreen/CurrentCaregiver';
 import RequestedCaregiver from '../../components/CaregiverRequests/SendRequestScreen/RequestedCaregiver';
-import AllCaregivers, {AlertModal} from '../../components/CaregiverRequests/SendRequestScreen/AllCaregivers';
+import AllCaregivers, { AlertModal } from '../../components/CaregiverRequests/SendRequestScreen/AllCaregivers';
 import SearchBar from '../../components/CaregiverRequests/SendRequestScreen/SearchBar';
+import { AuthContext } from '../../Context/AuthContext';
 
 export const RequestContext = createContext();
 
@@ -25,6 +26,7 @@ export default function SendRequestScreen() {
     const [whichCaregiver, setWhichCaregiver] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showAlertModal, setShowAlertModal] = useState(false);
+    const { babySet } = useContext(AuthContext);
 
     return (
         <SafeAreaView>
@@ -67,13 +69,37 @@ export default function SendRequestScreen() {
                                 >
                                     <DeleteModal babyID={whichBaby} caregiverID={whichCaregiver} />
                                     <Header />
-                                    <SearchBar/>
-                                    <ScrollView className="mb-16">
-                                        <CurrentCaregiver />
-                                        <RequestedCaregiver />
-                                        <AllCaregivers />
-                                    </ScrollView>
-                                    <AlertModal/>
+                                    <SearchBar />
+
+
+                                    {
+                                        babySet && babySet.length > 0 ?
+                                            (<><ScrollView className="mb-16">
+                                                <CurrentCaregiver />
+                                                <RequestedCaregiver />
+                                                <AllCaregivers />
+                                            </ScrollView>
+                                                <AlertModal /></>)
+                                            : (
+                                                <View className={"h-screen justify-start items-center"}>
+                                                    <Image
+                                                        source={images.NoBabiesWarning}
+                                                        className={"w-80 h-80 rounded-full border"}
+                                                    />
+                                                    <Text className={"text-2xl font-extrabold"} style={{ color: COLORS.fontColor1 }}>No Babies Added!</Text>
+                                                    <Text style={{ color: "grey" }}>Sorry... Add a baby to get started</Text>
+                                                    {
+                                                        user.relationship !== "caregiver" ?
+                                                            <TouchableOpacity className={"mx-5 flex-row justify-between items-center"}>
+                                                                <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("AddBabyScreen")}>
+                                                                    <Text className={"font-extrabold"} style={{ color: COLORS.tertiary }}>
+                                                                        Add Baby
+                                                                    </Text>
+                                                                </TouchableOpacity>
+                                                            </TouchableOpacity> : null}
+                                                </View>
+                                            )
+                                    }
                                 </Drawer>
                             </View>
                         )}

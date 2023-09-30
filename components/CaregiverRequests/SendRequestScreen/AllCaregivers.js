@@ -150,7 +150,7 @@ export default function AllCaregivers() {
                                 ))}
                         </>
                         :
-                        <View className="h-1/2 justify-center items-center ">
+                        <View className="justify-center items-center ">
                             <Image
                                 source={images.NoBabiesWarning}
                                 style={{ width: 200, height: 200 }}
@@ -158,16 +158,16 @@ export default function AllCaregivers() {
                             />
                             <Text className={"text-2xl text-center flex-wrap font-extrabold"} style={{ color: COLORS.fontColor1 }}>No Caregivers!</Text>
                             <Text className={"text-center"} style={{ color: COLORS.fontColor1 }}> There are no any caregivers in the system.</Text>
-
                         </View>
             }
             {
                 !loading &&
+                caregiverList.length > 0 &&
                 caregiverList
                     .filter(
                         item => item.user.username.toLowerCase().indexOf(search.toLowerCase()) !== -1
                     ).length === 0 &&
-                <View className="h-1/2 justify-center items-center ">
+                <View className="justify-center items-center ">
                     <Image
                         source={images.NoBabiesWarning}
                         style={{ width: 200, height: 200 }}

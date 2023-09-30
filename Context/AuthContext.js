@@ -51,6 +51,7 @@ export const AuthProvider = ({ children }) => {
         await updateKeys();
         let babies = [];
         if (user.relationship === "caregiver") {
+            console.log("I am a caregiver");
             babies = await UpdateProfileAPI().getCaregiverBabySet(user.email);
         } else {
             babies = await UpdateProfileAPI().getParentBabySet(user.email);
@@ -59,7 +60,7 @@ export const AuthProvider = ({ children }) => {
         await SecureStore.setItemAsync(BABY, JSON.stringify(babies[0]));
         setBabySet(babies);
         setBaby(babies[0]);
-        console.log(babies);
+        console.log("The caregiver Babies are", babies);
     }
 
     const saveUser = async (email) => {
@@ -129,11 +130,11 @@ export const AuthProvider = ({ children }) => {
             authenticated: false
         })
         axios.defaults.headers.common['Authorization'] = '';
-        SecureStore.deleteItemAsync(ACCESS_KEY);
-        SecureStore.deleteItemAsync(REFRESH_KEY);
-        SecureStore.deleteItemAsync(USER);
-        SecureStore.deleteItemAsync(BABYSET);
-        SecureStore.deleteItemAsync(BABY);
+        await SecureStore.deleteItemAsync(ACCESS_KEY);
+        await SecureStore.deleteItemAsync(REFRESH_KEY);
+        await SecureStore.deleteItemAsync(USER);
+        await SecureStore.deleteItemAsync(BABYSET);
+        await SecureStore.deleteItemAsync(BABY);
         setIsLoading(false);
     }
 
