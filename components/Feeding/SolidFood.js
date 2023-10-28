@@ -33,7 +33,7 @@ export function SolidFood() {
                     </>
                 )}
                 <TouchableOpacity
-                    className={"absolute bottom-2 right-5 rounded-full p-1"}
+                    className={"absolute bottom-0 right-5 rounded-full p-1"}
                     style={{backgroundColor:themeColors.btnColor}}
                     onPress={() => navigation.navigate('Mealplan')}
                 >

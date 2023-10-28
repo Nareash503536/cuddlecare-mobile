@@ -11,6 +11,7 @@ import {SolidFood} from "../components/Feeding/SolidFood";
 import {BottleFeeding} from "../components/Feeding/BottleFeeding";
 import Food from "../assets/images/Food/dairy-products.png";
 import ScreenHeader from "../components/ScreenHeader";
+import MealPlan from "../components/Feeding/Solidfoods/MealPlan";
 const Tab = createMaterialTopTabNavigator();
 
 export function FeedingScreen(){
@@ -49,6 +50,7 @@ export function FeedingScreen(){
                 <Tab.Screen name="Bfeeding" component={BreastFeeding} options={{tabBarLabel:"Breast"}}/>
                 <Tab.Screen name="BottleFeeding" component={BottleFeeding} options={{tabBarLabel:"Bottle"}}/>
                 <Tab.Screen name="Sfeeding" component={SolidFood} options={{tabBarLabel:"Solids"}}/>
+                {/*<Tab.Screen name="mealplan" component={MealPlan} options={{tabBarLabel:"Meal plan"}}/>*/}
             </Tab.Navigator>
 
         </SafeAreaView>

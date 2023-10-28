@@ -83,10 +83,13 @@ export default function MealPlan(){
         if(mealCount < 6){
             let count = mealCount + 1;
             let dayCount = weekDays.indexOf(days)+1;
+            if(dayCount === 7){
+                dayCount = 0;
+            }
             setMealCount(mealCount + 1);
             setMealsArray(CreateMealPlan(day+count));
             setDays(weekDays[dayCount]);
-            console.log(dayCount)
+            console.log("day count",dayCount)
         }
 
     }
@@ -94,16 +97,19 @@ export default function MealPlan(){
         if(mealCount >0) {
             let count = mealCount - 1;
             let dayCount = weekDays.indexOf(days)-1;
+            if(dayCount === -1){
+                dayCount = 6;
+            }
             setMealCount(mealCount - 1);
             setMealsArray(CreateMealPlan(day + count));
             setDays(weekDays[dayCount]);
-            console.log(new Date().getDay()-count,count,"count")
+            console.log(new Date().getDay()-count,dayCount,count,"count")
         }
 
 
     }
     function CreateMealPlan(Day){
-        console.log(Day,"day")
+        console.log(Day,"days")
         let mainmeal = []
         let extrameal = []
         let Notes = []
