@@ -17,30 +17,23 @@ export function SleepBarChart(){
     }, []);
 
     const fetchData = async () => {
-        // Fetch data from the backend or use mock data
-        // const mockData = [
-        //     { date: 'Mon', sleepDuration: 450 },
-        //     { date: 'Tue', sleepDuration: 540 },
-        //     { date: 'Wed', sleepDuration: 420 },
-        //     { date: 'Thu', sleepDuration: 510 },
-        //     { date: 'Fri', sleepDuration: 480 },
-        //     { date: 'Sat', sleepDuration: 600 },
-        //     { date: 'Sun', sleepDuration: 570 },
-        // ];
-
         const apiURL = BASE_URL + "/api/sleep/weeklySleepData";
-        await updateKeys();
-        const response = await axios.get(apiURL, null);
-        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        const dataMap = new Map(response.data.map(item => [item.date, item.sleepDuration]));
-        const result = daysOfWeek.map(day => ({
-            date: day,
-            sleepDuration: dataMap.get(day) || 0
-        }));
-        const totalSleep = result.reduce((acc, day) => acc + day.sleepDuration, 0);
-        const average = totalSleep / 7;
-        setData(result);
-        setAverageSleep(average);
+        try {
+            await updateKeys();
+            const response = await axios.get(apiURL, null);
+            const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+            const dataMap = new Map(response.data.map(item => [item.date, item.sleepDuration]));
+            const result = daysOfWeek.map(day => ({
+                date: day,
+                sleepDuration: dataMap.get(day) || 0
+            }));
+            const totalSleep = result.reduce((acc, day) => acc + day.sleepDuration, 0);
+            const average = totalSleep / 7;
+            setData(result);
+            setAverageSleep(average);
+        } catch (e) {
+            console.log(e);
+        }
     };
     return(
         <SafeAreaView>
