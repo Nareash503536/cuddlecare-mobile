@@ -31,8 +31,7 @@ export function SleepTimelineScreen() {
                 setTotalSleep(0);
                 return;
             }else {
-                let totalMilliseconds = parseDurationToMilliseconds(response.data);
-                totalMilliseconds = totalMilliseconds - 5.5 * 60 * 60 * 1000;
+                const totalMilliseconds = parseDurationToMilliseconds(response.data);
                 setTotalSleep(totalMilliseconds);
             }
             // console.log(response.data);
@@ -50,13 +49,7 @@ export function SleepTimelineScreen() {
         const totalSeconds = totalMilliseconds / 1000;
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
-        if (hours === 0) {
-            return `${minutes}` + " minutes";
-        }else if (hours === 1) {
-            return `${hours}` + " hour and " + `${minutes}` + " minutes";
-        } else {
-            return `${hours}` + " hours and " + `${minutes}` + " minutes";
-        }
+        return `${hours} hours and ${minutes} minutes`;
     };
 
     const getAll = async () => {
