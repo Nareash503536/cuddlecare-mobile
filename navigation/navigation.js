@@ -57,6 +57,9 @@ import {DiaperTimelineScreen} from "../screens/DiaperTimelineScreen";
 import {DiaperBarChart} from "../screens/DiaperBarChart";
 
 import MealPlan from "../components/Feeding/Solidfoods/MealPlan";
+import {CaregiverListScreen} from "../screens/CaregiverListScreen";
+import {ToDoListScreen} from "../screens/ToDoListScreen";
+import {AddTaskScreen} from "../screens/AddTaskScreen";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -172,6 +175,10 @@ export function Navigation() {
 
                 <Stack.Screen name="AcceptRequestScreen" component={AcceptRequestScreen} />
                 <Stack.Screen name="SendRequestScreen" component={SendRequestScreen} />
+
+                <Stack.Screen name="CaregiverList" component={CaregiverListScreen} />
+                <Stack.Screen name="ToDoList" component={ToDoListScreen} />
+                <Stack.Screen name="AddTask" component={AddTaskScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
