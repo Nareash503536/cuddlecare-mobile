@@ -1,10 +1,14 @@
 import {SafeAreaView} from "react-native-safe-area-context";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {BarChart} from "react-native-chart-kit";
 import {View, Text} from "react-native";
 import DiaperHeader from "../components/diaperHeader";
+import {BASE_URL} from "../config";
+import axios from "axios";
+import {AuthContext} from "../Context/AuthContext";
 
 export function DiaperBarChart(){
+    const { updateKeys } = React.useContext(AuthContext);
     const [data, setData] = useState([]);
     const [averageCount, setAverageCount] = useState(0);
 
@@ -12,23 +16,24 @@ export function DiaperBarChart(){
         fetchData();
     }, []);
 
-    const fetchData = () => {
-        // Fetch data from the backend or use mock data
-        const mockData = [
-            { date: 'Mon', diaperChanges: 5 },
-            { date: 'Tue', diaperChanges: 7 },
-            { date: 'Wed', diaperChanges: 4 },
-            { date: 'Thu', diaperChanges: 6 },
-            { date: 'Fri', diaperChanges: 0 },
-            { date: 'Sat', diaperChanges: 0 },
-            { date: 'Sun', diaperChanges: 0 },
-        ];
-
-        const totalCount = mockData.reduce((total, item) => total + item.diaperChanges, 0);
-        const average = totalCount / mockData.length;
-
-        setData(mockData);
-        setAverageCount(average);
+    const fetchData = async () => {
+        const apiURL = BASE_URL + "/api/diaper/weeklyDiaperCount";
+        try {
+            await updateKeys();
+            const response = await axios.get(apiURL, null);
+            const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+            const dataMap = new Map(response.data.map(item => [item.date, item.count]));
+            const result = daysOfWeek.map(day => ({
+                date: day,
+                count: dataMap.get(day) || 0
+            }));
+            const totalCount = result.reduce((acc, day) => acc + day.count, 0);
+            const average = totalCount / 7;
+            setData(result);
+            setAverageCount(average);
+        } catch (e) {
+            console.log(e);
+        }
     };
     return(
         <SafeAreaView>
@@ -40,7 +45,7 @@ export function DiaperBarChart(){
                         labels: data.map(item => item.date),
                         datasets: [
                             {
-                                data: data.map(item => item.diaperChanges),
+                                data: data.map(item => item.count),
                             },
                         ],
                     }}
