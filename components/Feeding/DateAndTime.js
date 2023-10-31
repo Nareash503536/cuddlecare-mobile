@@ -11,6 +11,8 @@ export function DateAndTime() {
                 lable={"Pick a Date"}
                 value={getFormattedDate(new Date())}
                 name={'date'}
+
+
             />
             <DateTimePicker
                 mode='time'

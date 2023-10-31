@@ -16,66 +16,66 @@ import wheat from "../../../assets/images/Food/puree/wheat.jpg";
 import dhal from "../../../assets/images/Food/grains/dhal.jpg"
 
 export const PulsesListSet = [{
-    id: 'C1',
+    id: 33,
     name: "Dhal",
     image: dhal,
     category: "pulses"
 },{
-    id: 'C2',
+    id: 34,
     name: "Foxtail Millet",
     image: barley,
     category: "cereals",
 },{
-    id: 'C3',
+    id: 35,
     name: "Fruit Smoothies",
     category: "fruits",
     image: fruitSmoothies
 },{
-    id: 'C4',
+    id: 36,
     name: "Wheat",
     category: "cereals",
     image: wheat
 }, {
-    id: 'C5',
+    id: 37,
     name: "Maize",
     category: "cereals",
     image: maize
 },{
-    id: 'C6',
+    id: 38,
     name: "Mashed rice",
     category: "rice",
     image: rice
 }, {
-    id: 'C7',
+    id: 39,
     name: "Mashed yam",
     category: "vegetables",
     image: mashedyam
 }, {
-    id: 'C8',
+    id:40,
     name: "Millet",
     category: "cereals",
     image: millet
 }
     , {
-        id: 'C9',
+        id: 41,
         name: "Oats",
         category: "cereals",
         image: oats
     }
     , {
-        id: 'C10',
+        id: 42,
         name: "Porridge",
         category: "ricePorridge",
         image: porridge
     }
     , {
-        id: 'C11',
+        id: 43,
         name: "Pumpkin puree",
         category: "vegetables",
         image: pumpkin
     }
     , {
-        id: 'C12',
+        id: 44,
         name: "Potato puree",
         category: "vegetables",
         image:potato
