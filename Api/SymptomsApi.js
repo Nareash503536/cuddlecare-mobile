@@ -19,8 +19,9 @@ export default function SymptomsAPI() {
     const addSymptoms = async (
         date, time, notes, symptomArray, babyID
         ) => {
+        
         let responseArray = [];
-        // console.log(date, time, notes, symptomArray, babyID);
+        console.log(date, time, notes, symptomArray, babyID);
         let API_URL = BASE_URL + "/symptom/createSymptomForBaby";
         for (let i = 0; i < symptomArray.length; i++) {
             if(symptomArray[i] === true) {
@@ -105,8 +106,6 @@ export default function SymptomsAPI() {
             console.log("Update symptom error: " + error);
         }
     }
-
-
 
     return { 
         addSymptoms,

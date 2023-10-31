@@ -58,6 +58,8 @@ import {DiaperBarChart} from "../screens/DiaperBarChart";
 
 import MealPlan from "../components/Feeding/Solidfoods/MealPlan";
 
+import VaccinationDashboard from "../screens/Vaccination/VaccinationDashboard";
+
 const BottomTabs = createBottomTabNavigator();
 
 function AppOverview() {
@@ -172,6 +174,8 @@ export function Navigation() {
 
                 <Stack.Screen name="AcceptRequestScreen" component={AcceptRequestScreen} />
                 <Stack.Screen name="SendRequestScreen" component={SendRequestScreen} />
+
+                <Stack.Screen name="VaccinationDashboard" component={VaccinationDashboard} />
             </Stack.Navigator>
         </NavigationContainer>
     )

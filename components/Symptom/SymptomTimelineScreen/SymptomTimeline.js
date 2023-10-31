@@ -17,7 +17,7 @@ export const SymptomTimeline = () => {
 
     const route = useRoute();
     const date = route.params?.date || {};
-    const {updateKeys} = useContext(AuthContext);
+    const {updateKeys, baby} = useContext(AuthContext);
 
     const [isLoading, setIsLoading] = useState(false);
     const [symptomData, setSymptomData] = useState([]);
@@ -162,7 +162,7 @@ export const SymptomTimeline = () => {
                             }}>
                                 Cancel
                             </Button>
-                            <Button onPress={() => updateSymptoms(time, additionalNotes, 1)}>
+                            <Button onPress={() => updateSymptoms(time, additionalNotes, baby.babyID)}>
                                 Save
                             </Button>
                         </Button.Group>
@@ -206,7 +206,7 @@ export const SymptomTimeline = () => {
             setIsLoading(true);
             try {
                 await updateKeys();
-                const symptoms = await SymptomsAPI().getSymptoms(date, 1);
+                const symptoms = await SymptomsAPI().getSymptoms(date, baby.babyID);
                 symptoms.forEach((symptom) => {
                     if (symptom.symptom.symptomID == 1)
                         icon = require("../../../assets/images/BabySymptoms/fever.png");

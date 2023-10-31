@@ -116,7 +116,7 @@ export default function SymptomContainer() {
                             }}>
                                 Cancel
                             </Button>
-                            <Button onPress={() => saveSymptoms(startDate, startTime, additionalNotes, 1) }>
+                            <Button onPress={() => saveSymptoms(startDate, startTime, additionalNotes, baby.babyID) }>
                                 Save
                             </Button>
                         </Button.Group>

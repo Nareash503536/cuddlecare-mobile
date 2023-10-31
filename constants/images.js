@@ -40,6 +40,10 @@ import NoBabiesWarning from "../assets/images/NoBabiesWarning.png"
 import success from "../assets/images/success.png"
 import decline from "../assets/images/decline.png"
 
+import vaccine from "../assets/images/vaccine.png"
+import injection from "../assets/images/injection.png"
+import MissedCalendar from "../assets/images/MissedCalendar.png"
+
 export default {logo, 
                 appName, 
                 addCaregiver, 
@@ -76,5 +80,8 @@ export default {logo,
                 AddImage,
                 NoBabiesWarning,
                 success,
-                decline
+                decline,
+                vaccine,
+                injection,
+                MissedCalendar
             };

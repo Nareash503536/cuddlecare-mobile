@@ -5,7 +5,7 @@ import {CheckCircleIcon} from "react-native-heroicons/outline";
 
 export function Logs() {
     return (
-        <ScrollView className={"flex space-y-2 h-80 pb-40"} style={{backgroundColor:"white"}}>
+        <View className={"flex space-y-2 h-80 pb-40"} style={{backgroundColor:"white"}}>
             <TouchableOpacity className={"flex-row rounded-xl p-2  mx-2 space-x-3  shadow-2xl mt-4"} style={{backgroundColor:"white",shadowColor: "#000"}}>
                 <View className={"rounded-full p-1 bg-white"}>
                     <Image source={require('../assets/images/sleep.png')} style={{width:40,height:40}}/>
@@ -106,6 +106,6 @@ export function Logs() {
             {/*    </View>*/}
             {/*</TouchableOpacity>*/}
 
-        </ScrollView>
+        </View>
     )
 }
