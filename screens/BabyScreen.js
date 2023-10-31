@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, View, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { themeColors } from "../theme";
@@ -39,7 +39,7 @@ export function BabyScreen() {
                     );
                 }}
             >
-                <View className={"flex-1 relative "}>
+                <ScrollView className={"flex-1 relative h-full"}>
                     <StatusBar style={"light"} />
                     <Image source={require("../assets/images/background2.png")} className={"absolute h-full w-full opacity-70"} />
                     <SafeAreaView>
@@ -53,7 +53,7 @@ export function BabyScreen() {
 
                             <View className=" flex-1 space-x-2 items-center">
                                 <Image source={require('../assets/images/appName.png')}
-                                    style={{ width: 150, height: 30 }}/>
+                                    style={{ width: 150, height: 30 }} />
                             </View>
                             <TouchableOpacity className={"rounded-full p-1"} style={{ backgroundColor: themeColors.btnColor }}>
                                 <BellIcon size="27" color="white" />
@@ -129,7 +129,7 @@ export function BabyScreen() {
                             <Logs />
                         </View>
                     </SafeAreaView>
-                </View>
+                </ScrollView>
             </Drawer>
         )
     else
@@ -172,15 +172,14 @@ export function BabyScreen() {
                             <Text style={{ color: "grey" }}>Sorry... Add a baby to get started</Text>
                             {
                                 user.relationship !== "caregiver" ?
-                                <TouchableOpacity className={"mx-5 flex-row justify-between items-center"}>
-                                <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("AddBabyScreen")}>
-                                    <Text className={"font-extrabold"} style={{ color: COLORS.tertiary }}>
-                                        Add Baby
-                                    </Text>
-                                </TouchableOpacity>
-                            </TouchableOpacity> : null}
+                                    <TouchableOpacity className={"mx-5 flex-row justify-between items-center"}>
+                                        <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate("AddBabyScreen")}>
+                                            <Text className={"font-extrabold"} style={{ color: COLORS.tertiary }}>
+                                                Add Baby
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </TouchableOpacity> : null}
                         </View>
-
                     </View>
                 </SafeAreaView>
             </Drawer>

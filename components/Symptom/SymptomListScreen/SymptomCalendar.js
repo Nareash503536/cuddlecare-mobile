@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/core';
 
 export function SymptomCalendar() {
 
-    const { updateKeys } = useContext(AuthContext);
+    const { updateKeys, baby } = useContext(AuthContext);
     const [markedDatesSymptoms, setMarkedDatesSymptoms] = useState([]);
     const [markedDates, setMarkedDates] = useState({});
     const [isLoading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ export function SymptomCalendar() {
             try {
                 // Assuming updateKeys and SymptomsAPI().getSymptoms are both async functions
                 await updateKeys();
-                const symptomDates = await SymptomsAPI().getSymptomDates(1);
+                const symptomDates = await SymptomsAPI().getSymptomDates(baby.babyID);
                 setMarkedDatesSymptoms(symptomDates);
             } catch (error) {
                 // Handle errors if needed

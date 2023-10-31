@@ -61,6 +61,8 @@ import {CaregiverListScreen} from "../screens/CaregiverListScreen";
 import {ToDoListScreen} from "../screens/ToDoListScreen";
 import {AddTaskScreen} from "../screens/AddTaskScreen";
 
+import VaccinationDashboard from "../screens/Vaccination/VaccinationDashboard";
+
 const BottomTabs = createBottomTabNavigator();
 
 function AppOverview() {
@@ -175,6 +177,8 @@ export function Navigation() {
 
                 <Stack.Screen name="AcceptRequestScreen" component={AcceptRequestScreen} />
                 <Stack.Screen name="SendRequestScreen" component={SendRequestScreen} />
+
+                <Stack.Screen name="VaccinationDashboard" component={VaccinationDashboard} />
 
                 <Stack.Screen name="CaregiverList" component={CaregiverListScreen} />
                 <Stack.Screen name="ToDoList" component={ToDoListScreen} />
