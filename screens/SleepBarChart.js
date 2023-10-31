@@ -1,14 +1,10 @@
 import {SafeAreaView} from "react-native-safe-area-context";
 import SleepHeader from "../components/sleepHeader";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {BarChart} from "react-native-chart-kit";
 import {View, Text} from "react-native";
-import {BASE_URL} from "../config";
-import axios from "axios";
-import {AuthContext} from "../Context/AuthContext";
 
 export function SleepBarChart(){
-    const { updateKeys } = React.useContext(AuthContext);
     const [data, setData] = useState([]);
     const [averageSleep, setAverageSleep] = useState(0);
 
@@ -16,24 +12,23 @@ export function SleepBarChart(){
         fetchData();
     }, []);
 
-    const fetchData = async () => {
-        const apiURL = BASE_URL + "/api/sleep/weeklySleepData";
-        try {
-            await updateKeys();
-            const response = await axios.get(apiURL, null);
-            const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-            const dataMap = new Map(response.data.map(item => [item.date, item.sleepDuration]));
-            const result = daysOfWeek.map(day => ({
-                date: day,
-                sleepDuration: dataMap.get(day) || 0
-            }));
-            const totalSleep = result.reduce((acc, day) => acc + day.sleepDuration, 0);
-            const average = totalSleep / 7;
-            setData(result);
-            setAverageSleep(average);
-        } catch (e) {
-            console.log(e);
-        }
+    const fetchData = () => {
+        // Fetch data from the backend or use mock data
+        const mockData = [
+            { date: 'Mon', sleepDuration: 450 },
+            { date: 'Tue', sleepDuration: 540 },
+            { date: 'Wed', sleepDuration: 420 },
+            { date: 'Thu', sleepDuration: 510 },
+            { date: 'Fri', sleepDuration: 480 },
+            { date: 'Sat', sleepDuration: 600 },
+            { date: 'Sun', sleepDuration: 570 },
+        ];
+
+        const totalSleep = mockData.reduce((total, item) => total + item.sleepDuration, 0);
+        const average = totalSleep / mockData.length;
+
+        setData(mockData);
+        setAverageSleep(average);
     };
     return(
         <SafeAreaView>

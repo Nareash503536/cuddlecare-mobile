@@ -41,7 +41,7 @@ export function BabyScreen() {
             >
                 <View className={"flex-1 relative "}>
                     <StatusBar style={"light"} />
-                    <Image source={require("../assets/images/background2.png")} className={"absolute h-full w-full opacity-70"} />
+                    <Image source={require("../assets/images/background2.png")} className={"absolute h-full w-full"} />
                     <SafeAreaView>
                         {/*Top bar*/}
                         <View className="mx-4  mt-1 flex-row  items-center">
@@ -192,7 +192,7 @@ export function BabyScreen() {
 const styles = StyleSheet.create({
     Button: {
         alignItems: 'center',
-        // backgroundColor: '#DDDDDD',
+        backgroundColor: '#DDDDDD',
         justifyContent: 'center',
         paddingHorizontal: 11,
         height: 50,
