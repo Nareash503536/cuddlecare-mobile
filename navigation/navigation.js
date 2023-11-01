@@ -66,6 +66,10 @@ import {FoodFeedingTimeline} from "../components/Feeding/FeedingTimelines/FoodFe
 import {ListScreen} from "../screens/ListScreen";
 import breastFeedingForm from "../components/Feeding/breastFeedingForm";
 
+import VaccinationDashboard from "../screens/Vaccination/VaccinationDashboard";
+
+import VaccinationDashboard from "../screens/Vaccination/VaccinationDashboard";
+
 const BottomTabs = createBottomTabNavigator();
 
 function AppOverview() {
@@ -184,6 +188,8 @@ export function Navigation() {
 
                 <Stack.Screen name="AcceptRequestScreen" component={AcceptRequestScreen} />
                 <Stack.Screen name="SendRequestScreen" component={SendRequestScreen} />
+
+                <Stack.Screen name="VaccinationDashboard" component={VaccinationDashboard} />
 
                 <Stack.Screen name="CaregiverList" component={CaregiverListScreen} />
                 <Stack.Screen name="ToDoList" component={ToDoListScreen} />

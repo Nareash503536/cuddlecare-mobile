@@ -7,16 +7,10 @@ function Input({ label, textInputConfig ,invalid}) {
 
     const inputStyles = [styles.input];
 
-    if (textInputConfig && textInputConfig.multiline) {
-        inputStyles.push(styles.inputMultiline)
-    }
-    if(invalid){
-        inputStyles.push(styles.invalidInput)
-    }
     return (
-        <View  className={"my-1 mx-8 flex-1Z"}>
-            <Text style={[styles.label,invalid && styles.inbalidLable ]} className={"text-xs mb-2"}>{label}</Text>
-            <TextInput className={"p-2 rounded-xl text-lg"} style={inputStyles} {...textInputConfig} />
+        <View  className={"my-1 flex-1Z"}>
+            <Text  className={"text-xs mb-2"}>{label}</Text>
+            <TextInput className={"p-2 rounded-xl text-base"} style={inputStyles} placeholder="What's on your mind?" />
         </View>
     );
 }
@@ -29,11 +23,11 @@ const styles = StyleSheet.create({
         color: themeColors.colorDark,
     },
     input: {
-        backgroundColor: themeColors.bgInput(0.1),
+        backgroundColor: "white",
         color: GlobalStyles.colors.primary700,
     },
     inputMultiline: {
-        minHeight: 100,
+        // minHeight: 100,
         textAlignVertical: 'top'
     },
     inbalidLable: {
