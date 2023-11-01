@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         borderColor: "red",
         borderWidth: 2,
-        backgroundColor: "white",
     }
 });
 

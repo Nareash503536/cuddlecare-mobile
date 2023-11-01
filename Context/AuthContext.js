@@ -15,8 +15,8 @@ export const API_URL = BASE_URL + '/login';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [baby, setBaby] = useState(null);
+    const [user, setUser] = useState(1);
+    const [baby, setBaby] = useState(1);
     const [babySet, setBabySet] = useState(null);
 
     useEffect(() => {
