@@ -60,7 +60,12 @@ import MealPlan from "../components/Feeding/Solidfoods/MealPlan";
 import {CaregiverListScreen} from "../screens/CaregiverListScreen";
 import {ToDoListScreen} from "../screens/ToDoListScreen";
 import {AddTaskScreen} from "../screens/AddTaskScreen";
+import {BreastFeedingTimeline} from "../components/Feeding/FeedingTimelines/BreastFeedingTimeline";
+import {BottleFeedingTimeline} from "../components/Feeding/FeedingTimelines/BottleFeedingTimeline";
+import {FoodFeedingTimeline} from "../components/Feeding/FeedingTimelines/FoodFeedingTimeline";
 import {ListScreen} from "../screens/ListScreen";
+import breastFeedingForm from "../components/Feeding/breastFeedingForm";
+import VaccinationDashboard from "../screens/Vaccination/VaccinationDashboard";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -144,6 +149,10 @@ export function Navigation() {
                 <Stack.Screen name="SolidFoodNav" component={SolidFoodNav} />
                 {/*<Stack.Screen name="SolidFoodTab" component={SolidFoodsHeader} />*/}
                 <Stack.Screen name="Mealplan" component={MealPlan} />
+                <Stack.Screen name="BFeedTimeline" component={BreastFeedingTimeline} />
+                <Stack.Screen name="BottleFeedTimeline" component={BottleFeedingTimeline} />
+                <Stack.Screen name="Bfeedform" component={breastFeedingForm} />
+                <Stack.Screen name="FoodFeedTimeline" component={FoodFeedingTimeline} />
                 {/* Growth feature screens */}
                 <Stack.Screen name="Milestones" component={MilestonesScreen} />
                 <Stack.Screen name="MilestonesList" component={MilestonesListScreen} />
@@ -176,6 +185,8 @@ export function Navigation() {
 
                 <Stack.Screen name="AcceptRequestScreen" component={AcceptRequestScreen} />
                 <Stack.Screen name="SendRequestScreen" component={SendRequestScreen} />
+
+                <Stack.Screen name="VaccinationDashboard" component={VaccinationDashboard} />
 
                 <Stack.Screen name="CaregiverList" component={CaregiverListScreen} />
                 <Stack.Screen name="ToDoList" component={ToDoListScreen} />

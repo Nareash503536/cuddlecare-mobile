@@ -14,7 +14,7 @@ export default function SymptomContainer() {
 
     const [symptomArray, setSymptomArray] = useState(Array(11).fill(false));
     const [showModal, setShowModal] = useState(false);
-    const { updateKeys } = useContext(AuthContext);
+    const { updateKeys, baby } = useContext(AuthContext);
     const { setLoading } = useContext(SymptomListContext);
  
  
@@ -114,7 +114,7 @@ export default function SymptomContainer() {
                                 Cancel
                             </Button>
                             <Button 
-                                onPress={() => saveSymptoms(inputDate, inputTime, additionalNotes, 1)}
+                                onPress={() => saveSymptoms(inputDate, inputTime, additionalNotes, baby.babyID)}
                             >
                                 Save
                             </Button>

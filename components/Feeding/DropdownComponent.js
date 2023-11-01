@@ -6,7 +6,7 @@ import {themeColors} from "../../theme";
 import {GlobalStyles} from "../../constants/styles";
 
 
-const DropdownComponent = ({onCategorySelect,data,name,defaultval=null}) => {
+const DropdownComponent = ({onCategorySelect,data,name,defaultName,defaultval=null}) => {
 
     const handleCategoryChange = (value) => {
         // Call the onCategorySelect function here with the new value
@@ -29,7 +29,7 @@ const DropdownComponent = ({onCategorySelect,data,name,defaultval=null}) => {
             maxHeight={300}
             labelField="label"
             valueField="value"
-            placeholder="mg"
+            placeholder={defaultName}
             searchPlaceholder="Search..."
             value={value}
             onChange={item => {

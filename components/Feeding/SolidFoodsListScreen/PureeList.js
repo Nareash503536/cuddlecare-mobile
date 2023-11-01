@@ -161,7 +161,7 @@ export default function PureeList(){
 
                                 }}
                             />
-                            <DropdownComponent   onCategorySelect={handleCategoryChange}    style={styles.drop}  data={datas} name='Units' defaultval = {null}  />
+                            <DropdownComponent   onCategorySelect={handleCategoryChange}  defaultName={"mg"}  style={styles.drop}  data={datas} name='Units' defaultval = {null}  />
                         </View>
                         <View className={"flex-1 flex-row gap-4 my-2"}>
                             <Pressable

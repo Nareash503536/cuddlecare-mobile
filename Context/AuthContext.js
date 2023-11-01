@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(1);
     const [baby, setBaby] = useState(1);
     const [babySet, setBabySet] = useState(null);
-
+    
     useEffect(() => {
         async function updateUser() {
             if (user) {
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
             if (babySet) {
                 try {
                     await SecureStore.setItemAsync(BABYSET, JSON.stringify(babySet));
-                    console.log(babySet);
+                    console.log("babySet is " + babySet);
                     setBaby(babySet[0]);
                 } catch (error) {
                     console.log("Update baby set error: " + error);

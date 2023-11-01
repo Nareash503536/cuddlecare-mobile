@@ -16,7 +16,7 @@ import { useRoute } from '@react-navigation/core';
 
 export const SymptomPlot = () => {
 
-    const { updateKeys } = useContext(AuthContext);
+    const { updateKeys, baby } = useContext(AuthContext);
     const [symptomData, setSymptomData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -28,7 +28,7 @@ export const SymptomPlot = () => {
             setIsLoading(true);
             try {
                 await updateKeys();
-                const symptoms = await SymptomsAPI().getSymptoms(date, 1);
+                const symptoms = await SymptomsAPI().getSymptoms(date, baby.babyID);
                 symptoms.forEach((symptom) => {
                     //Symptom time is in 1.23 PM format in string convert it into 24 hr number format in decimal
                     let time = symptom.time;

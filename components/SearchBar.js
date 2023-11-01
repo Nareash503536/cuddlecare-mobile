@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Searchbar } from 'react-native-paper';
 import {themeColors} from "../theme";
-import {GlobalStyles} from "../constants/styles";
 import {View} from "react-native";
-import center from "native-base/src/theme/components/center";
 
 const Search_Bar = ({onSearch}) => {
     const [searchQuery, setSearchQuery] = React.useState('');
@@ -24,9 +22,16 @@ const Search_Bar = ({onSearch}) => {
                 mode={'bar'}
                 value={searchQuery}
                 onSubmitEditing={handleSearch}
-                style={{backgroundColor:themeColors.colornormal,width:'80%',alignSelf:'center',borderRadius:30,marginTop:20}}
-                // iconColor={GlobalStyles.colors.primary50}
-                iconColor={themeColors.bgWhite(1)}
+                style={{
+                    backgroundColor: "white",
+                    width:'80%',
+                    alignSelf:'center',
+                    height:50,
+                    borderRadius:30,
+                    margin:10
+                }}
+                iconColor={"grey"}
+                // iconColor={themeColors.bgWhite(1)}
             />
         </View>
 

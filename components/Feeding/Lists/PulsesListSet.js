@@ -1,84 +1,59 @@
+import dhal from "../../../assets/images/Food/grains/dhal.jpg";
+import brownbean from "../../../assets/images/Food/grains/brownbean.jpg";
+import chickpea from "../../../assets/images/Food/grains/chickpea.jpg";
+import greenGram from "../../../assets/images/Food/grains/greenGram.jpg";
+import kindeyBeans from "../../../assets/images/Food/grains/kindneyBeans.jpg";
+import lentil from "../../../assets/images/Food/grains/lentil.jpg";
+import limabeans from "../../../assets/images/Food/grains/limabeans.jpg";
+import nuts from "../../../assets/images/Food/grains/nuts.jpg";
+import soya from "../../../assets/images/Food/grains/soya.jpg";
 
-import barley from "../../../assets/images/Food/puree/barley.jpg";
-import foxtailMillet from "../../../assets/images/Food/puree/foxtail millet(thanahal).jpg";
-import fruitSmoothies from "../../../assets/images/Food/puree/fruitsmoothies.jpg";
-import maize from "../../../assets/images/Food/puree/maize.jpg";
-import mashedyam from "../../../assets/images/Food/puree/mashedyam.jpg";
-import millet from "../../../assets/images/Food/puree/millet.jpg";
-import oats from "../../../assets/images/Food/puree/oats.jpg";
-import porridge from "../../../assets/images/Food/puree/porridge.jpg";
-
-import pumpkin from "../../../assets/images/Food/puree/pumpkin.jpg";
-import potato from "../../../assets/images/Food/puree/potato.jpg";
-
-import rice from "../../../assets/images/Food/puree/rice.jpg";
-import wheat from "../../../assets/images/Food/puree/wheat.jpg";
-import dhal from "../../../assets/images/Food/grains/dhal.jpg"
 
 export const PulsesListSet = [{
     id: 33,
-    name: "Dhal",
-    image: dhal,
+    name: "Brown bean",
+    image: brownbean,
     category: "pulses"
 },{
     id: 34,
-    name: "Foxtail Millet",
-    image: barley,
-    category: "cereals",
+    name: "Chickpea",
+    image: chickpea,
+    category: "pulses",
 },{
     id: 35,
-    name: "Fruit Smoothies",
-    category: "fruits",
-    image: fruitSmoothies
+    name: "Dhal",
+    category: "pulses",
+    image: dhal
 },{
     id: 36,
-    name: "Wheat",
-    category: "cereals",
-    image: wheat
+    name: "Green gram",
+    category: "pulses",
+    image: greenGram
 }, {
     id: 37,
-    name: "Maize",
-    category: "cereals",
-    image: maize
+    name: "Kindey beans",
+    category: "pulses",
+    image: kindeyBeans
 },{
     id: 38,
-    name: "Mashed rice",
-    category: "rice",
-    image: rice
+    name: "Lentil",
+    category: "pulses",
+    image: lentil
 }, {
     id: 39,
-    name: "Mashed yam",
-    category: "vegetables",
-    image: mashedyam
+    name: "Lima beans",
+    category: "pulses",
+    image: limabeans
 }, {
     id:40,
-    name: "Millet",
-    category: "cereals",
-    image: millet
+    name: "Nuts",
+    category: "pulses",
+    image: nuts
 }
     , {
         id: 41,
-        name: "Oats",
-        category: "cereals",
-        image: oats
+        name: "Soya",
+        category: "pulses",
+        image: soya
     }
-    , {
-        id: 42,
-        name: "Porridge",
-        category: "ricePorridge",
-        image: porridge
-    }
-    , {
-        id: 43,
-        name: "Pumpkin puree",
-        category: "vegetables",
-        image: pumpkin
-    }
-    , {
-        id: 44,
-        name: "Potato puree",
-        category: "vegetables",
-        image:potato
-    }
-
 ]

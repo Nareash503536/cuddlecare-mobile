@@ -13,6 +13,7 @@ import {BASE_URL} from "../../../config";
 import axios from "axios";
 import {  FormControl, Input, } from "native-base";
 import {AuthContext} from "../../../Context/AuthContext";
+import Toast from "react-native-toast-message";
 
 export function SaveFood(vegeArray){
     let inputVegArray = vegeArray.vegeArray;
@@ -26,7 +27,8 @@ export function SaveFood(vegeArray){
     const [modalVisible, setModalVisible] = useState(false);
     let navigation = useNavigation();
     const [vegArray, setVegArray] = useState([]);
-    const [count, setCount] = useState(23);
+    const [err, setErr] = useState(false);
+    const [count, setCount] = useState(45);
     const { updateKeys } = useContext(AuthContext);
     useEffect(() => {
        setVegArray(inputVegArray);
@@ -56,6 +58,7 @@ export function SaveFood(vegeArray){
         // const quantity = startDate;
         const additionalNotes = notes;
         const foodFeedingID= count;
+
         const data = {
             foodFeedingID,
             feedingTime,
@@ -92,15 +95,28 @@ export function SaveFood(vegeArray){
                 console.log("result: ", result);
             } catch (error) {
                 console.error("Error:", error);
+                setErr(true);
+                break;
                 // Handle the error as needed
             }
         }
+        clearAll();
+        if(err) {
+            Toast.show({
+                type: "error",
+                text1: "Error saving records",
+                text2: "There was an error saving your feeding record. Please try again.",
+            })
+        }else{
+            Toast.show({
+                type: "success",
+                text1: "Record saved",
+                text2: "Your Bottle Feeding record have been saved successfully",
+            })
+        }
 
 
-
-
-
-    };
+    }
 
     const storeData = async (data) => {
         await updateKeys();

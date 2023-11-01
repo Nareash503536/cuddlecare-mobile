@@ -73,7 +73,7 @@ export const mainFeatures = [
     {
         name: 'Immunization',
         image: require('../assets/images/syringe.png'),
-        location: 'ImmunizationScreen',
+        location: 'VaccinationDashboard',
     },
 
     {

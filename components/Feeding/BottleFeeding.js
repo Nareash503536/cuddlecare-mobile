@@ -6,12 +6,16 @@ import {themeColors} from "../../theme";
 import {GlobalStyles} from "../../constants/styles";
 
 import {getFormattedDate} from "../../util/date";
-import {ChevronRightIcon, ChevronLeftIcon, PencilSquareIcon} from "react-native-heroicons/solid";
+import {ChevronRightIcon, ChevronLeftIcon, PencilSquareIcon, ArrowTrendingUpIcon} from "react-native-heroicons/solid";
 import {DateAndTime} from "./DateAndTime";
 import DateTimePicker from "./DateTimePicker";
 import {BASE_URL} from "../../config";
 import axios from "axios";
 import {AuthContext} from "../../Context/AuthContext";
+import {ApiManager} from "../../Api/ApiManager";
+import Toast from "react-native-toast-message";
+import {ChartBarSquareIcon} from "react-native-heroicons/outline";
+import {useNavigation} from "@react-navigation/native";
 
 
 export function BottleFeeding() {
@@ -19,6 +23,7 @@ export function BottleFeeding() {
     const {updateKeys,baby} = useContext(AuthContext);
 const [imagecount, setImagecount] = useState(0);
 const [category,setCategory]=useState('');
+    let navigation = useNavigation();
     const [inputs, setInputs] = useState({
         quantity: {
             value: '',
@@ -72,33 +77,45 @@ const [category,setCategory]=useState('');
             },
         }).then((res) => {
             console.log(res);
+
+                Toast.show({
+                    type: "success",
+                    text1: "Record saved",
+                    text2: "Your Bottle Feeding record have been saved successfully",
+                })
+                console.log(response);
+
         }).catch((err) => {
+            Toast.show({
+                type: "error",
+                text1: "Error saving records",
+                text2: "There was an error saving your feeding record. Please try again.",
+            })
             console.log(err);
         });
     }
     const getFeeding = async () => {
         await updateKeys();
-        console.log(inputs.amount.value, inputs.expenseName.value, inputs.notes.value,inputs.date.value);
+        // console.log(inputs.amount.value, inputs.expenseName.value, inputs.notes.value,inputs.date.value);
 
-        const apiURL = BASE_URL + "/expenses";
+        const apiURL = BASE_URL + "/bottlefeeding/all";
 
-        let Bottlefeeding = {
-            Quantity: +inputs.quantity.value,
-            feedingTime: inputs.time.value,
-            FeedingType: inputs.category.value,
-            feedingDate: inputs.date.value,
-            baby: baby,
+        try {
+            const response = await ApiManager.get(apiURL,{
+                headers: {
+                    "Content-Type": "application/json",
+                },
+
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
         }
-        const jsonData = JSON.stringify(Bottlefeeding);
-        const response = await axios.post(apiURL, jsonData, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
-        });
+    }
+
+    const displayAllData = async () => {
+        const data = await getFeeding();
+        console.log("data: ", data);
     }
 
     function changeBottle(imageID){
@@ -213,6 +230,13 @@ const textInputConfig = {
             <TouchableOpacity style={styles.savebtn} onPress={()=>PostFeeding()}>
                 <Text  style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
+    <TouchableOpacity
+        className={"absolute bottom-16 right-5 rounded-full p-1"}
+        style={{backgroundColor:themeColors.btnColor}}
+        onPress={() => navigation.navigate('BottleFeedTimeline')}
+    >
+        <ArrowTrendingUpIcon size="40" color="white"  />
+    </TouchableOpacity>
 </View>
         </SafeAreaView>
     )
