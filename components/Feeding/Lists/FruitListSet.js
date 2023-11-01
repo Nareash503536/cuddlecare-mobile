@@ -16,66 +16,66 @@ import wheat from "../../../assets/images/Food/puree/wheat.jpg";
 import apple from "../../../assets/images/Food/Fruits/apple.png"
 
 export const FruitListSet = [{
-    id: 'F1',
+    id: 21,
     name: "banana",
     image: maize,
     category: "fruits"
 },{
-    id: 'F2',
+    id: 22,
     name: "Foxtail Millet",
     image: barley,
     category: "cereals",
 },{
-    id: 'F3',
+    id: 23,
     name: "Fruit Smoothies",
     category: "fruits",
     image: fruitSmoothies
 },{
-    id: 'F4',
+    id: 24,
     name: "Wheat",
     category: "cereals",
     image: wheat
 }, {
-    id: 'F5',
+    id: 25,
     name: "Maize",
     category: "cereals",
     image: maize
 },{
-    id: 'F6',
+    id:26,
     name: "Mashed rice",
     category: "rice",
     image: rice
 }, {
-    id: 'F7',
+    id:27,
     name: "Mashed yam",
     category: "vegetables",
     image: mashedyam
 }, {
-    id: 'F8',
+    id: 28,
     name: "Millet",
     category: "cereals",
     image: millet
 }
     , {
-        id: 'F9',
+        id: 29,
         name: "Oats",
         category: "cereals",
         image: oats
     }
     , {
-        id: 'F10',
+        id: 30,
         name: "Porridge",
         category: "ricePorridge",
         image: porridge
     }
     , {
-        id: 'F11',
+        id: 31,
         name: "Pumpkin puree",
         category: "vegetables",
         image: pumpkin
     }
     , {
-        id: 'F12',
+        id: 32,
         name: "Potato puree",
         category: "vegetables",
         image:potato

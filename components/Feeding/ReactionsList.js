@@ -1,24 +1,35 @@
 import {FlatList, ScrollView, Text, TouchableOpacity, View, Image, StyleSheet} from "react-native";
 import {FoodListSet} from "./Lists/foodListSet";
 import images from "../../constants/images";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ReactionsListSet} from "./Lists/reactionsListSet";
 import {scale} from "nativewind/dist/tailwind/native/scale";
 
 
 
-export  function ReactionsList() {
-    const [reactionsArray, setReactionsArray] =useState([]);
+export  function ReactionsList({updateReactions}) {
+    const [reactionsArray, setReactionsArray] =useState(null);
+    useEffect(() => {
+        let tempreaction = null;
+        if(reactionsArray != null) {
+           tempreaction = ReactionsListSet.filter(reaction => reaction.id === reactionsArray)[0].name;
+        }
+        updateReactions(tempreaction);
+
+    }, [reactionsArray]);
     const getReactions = (id) => {
-        console.log(reactionsArray);
-        if (reactionsArray.includes(id)) {
-            const updatedArray = reactionsArray.filter(reaction=> reaction !== id);
-            setReactionsArray(updatedArray);
+        console.log("reaction array",reactionsArray);
+        if (reactionsArray === id) {
+            // const updatedArray = reactionsArray.filter(reaction=> reaction !== id);
+            setReactionsArray(null);
         }
         else{
-            setReactionsArray([...reactionsArray, id]);
+            setReactionsArray(id);
         }
+
+
     }
+
     return (
         <View  className={"p-2"} >
             <FlatList  data={ReactionsListSet}  keyExtractor={(item) => item.id} renderItem={({item})=> (
@@ -31,7 +42,7 @@ export  function ReactionsList() {
                             {item.name}
                         </Text>
                         {
-                            reactionsArray.includes(item.id) ?
+                            (reactionsArray === item.id) ?
                                 <View style={styles.overlay} className={"rounded-full w-20 h-20"}></View>    : null
                         }
                     </TouchableOpacity>

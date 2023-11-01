@@ -1,32 +1,125 @@
 import SelectDateTime from "../SelectDateTime";
-import {FlatList, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, Modal, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {TrashIcon} from "react-native-heroicons/outline";
 import {PencilSquareIcon} from "react-native-heroicons/solid";
 import {ReactionsList} from "../ReactionsList";
-import Input from "../../Form Component/Input";
-import React, {createContext, useState} from "react";
+// import Input from "../../Form Component/Input";
+import React, {createContext, useContext, useEffect, useState} from "react";
 import {solidfoodContext} from "../SolidFood";
 import {useNavigation} from "@react-navigation/native";
 import {themeColors} from "../../../theme";
 import {GlobalStyles} from "../../../constants/styles";
-
+import {BASE_URL} from "../../../config";
+import axios from "axios";
+import {  FormControl, Input, } from "native-base";
+import {AuthContext} from "../../../Context/AuthContext";
 
 export function SaveFood(vegeArray){
-    // console.log("vegArray in SaveFood:", vegeArray.vegeArray);
+    let inputVegArray = vegeArray.vegeArray;
     const [isStartDatePickerVisible, setStartDatePickerVisible] = useState(false);
     const [startDate, setStartDate] = useState('');
     const [isStartTimePickerVisible, setStartTimePickerVisible] = useState(false);
     const [startTime, setStartTime] = useState('');
+    const [reaction, setReaction] = useState('');
+    const [notes, setNotes] = useState('');
+    const [mixtureName, setMixtureName] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     let navigation = useNavigation();
-    const vegArray = vegeArray.vegeArray;
+    const [vegArray, setVegArray] = useState([]);
+    const [count, setCount] = useState(23);
+    const { updateKeys } = useContext(AuthContext);
+    useEffect(() => {
+       setVegArray(inputVegArray);
+
+    }, [inputVegArray]);
+
     const showModal = () => {
         setModalVisible(!modalVisible);
     }
     const clearAll = () => {
+        console.log("mixture name: ",mixtureName,notes,reaction);
         setModalVisible(!modalVisible);
         navigation.navigate('Sfeeding');
     }
+    const deleteItem = (id) => {
+
+        inputVegArray = vegArray.filter(item => item.id !== id);
+        setVegArray(inputVegArray);
+
+    }
+    const SaveData = async () => {
+
+
+        setCount(count+1);
+        const feedingTime = startTime;
+        const feedingDate = startDate;
+        // const quantity = startDate;
+        const additionalNotes = notes;
+        const foodFeedingID= count;
+        const data = {
+            foodFeedingID,
+            feedingTime,
+            feedingDate,
+            reaction,
+            additionalNotes,
+            mixtureName
+
+        };
+
+        for(let i in vegArray){
+
+
+
+            const quantity = vegArray[i].Quantity;
+            const units = vegArray[i].Units;
+            const ingredientsDTO = {
+                "ingredientID": vegArray[i].id,
+                "name": vegArray[i].Name,
+                "category": vegArray[i].category,
+                "image": vegArray[i].Name,
+            };
+            const foodfeedingDTO = data;
+
+            const tempData = {
+                quantity,
+                units,
+                ingredientsDTO,
+                foodfeedingDTO
+            }
+            try {
+                // Wait for each storeData call to finish before proceeding
+                const result = await storeData(tempData);
+                console.log("result: ", result);
+            } catch (error) {
+                console.error("Error:", error);
+                // Handle the error as needed
+            }
+        }
+
+
+
+
+
+    };
+
+    const storeData = async (data) => {
+        await updateKeys();
+        const apiUrl = BASE_URL+ '/foodingredient/add';
+        try{
+            const response = await axios.post(apiUrl, data);
+            console.log(response.data);
+        }catch (e) {
+            console.log("Food Feeding error: ",e);
+        }
+    }
+
+    // callback function to update reaction list
+    const updateReactions = (reaction) => {
+        setReaction(reaction);
+
+    }
+    const handleText = (text) => setNotes(text);
+    const handleNameText = (text) => setMixtureName(text);
     return(
         <>
         <View className={"px-3"}>
@@ -52,12 +145,12 @@ export function SaveFood(vegeArray){
                         <Text>{item.Name}</Text>
                         <Text>{item.Quantity} {item.Units}</Text>
                         <View  className={"flex-row  gap-2"}>
-                            <TouchableOpacity >
+                            <TouchableOpacity onPress={()=>deleteItem(item.id)} >
                                 <TrashIcon size="23" color="red" />
                             </TouchableOpacity>
-                            <TouchableOpacity>
-                                <PencilSquareIcon size="23" color="black" />
-                            </TouchableOpacity>
+                            {/*<TouchableOpacity>*/}
+                            {/*    <PencilSquareIcon size="23" color="black" />*/}
+                            {/*</TouchableOpacity>*/}
                         </View>
 
                     </View>
@@ -69,19 +162,12 @@ export function SaveFood(vegeArray){
 
             <Text style={[styles.label ]} className={"text-center mb-2"}>Add a Reaction </Text>
 
-            <ReactionsList/>
+            <ReactionsList updateReactions={updateReactions}/>
             <View>
-                <Input
-                    label="Notes"
-                    // invalid ={!inputs.notes.isValid}
-                    textInputConfig={{
-                        multiline: true,
-                        // onChangeText: inputChangedHandler.bind(this, 'notes'),
-                        // value: inputs.notes.value,
-
-
-                    }}
-                />
+                <FormControl>
+                    <FormControl.Label>Notes</FormControl.Label>
+                    <Input value={notes} onChangeText={handleText}   multiline={true}   numberOfLines={4} isRequired={true}/>
+                </FormControl>
             </View>
             <TouchableOpacity style={styles.savebtn} onPress={()=>showModal()}>
                 <Text  style={styles.buttonText}>Save</Text>
@@ -97,18 +183,19 @@ export function SaveFood(vegeArray){
                 setModalVisible(!modalVisible);
             }}>
             <View style={{...styles.modalView}}>
-                {/*<Text>Enter Quantity: </Text>*/}
-                <View className={"flex-row"}>
-                    <Input
-                        label="Enter Name for the Mixture"
 
-                    />
+                <View className={"flex-row"}>
+                    <FormControl>
+                        <FormControl.Label>Enter Name for the Mixture</FormControl.Label>
+                        <Input value={mixtureName} onChangeText={handleNameText} isRequired={true}/>
+                    </FormControl>
+
                 </View>
                 <View className={"flex-1 flex-row gap-4 my-2"}>
 
                     <Pressable
                         style={styles.Button}
-                        onPress={() => clearAll()}
+                        onPress={() => SaveData()}
                     >
                         <Text   style={{color:'white',alignSelf:'center'}}>Done</Text>
                     </Pressable>
@@ -237,3 +324,4 @@ const styles = StyleSheet.create({
     },
 
 });
+

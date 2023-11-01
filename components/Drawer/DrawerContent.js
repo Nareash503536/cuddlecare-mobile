@@ -6,15 +6,18 @@ import {
     Cog8ToothIcon,
     PhoneIcon,
     UserGroupIcon,
-    UserIcon
+    UserIcon,
+    ClipboardDocumentListIcon
 } from "react-native-heroicons/outline";
 import BabyProfile from "./BabyProfile";
 import React, {useContext} from "react";
 import {AuthContext} from "../../Context/AuthContext";
 import images from "../../constants/images";
+import {useNavigation} from "@react-navigation/native";
 
 const deviceWidth = Dimensions.get("window").width;
 export default function DrawerContent (){
+    let navigation = useNavigation();
     const { logout, user, babySet } = useContext(AuthContext);
     return (
         <SafeAreaView className={"flex flex-1"} style={{backgroundColor:"white"}}>
@@ -38,15 +41,24 @@ export default function DrawerContent (){
 
                     <View style={{ backgroundColor: "#F6F6F6", height: 3, marginTop: 4 }} />
 
-
                     <View className={"px-2"}>
-                        <TouchableOpacity>
-                            <View className={"flex-row px-2 py-2 space-x-3"}>
-                                <UserIcon className="h-8 w-8" color={"gray"} />
-                                <Text className=" flex-1" style={{ color: "gray", fontSize: 16 }}>Caregivers</Text>
-                                <Image source={require("../../assets/images/crown.png")} className={"w-5 h-5"} />
-                            </View>
-                        </TouchableOpacity>
+                        {
+                            user.relationship === "caregiver" ?
+                                <TouchableOpacity onPress={() => navigation.navigate("List")}>
+                                    <View className={"flex-row px-2 py-2 space-x-3"}>
+                                        <ClipboardDocumentListIcon className="h-8 w-8" color={"gray"} />
+                                        <Text className=" flex-1" style={{ color: "gray", fontSize: 16 }}>View To Do List</Text>
+                                        {/*<Image source={require("../../assets/images/crown.png")} className={"w-5 h-5"} />*/}
+                                    </View>
+                                </TouchableOpacity> :
+                                <TouchableOpacity onPress={() => navigation.navigate("CaregiverList")}>
+                                    <View className={"flex-row px-2 py-2 space-x-3"}>
+                                        <UserIcon className="h-8 w-8" color={"gray"} />
+                                        <Text className=" flex-1" style={{ color: "gray", fontSize: 16 }}>Caregivers</Text>
+                                        {/*<Image source={require("../../assets/images/crown.png")} className={"w-5 h-5"} />*/}
+                                    </View>
+                                </TouchableOpacity>
+                        }
                         <TouchableOpacity>
                             <View className={"flex-row px-2 py-2 space-x-3 "}>
                                 <UserGroupIcon className="h-8 w-8" color={"gray"} />

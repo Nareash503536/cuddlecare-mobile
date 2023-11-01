@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import Input from "../Growth/Input";
@@ -8,11 +8,17 @@ import {GlobalStyles} from "../../constants/styles";
 import {getFormattedDate} from "../../util/date";
 import {ChevronRightIcon, ChevronLeftIcon, PencilSquareIcon} from "react-native-heroicons/solid";
 import {DateAndTime} from "./DateAndTime";
+import DateTimePicker from "./DateTimePicker";
+import {BASE_URL} from "../../config";
+import axios from "axios";
+import {AuthContext} from "../../Context/AuthContext";
 
 
 export function BottleFeeding() {
+    console.log("this is something");
+    const {updateKeys,baby} = useContext(AuthContext);
 const [imagecount, setImagecount] = useState(0);
-const [name,setName]=useState('Formula Milk');
+const [category,setCategory]=useState('');
     const [inputs, setInputs] = useState({
         quantity: {
             value: '',
@@ -39,16 +45,77 @@ const [name,setName]=useState('Formula Milk');
 
 
     });
+    const PostFeeding = async () => {
 
+        await updateKeys();
+        if(imagecount === 1){
+            setCategory( 'Formula Milk');
 
+        }else{
+            setCategory("Pumped Milk");
+        }
+
+        const apiURL = BASE_URL + "/bottlefeeding/add";
+
+        let Bottlefeeding = {
+            quantity: +inputs.quantity.value,
+            feedingTime: inputs.time.value,
+            feedingType: category,
+            feedingDate: inputs.date.value,
+            baby: baby,
+        }
+        console.log("bottlefeeding data: ",Bottlefeeding);
+        const jsonData = JSON.stringify(Bottlefeeding);
+        const response = await axios.post(apiURL, jsonData, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+    const getFeeding = async () => {
+        await updateKeys();
+        console.log(inputs.amount.value, inputs.expenseName.value, inputs.notes.value,inputs.date.value);
+
+        const apiURL = BASE_URL + "/expenses";
+
+        let Bottlefeeding = {
+            Quantity: +inputs.quantity.value,
+            feedingTime: inputs.time.value,
+            FeedingType: inputs.category.value,
+            feedingDate: inputs.date.value,
+            baby: baby,
+        }
+        const jsonData = JSON.stringify(Bottlefeeding);
+        const response = await axios.post(apiURL, jsonData, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
 
     function changeBottle(imageID){
 
         setImagecount(imageID);
+        if(imageID === 1){
+            setCategory( 'Formula Milk');
+
+        }else{
+            setCategory("Pumped Milk");
+        }
+        console.log("category",category);
 
     }
     function inputChangedHandler(inputIdentifier, enteredValue)
     {
+        console.log("input changed handler: ",inputIdentifier,enteredValue)
         setInputs((curinputs) => {
             return {
                 ...curinputs,
@@ -72,7 +139,23 @@ const textInputConfig = {
     }
     return (
         <SafeAreaView className={"px-5"} >
-            <DateAndTime/>
+            <View  className={"flex-row justify-around mb-6"} >
+                <DateTimePicker
+                    mode='Date'
+                    lable={"Pick a Date"}
+                    value={getFormattedDate(new Date())}
+                    name={'date'}
+                    inputHandler={inputChangedHandler}
+
+                />
+                <DateTimePicker
+                    mode='time'
+                    lable={"Pick a time"}
+                    value='02:30 pm'
+                    name={'time'}
+                    inputHandler={inputChangedHandler}
+                />
+            </View>
 <View   className={"flex-col align-middle justify-center  "}>
     <Text style={[styles.label,!inputs.quantity.isValid && styles.inbalidLable ]} className={"text-center mb-2"}>Choose a type </Text>
 
@@ -127,7 +210,7 @@ const textInputConfig = {
             {/*        }}*/}
             {/*    />*/}
             {/*</View>*/}
-            <TouchableOpacity style={styles.savebtn} >
+            <TouchableOpacity style={styles.savebtn} onPress={()=>PostFeeding()}>
                 <Text  style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
 </View>
