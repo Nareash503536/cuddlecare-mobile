@@ -63,6 +63,8 @@ import {AddTaskScreen} from "../screens/AddTaskScreen";
 
 import VaccinationDashboard from "../screens/Vaccination/VaccinationDashboard";
 
+import VaccinationDashboard from "../screens/Vaccination/VaccinationDashboard";
+
 const BottomTabs = createBottomTabNavigator();
 
 function AppOverview() {
