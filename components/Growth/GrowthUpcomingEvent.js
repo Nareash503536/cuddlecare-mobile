@@ -2,9 +2,13 @@ import {Image, Text, TouchableOpacity, View} from "react-native";
 import {ClockIcon, CalendarDaysIcon, CheckIcon} from "react-native-heroicons/solid";
 import {useNavigation} from "@react-navigation/native";
 import {themeColors} from "../../theme";
+import {useSelector} from "react-redux";
+import {selectBMIAndGrowthCategory} from "../../slices/growthSlice";
 
-export function GrowthUpcomingEvent(
-) {
+export function GrowthUpcomingEvent() {
+    const { bmi, growthCategory } = useSelector(selectBMIAndGrowthCategory);
+
+
 
     let navigation = useNavigation();
     return (
@@ -13,10 +17,10 @@ export function GrowthUpcomingEvent(
                 <Image source={require('../../assets/images/chart.png')} style={{width:40,height:40}}/>
             </View>
             <View className={"flex justify-center flex-1"}>
-                <Text className={" text-gray-500 text-lg text-white font-semibold"} style={{color:"gray"}}>Growth Measurement</Text>
+                <Text className={" text-gray-500 text-lg text-white font-semibold"} style={{color:"gray"}}>{growthCategory}</Text>
                 <View className={"flex-row items-center space-x-2"}>
                     <ClockIcon size="27" color="white" />
-                    <Text className={" text-white"} style={{color:"white"}}> 12 Days more</Text>
+                    <Text className={" text-white"} style={{color:"white"}}> {bmi} BMI value</Text>
                 </View>
             </View>
             <View className={"flex-row justify-center items-center space-x-3"}>

@@ -33,7 +33,7 @@ export default function MilestonesScreen() {
 
     let growthDetails = useSelector(selectGrowth);
     let milestonesDetails = useSelector(selectMilestone);
-
+    console.log(milestonesDetails)
 
     const navigation = useNavigation();
     return (
@@ -82,8 +82,8 @@ export default function MilestonesScreen() {
                 {/*Checklist Button*/}
                 <View className={"flex-row justify-center items-"}>
                     <TouchableOpacity className={"mt-3 py-2 px-8 rounded-xl center"}
-                        style={{backgroundColor:themeColors.colornormal,shadowColor: "#000",width:deviceWidth*0.6}}
-                        onPress={() => navigation.navigate('MilestonesList')}
+                                      style={{backgroundColor:themeColors.colornormal,shadowColor: "#000",width:deviceWidth*0.6}}
+                                      onPress={() => navigation.navigate('MilestonesList')}
                     >
                         <View >
                             <Text className={"text-white text-lg"} style={{color:"white"}}>Check Milestone list</Text>

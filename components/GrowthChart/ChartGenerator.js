@@ -84,7 +84,7 @@ export function ChartGenerator(
 
     function showChartModal(data){
         setSelectGrowthData(data)
-        console.log(selectGrowthData.date)
+        // console.log(selectGrowthData.date)
         setShowModal(true);
     }
     const DataModal = () => {
@@ -102,6 +102,10 @@ export function ChartGenerator(
                             <HStack alignItems="center" justifyContent="space-between">
                                 <Text fontWeight="medium">Baby Age</Text>
                                 <Text color="blueGray.400">{selectGrowthData.month} month</Text>
+                            </HStack>
+                            <HStack alignItems="center" justifyContent="space-between">
+                                <Text fontWeight="medium">Growth Rate</Text>
+                                <Text color="blueGray.400">{selectGrowthData.growthRate} %</Text>
                             </HStack>
                         </VStack>
                     </Modal.Body>
