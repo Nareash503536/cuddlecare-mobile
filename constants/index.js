@@ -83,6 +83,13 @@ export const mainFeatures = [
     },
 
     {
+        name:'Reminders',
+        image: require('../assets/images/Reminder.png'),
+        location: 'Reminders',
+    },
+
+
+    {
         name: 'Milestones',
         image: require('../assets/images/milestones.png'),
         location: 'Milestones',
