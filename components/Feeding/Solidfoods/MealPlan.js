@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {FlatList, StyleSheet, Text, View} from "react-native";
 import rice from "../../../assets/images/Food/puree/rice.jpg";
 import dhal from "../../../assets/images/Food/grains/dhal.jpg";
@@ -12,17 +12,25 @@ import {PulsesListSet} from "../Lists/PulsesListSet";
 import {FruitListSet} from "../Lists/FruitListSet";
 import {themeColors} from "../../../theme";
 import {PlayIcon} from "react-native-heroicons/solid";
+import images from '../../../constants/images';
 
 import {GlobalStyles} from "../../../constants/styles";
 import ScreenHeader from "../../ScreenHeader";
 import Food from "../../../assets/images/Food/dairy-products.png";
 import {AnimalFoodListSet} from "../Lists/AnimalFoodListSet";
 import {SnacksListSet} from "../Lists/SnacksListSet";
+import {AuthContext} from "../../../Context/AuthContext";
 export default function MealPlan(){
+    const {updateKeys,baby} = useContext(AuthContext);
+
+console.log(baby);
     useEffect(() => {
         async function fetchData() {
-            const data = await CreateMealPlan(4);
-            console.log(data,"data")
+            const day = calculateAge(baby.dob);
+
+            setBabyage(day);
+            const data = await CreateMealPlan(day);
+
             setMealsArray(data);
         }
 
@@ -32,7 +40,9 @@ export default function MealPlan(){
     const[mealsArray,setMealsArray]=useState([])
     const [mealCount,setMealCount]=useState(0)
     const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const [days,setDays]=useState(weekDays[new Date().getDay()])
+    const [days,setDays]=useState(weekDays[new Date().getDay()]);
+    const [babyage,setBabyage]=useState(0);
+    console.log("week day",days);
     const rice_dhal=[
         {
             id: 20,
@@ -79,17 +89,33 @@ export default function MealPlan(){
 
         }
     ]
+
+    const calculateAge = (birthday) => {
+        // birthday is a date
+        var ageDiff = Date.now() - new Date(birthday).getTime();
+        var ageDate =  Math.floor(ageDiff / (1000 * 60 * 60 * 24));
+
+        if (ageDate > 182) {
+            return ageDate - 182;
+        }
+        else {
+            return 0;
+        }
+
+    }
     const assignNextMeals = (day) => {
         if(mealCount < 6){
             let count = mealCount + 1;
+            console.log("meal count",mealCount,"day",day);
             let dayCount = weekDays.indexOf(days)+1;
             if(dayCount === 7){
                 dayCount = 0;
             }
             setMealCount(mealCount + 1);
+
             setMealsArray(CreateMealPlan(day+count));
             setDays(weekDays[dayCount]);
-            console.log("day count",dayCount)
+            console.log("day count",dayCount,"day",day+count);
         }
 
     }
@@ -103,7 +129,7 @@ export default function MealPlan(){
             setMealCount(mealCount - 1);
             setMealsArray(CreateMealPlan(day + count));
             setDays(weekDays[dayCount]);
-            console.log(new Date().getDay()-count,dayCount,count,"count")
+            console.log(new Date().getDay()-count,dayCount,count,"count","actual day",day + count);
         }
 
 
@@ -253,8 +279,6 @@ export default function MealPlan(){
                         <View  className ="flex-row  rounded-x mx-1 shadow-xl "
                                style={{ backgroundColor:"white" ,
                                    borderRadius: 10,
-
-
                                    shadowColor:"#000",
                                    width:220,
 
@@ -311,12 +335,36 @@ export default function MealPlan(){
     return(
 <View className ="flex-1 mt-8">
     <ScreenHeader screen={"Feeding"} screenName={"Meal planner"} BabyName={'Chelsea'} image={Food} />
-        <View  className ="flex-1 mt-8 ">
+    {mealsArray.length === 0 ?
+
+        <View className={"justify-center align-middle mt-6"} style={{ flex: 1 }}>
+
+            <Image
+                source={require("../../../assets/images/Food/nomealplan.png")}
+                resizeMode="contain"
+                className={"w-60 h-60 mx-auto"}
+                style={{ flex: 2 }}
+            />
+            <Text className={"text-center font-bold mt-5 text-xl"}>
+                Continue Breast Feeding Until
+            </Text>
+            <Text className={"text-center font-bold  text-xl"}>
+                Baby is 6 months old
+            </Text>
+            <Text
+                className={"text-center  my-3 text-l"}
+                style={{ flex: 1 ,color:"gray"}}
+            >
+                Meal plan will generate after 6 months
+            </Text>
+        </View >
+
+        :<View  className ="flex-1 mt-8 ">
 
             <View className ="flex-row justify-center my-3">
-                <PlayIcon size="35" color="#989C9D" style = {{ transform: [{ rotate: '180deg' }] }}  onPress={()=>assignPreviousMeals(1)}/>
+                <PlayIcon size="35" color="#989C9D" style = {{ transform: [{ rotate: '180deg' }] }}  onPress={()=>assignPreviousMeals(babyage)}/>
                     <Text className ="text-2xl mx-8  text-center" style = {{ color: themeColors.colorDark }}> {days}</Text>
-                <PlayIcon size="35" color="#989C9D" onPress={()=>assignNextMeals(1)}  />
+                <PlayIcon size="35" color="#989C9D" onPress={()=>assignNextMeals(babyage)}  />
             </View>
 
             <View className ="rounded-xl m-5 p-4 "
@@ -404,6 +452,7 @@ export default function MealPlan(){
             </View>
 
         </View>
+    }
 </View>
 
     )

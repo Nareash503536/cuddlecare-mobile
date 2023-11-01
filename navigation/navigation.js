@@ -60,6 +60,9 @@ import MealPlan from "../components/Feeding/Solidfoods/MealPlan";
 import {CaregiverListScreen} from "../screens/CaregiverListScreen";
 import {ToDoListScreen} from "../screens/ToDoListScreen";
 import {AddTaskScreen} from "../screens/AddTaskScreen";
+import {BreastFeedingTimeline} from "../components/Feeding/FeedingTimelines/BreastFeedingTimeline";
+import {BottleFeedingTimeline} from "../components/Feeding/FeedingTimelines/BottleFeedingTimeline";
+import {FoodFeedingTimeline} from "../components/Feeding/FeedingTimelines/FoodFeedingTimeline";
 import {ListScreen} from "../screens/ListScreen";
 
 const BottomTabs = createBottomTabNavigator();
@@ -144,6 +147,9 @@ export function Navigation() {
                 <Stack.Screen name="SolidFoodNav" component={SolidFoodNav} />
                 {/*<Stack.Screen name="SolidFoodTab" component={SolidFoodsHeader} />*/}
                 <Stack.Screen name="Mealplan" component={MealPlan} />
+                <Stack.Screen name="BFeedTimeline" component={BreastFeedingTimeline} />
+                <Stack.Screen name="BottleFeedTimeline" component={BottleFeedingTimeline} />
+                <Stack.Screen name="FoodFeedTimeline" component={FoodFeedingTimeline} />
                 {/* Growth feature screens */}
                 <Stack.Screen name="Milestones" component={MilestonesScreen} />
                 <Stack.Screen name="MilestonesList" component={MilestonesListScreen} />

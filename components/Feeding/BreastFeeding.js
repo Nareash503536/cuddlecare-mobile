@@ -3,11 +3,14 @@ import {StyleSheet, Image, Text, View, TouchableOpacity} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import Button from "../UI/Button";
 import {themeColors} from "../../theme";
-import {PlayIcon, Cog8ToothIcon, StopIcon} from "react-native-heroicons/solid";
+import {PlayIcon, Cog8ToothIcon, StopIcon, ArrowTrendingUpIcon} from "react-native-heroicons/solid";
 import {AuthContext} from "../../Context/AuthContext";
 import {useNavigation} from "@react-navigation/native";
 import {BASE_URL} from "../../config";
 import axios from "axios";
+import Toast from "react-native-toast-message";
+import {ChartBarSquareIcon} from "react-native-heroicons/outline";
+import {ApiManager} from "../../Api/ApiManager";
 
 export function BreastFeeding() {
 
@@ -21,7 +24,7 @@ export function BreastFeeding() {
     const [stop, setStop] = useState(false);
     const [isRunning, setIsRunning] = useState(false);
     const [feedingSide,setFeedingSide] = useState(null);
-
+    let navigation = useNavigation();
     useEffect(() => {
         if (isRunning) {
             const interval = setInterval(() => {
@@ -83,9 +86,29 @@ export function BreastFeeding() {
 
         };
         console.log("store data:",data);
-        storeData(data).then(r => console.log("result: ",r));
+        storeData(data).then((res) => {
+            console.log(res);
+
+            Toast.show({
+                type: "success",
+                text1: "Record saved",
+                text2: "Your Bottle Feeding record have been saved successfully",
+            })
+
+
+        }).catch((err) => {
+            Toast.show({
+                type: "error",
+                text1: "Error saving records",
+                text2: "There was an error saving your feeding record. Please try again.",
+            })
+            console.log(err);
+        });
         resetTimer();
     };
+
+
+
     const stopTimer = (side) => {
         if(side === "Left"){
             setLefton(false);
@@ -210,7 +233,13 @@ export function BreastFeeding() {
 
                     </TouchableOpacity>
                 </View>
-
+            <TouchableOpacity
+                className={"absolute bottom-20 right-8 rounded-full p-1"}
+                style={{backgroundColor:themeColors.btnColor}}
+                onPress={() => navigation.navigate('BFeedTimeline')}
+            >
+                <ArrowTrendingUpIcon size="40" color="white"  />
+            </TouchableOpacity>
 
             <TouchableOpacity style={styles.savebtn} onPress={()=>saveTimerData()} >
                 <Text  style={styles.buttonText}>Save</Text>

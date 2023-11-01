@@ -1,4 +1,13 @@
-import {View, Text, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    FlatList,
+    TouchableOpacity,
+    Image,
+    RefreshControl,
+    ActivityIndicator, ScrollView
+} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {useEffect, useState} from 'react'
 import {useNavigation} from "@react-navigation/native";
@@ -19,6 +28,7 @@ import {AuthContext} from "../Context/AuthContext";
 import DropdownComponent from "../components/Expense/DropdownComponent";
 import axios from "axios";
 import {BASE_URL} from "../config";
+import {COLORS} from "../constants/theme";
 export function ExpenseScreen (){
     const {updateKeys} = useContext(AuthContext);
     let navigation = useNavigation();
@@ -34,7 +44,7 @@ export function ExpenseScreen (){
     const today = new Date();
     const currentYear = today.getFullYear();
     const currentMonth = today.getMonth();
-
+    const [isLoading, setIsLoading] = useState(false);
     // Get the first day of the current month
     const firstDay = new Date(currentYear, currentMonth, 1);
 
@@ -133,6 +143,7 @@ export function ExpenseScreen (){
     //     }
     // }
     const fetchExpense = async () => {
+        setIsLoading(true);
         await updateKeys();
         try {
             const apiURL = BASE_URL + "/expenses/all";
@@ -141,6 +152,8 @@ export function ExpenseScreen (){
 
         } catch (e) {
             console.log("expense:"+e);
+        }finally {
+            setIsLoading(false);
         }
     };
     const fetchBudget = async () => {
@@ -204,10 +217,31 @@ console.log("total expense",response);
 
 
     return (
-<SafeAreaView style={{backgroundColor: '#f3f5f7'}}  className={"flex-1 relative"} >
+        <>
+        {isLoading?
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} >
+                    {/* <LottieView source={animation.Spinner} autoPlay loop /> */}
+                    < ActivityIndicator size="large" color={COLORS.primary} />
+                </View > :
+            <>
+<SafeAreaView style={{backgroundColor: '#f3f5f7'}}  className={"flex-1"} >
     <TopBar/>
-        <View className={"flex-1 relative mt-5 "}>
 
+        <ScrollView
+            style={{ flex: 1 }}
+
+              refreshControl={
+            <RefreshControl
+                refreshing={isLoading}
+                onRefresh={() => {
+                    setIsLoading(true);
+                    fetchExpense();
+                    setTimeout(() => {
+                        setIsLoading(false);
+                    }, 2000);
+                }}
+            />
+        }>
                             <View style={{
 
                                 alignItems:'center',
@@ -312,24 +346,28 @@ console.log("total expense",response);
 </View>
 
                 </View>
+            <View className={"mt-8"}></View>
             <TouchableOpacity
-                className={"absolute bottom-24 right-5 rounded-full p-1"}
+                className={"absolute bottom-14 right-5 rounded-full p-1"}
                 style={{backgroundColor:themeColors.btnColor}}
                 onPress={() => navigation.navigate('ExpenseChart')}
             >
                 <ChartBarSquareIcon   size="40" color="white" />
             </TouchableOpacity>
             <TouchableOpacity
-                className={"absolute bottom-10 right-5 rounded-full p-1"}
+                className={"absolute bottom-0 right-5 rounded-full p-1"}
                 style={{backgroundColor:themeColors.btnColor,position:'absolute'}}
                 onPress={() => navigation.navigate('ExpenseForm')}
             >
                 <PlusSmallIcon size="40" color="white"  />
             </TouchableOpacity>
 
-        </View>
+        </ScrollView>
 
 </SafeAreaView>
+            </>
+        }
+            </>
     );
 }
 const styles = StyleSheet.create({
