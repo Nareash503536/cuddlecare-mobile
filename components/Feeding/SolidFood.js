@@ -26,13 +26,14 @@ export function SolidFood() {
                     <SaveFood vegeArray = {vegArray}/>
 
                 ) : (
+                    <>
                     <View className={"flex-1 relative "}>
                         <Text style={[styles.label]} className={"text-center mb-2"}>
                             Pick a Category
                         </Text>
                         <FoodList />
                     </View>
-                )}
+
                 <View className={"my-20"}></View>
 
                 <TouchableOpacity
@@ -48,7 +49,8 @@ export function SolidFood() {
                     onPress={() => navigation.navigate('FoodFeedTimeline')}
                 >
                     <ArrowTrendingUpIcon size="40" color="white"  />
-                </TouchableOpacity>
+                </TouchableOpacity></>
+            )}
             </ScrollView>
         </SafeAreaView>
 

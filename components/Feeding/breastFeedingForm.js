@@ -4,8 +4,8 @@ import React, {useContext, useState} from "react";
 import Button from "../UI/Button";
 import {GlobalStyles} from "../../constants/styles";
 import DateTimePicker from "./DateTimePicker";
-import DropdownComponent from "./DropdownComponent";
-import {getFormattedDate} from "../../util/date";
+
+import {getFormattedDate, getFormattedTime} from "../../util/date";
 import {ExpenseApiPost, ExpenseEdit} from "../../Api/ExpenseApi";
 import {themeColors} from "../../theme";
 import {useNavigation, useRoute} from "@react-navigation/native";
@@ -14,6 +14,8 @@ import {AuthContext} from "../../Context/AuthContext";
 import axios from "axios";
 import {BASE_URL} from "../../config";
 import Toast from "react-native-toast-message";
+import {abs} from "react-native-reanimated";
+import DropdownComponentBfeed from "./DropdownComponentBfeed";
 
 
 export default function breastFeedingForm() {
@@ -39,7 +41,7 @@ export default function breastFeedingForm() {
     const [inputs, setInputs] = useState({
 
         side: {
-            value: Editdata?Editdata.expenseName:'',
+            value: Editdata?Editdata.expenseName:'koko',
             isValid: true,
         },
 
@@ -59,7 +61,6 @@ export default function breastFeedingForm() {
             isValid: true,
         },
     });
-    console.log("notes",inputs.notes.value);
     function cancelHandler() {
         navigation.goBack();
     }
@@ -89,15 +90,17 @@ export default function breastFeedingForm() {
     const PostExpense = async () => {
         await updateKeys();
 
+       await calculateTotalTime(inputs.etime.value,inputs.stime.value);
         const apiURL = BASE_URL+ '/BreastFeeding/add';
 
         let bfeedData = {
             side: inputs.side.value,
             starttime: inputs.stime.value,
-            endtime: inputs.etime.value,
+            endtime:inputs.etime.value,
             feedingDuration: totalTime,
             feedingDate: inputs.date.value
         }
+        console.log("bfeedData",bfeedData)
         const jsonData = JSON.stringify(bfeedData);
         const response = await axios.post(apiURL, jsonData, {
             headers: {
@@ -129,11 +132,19 @@ export default function breastFeedingForm() {
             };
         });
     }
+
+    const convertTimeToMilliseconds = (timeString) => {
+        const [hours, minutes] = timeString.split(":").map(Number);
+        return (hours * 60 + minutes) * 60 * 1000; // Convert to milliseconds
+    };
+
     const calculateTotalTime = (endTime,startTime) => {
-        const elapsedTime = endTime - startTime;
+        const elapsedTime =  Math.abs(convertTimeToMilliseconds(endTime) - convertTimeToMilliseconds(startTime));
+        console.log("elapsed time",elapsedTime,convertTimeToMilliseconds(endTime),convertTimeToMilliseconds(startTime));
         const seconds = Math.floor((elapsedTime / 1000) % 60);
         const minutes = Math.floor((elapsedTime / 1000 / 60) % 60);
         const hours = Math.floor((elapsedTime / 1000 / 3600) % 24);
+        console.log("hours",hours,"minutes",minutes,"seconds",seconds);
         setTotalTime(`${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}`);
     };
     const padTime = time => {
@@ -180,9 +191,9 @@ export default function breastFeedingForm() {
         Editdata?EditExpense():PostExpense();
     }
     const formIsValid =
-        !inputs.expenseName.isValid ||
-        !inputs.amount.isValid ||
-        !inputs.notes.isValid ||
+        !inputs.etime.isValid ||
+        !inputs.stime.isValid ||
+        !inputs.side.isValid ||
         !inputs.date.isValid;
 
     return (
@@ -190,39 +201,43 @@ export default function breastFeedingForm() {
          <TopBar/><View  className={"mb-10"}></View>
             <View className={"flex-row justify-center my-5"}>
 
-                <Text className={"flex-row justify-center text-2xl text-gray-500"} style={{  color: themeColors.colorDark}}>{title?title:"Add expense"}</Text>
+                <Text className={"flex-row justify-center text-2xl text-gray-500"} style={{  color: themeColors.colorDark}}>{title?title:"Add Breast Feeding details"}</Text>
             </View>
 
-        <View >
+        <View className={"mt-5"} >
 
-                <View>
-                <Text style={styles.label} className={"text-xs ml-8"}>Category</Text>
-                    <DropdownComponent  onCategorySelect={inputChangedHandler} data={datas} name='side' defaultval = {Editdata?Editdata.side:null}  />
-                </View>
-                <DateTimePicker
-                    mode='Date'
-                    lable={"Pick a Date"}
-                    value={Editdata?getFormattedDate(new Date(Editdata.date)).toString():getFormattedDate(new Date())}
-                    inputHandler={inputChangedHandler}
-                    name='date'
-                />
-                <DateTimePicker
-                    mode='time'
-                    lable={"Pick Start time"}
-                    value={Editdata?getFormattedDate(new Date(Editdata.starttime)).toString():(new Date()).toLocaleTimeString()}
-                    inputHandler={inputChangedHandler}
-                    name='stime'
-                />
+
+                    <View className={"flex-row my-8"}>
+
+                        <DateTimePicker
+                            mode='Date'
+                            lable={"Pick a Date"}
+                            value={Editdata?getFormattedDate(new Date(Editdata.date)).toString():getFormattedDate(new Date())}
+                            inputHandler={inputChangedHandler}
+                            name='date'
+                        />
+                        <View>
+                            <Text style={styles.label} className={"text-xs text-center mb-1"}>Category</Text>
+                            <DropdownComponentBfeed  onCategorySelect={inputChangedHandler} defaultName={"Side"} data={datas} name='side' defaultval = {Editdata?Editdata.side:null}  />
+                        </View>
+                    </View>
+            <View className={"flex-row mb-5"}>
+
+            <DateTimePicker
+                mode='time'
+                lable={"Pick Start time"}
+                value={Editdata?getFormattedDate(new Date(Editdata.date)).toString():getFormattedTime(new Date())}
+                name={'stime'}
+                inputHandler={inputChangedHandler}
+            />
                 <DateTimePicker
                     mode='time'
                     lable={"Pick End time"}
-                    value={Editdata?getFormattedDate(new Date(Editdata.endtime)).toString():(new Date()).toLocaleTimeString()}
+                    value={Editdata?getFormattedDate(new Date(Editdata.date)).toString():getFormattedTime(new Date())}
+                    name={'etime'}
                     inputHandler={inputChangedHandler}
-                    name='etime'
                 />
-
-
-
+            </View>
                 {formIsValid &&
                     <Text className={"text-center text-red-500 my-2"}
                     >Invalid input value - please check your entered data!</Text>}
@@ -231,7 +246,7 @@ export default function breastFeedingForm() {
                     <Button style={styles.button} mode="flat" onPress={cancelHandler}>
                         Cancel
                     </Button>
-                    <Button style={styles.button} onPress={submitHandler}>
+                    <Button style={styles.button} onPress={PostExpense}>
                         {'Add'}
                     </Button>
                 </View>

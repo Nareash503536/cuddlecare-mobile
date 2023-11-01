@@ -3,7 +3,7 @@ import {StyleSheet, Image, Text, View, TouchableOpacity} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import Button from "../UI/Button";
 import {themeColors} from "../../theme";
-import {PlayIcon, Cog8ToothIcon, StopIcon, ArrowTrendingUpIcon} from "react-native-heroicons/solid";
+import {PlayIcon, Cog8ToothIcon, StopIcon, ArrowTrendingUpIcon, PencilSquareIcon} from "react-native-heroicons/solid";
 import {AuthContext} from "../../Context/AuthContext";
 import {useNavigation} from "@react-navigation/native";
 import {BASE_URL} from "../../config";
@@ -241,6 +241,11 @@ export function BreastFeeding() {
                 <ArrowTrendingUpIcon size="40" color="white"  />
             </TouchableOpacity>
 
+
+            <TouchableOpacity className={"flex-row align-middle justify-center mt-20 "}  onPress={() => navigation.navigate('Bfeedform')}>
+                <PencilSquareIcon style={{marginRight:10}} size="30" color='gray' />
+                <Text  style={styles.addmanual}>Add manually </Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.savebtn} onPress={()=>saveTimerData()} >
                 <Text  style={styles.buttonText}>Save</Text>
             </TouchableOpacity>

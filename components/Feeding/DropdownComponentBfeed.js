@@ -6,7 +6,7 @@ import {themeColors} from "../../theme";
 import {GlobalStyles} from "../../constants/styles";
 
 
-const DropdownComponent = ({onCategorySelect,data,name,defaultName,defaultval=null}) => {
+const DropdownComponentBfeed = ({onCategorySelect,data,name,defaultName,defaultval=null}) => {
 
     const handleCategoryChange = (value) => {
         // Call the onCategorySelect function here with the new value
@@ -46,13 +46,13 @@ const DropdownComponent = ({onCategorySelect,data,name,defaultName,defaultval=nu
     );
 };
 
-export default DropdownComponent;
+export default DropdownComponentBfeed;
 
 const styles = StyleSheet.create({
     dropdown: {
         padding: 10,
-        marginTop: 20,
-        width:90,
+        // marginTop: 20,
+        width:100,
         backgroundColor: themeColors.bgInput(0.1),
         color: GlobalStyles.colors.primary700,
 
