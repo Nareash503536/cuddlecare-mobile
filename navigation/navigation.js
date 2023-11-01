@@ -60,6 +60,7 @@ import MealPlan from "../components/Feeding/Solidfoods/MealPlan";
 import {CaregiverListScreen} from "../screens/CaregiverListScreen";
 import {ToDoListScreen} from "../screens/ToDoListScreen";
 import {AddTaskScreen} from "../screens/AddTaskScreen";
+import {ListScreen} from "../screens/ListScreen";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -179,6 +180,7 @@ export function Navigation() {
                 <Stack.Screen name="CaregiverList" component={CaregiverListScreen} />
                 <Stack.Screen name="ToDoList" component={ToDoListScreen} />
                 <Stack.Screen name="AddTask" component={AddTaskScreen} />
+                <Stack.Screen name="List" component={ListScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )
