@@ -6,6 +6,7 @@ import { store } from "./store/store";
 import {LogBox} from "react-native";
 import {Navigation} from "./navigation/navigation";
 import {NativeBaseProvider} from "native-base";
+import {React} from "react";
 
 export default function App() {
     LogBox.ignoreAllLogs(true);
@@ -15,6 +16,7 @@ export default function App() {
             <AuthProvider>
                 <AppNav />
             </AuthProvider>
+            {/*<Navigation />*/}
         </Provider>
     );
 }

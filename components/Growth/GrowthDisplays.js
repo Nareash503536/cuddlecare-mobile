@@ -2,8 +2,18 @@ import {Image, Text, View} from "react-native";
 import {themeColors} from "../../theme";
 import {ArrowUpIcon} from "react-native-heroicons/solid";
 import React from "react";
+import {useSelector} from "react-redux";
+import {
+    selectHeadCircumferenceGrowthRate,
+    selectHeightGrowthRate,
+    selectWeightGrowthRate
+} from "../../slices/growthSlice";
 
 export default function GrowthDisplays({weight,height,headCircumference}) {
+    const heightGrowthRate = useSelector(selectHeightGrowthRate);
+    const weightGrowthRate = useSelector(selectWeightGrowthRate );
+    const headGrowthRate = useSelector(selectHeadCircumferenceGrowthRate );
+
     return(
         <View className={"flex-row my-2 justify-center items-center"}>
 
@@ -18,7 +28,7 @@ export default function GrowthDisplays({weight,height,headCircumference}) {
                     <View className={"flex pt-1"}>
                         <Text className={"flex-row font-semibold text-white"} style={{color:"white"}}>weight</Text>
                         <View className={"flex-row"}>
-                            <Text className={"flex-row font-semibold text-white"} style={{color:"white"}}>25.2%</Text>
+                            <Text className={"flex-row font-semibold text-white"} style={{color:"white"}}>{heightGrowthRate}%</Text>
                             <ArrowUpIcon size="16" color="white" />
                         </View>
                     </View>
@@ -41,7 +51,7 @@ export default function GrowthDisplays({weight,height,headCircumference}) {
                     <View className={"flex pt-1"}>
                         <Text className={"flex-row font-semibold text-white"} style={{color:"white"}}>Height</Text>
                         <View className={"flex-row"}>
-                            <Text className={"flex-row font-semibold text-white"} style={{color:"white"}}>21.4%</Text>
+                            <Text className={"flex-row font-semibold text-white"} style={{color:"white"}}>{weightGrowthRate}%</Text>
                             <ArrowUpIcon size="16" color="white" />
                         </View>
                     </View>
@@ -63,7 +73,7 @@ export default function GrowthDisplays({weight,height,headCircumference}) {
                     <View className={"flex pt-1"}>
                         <Text className={"flex-row font-semibold text-white"} style={{color:"white"}}>HeadCir.</Text>
                         <View className={"flex-row"}>
-                            <Text className={"flex-row font-semibold text-white"} style={{color:"white"}}>13.4%</Text>
+                            <Text className={"flex-row font-semibold text-white"} style={{color:"white"}}>{headGrowthRate}%</Text>
                             <ArrowUpIcon size="16" color="white" />
                         </View>
                     </View>

@@ -7,7 +7,7 @@ import {StatusBar} from "expo-status-bar";
 import {themeColors} from "../theme";
 import GrowthMeasurementList from "../components/Growth/GrowthMeasurementList";
 import {useDispatch, useSelector} from "react-redux";
-import {selectGrowth, setGrowth} from "../slices/growthSlice";
+import {selectBMIAndGrowthCategory, selectGrowth, setGrowth} from "../slices/growthSlice";
 import {dateDiff, getFormattedDate} from "../util/date";
 import {BellIcon, CalendarDaysIcon, ChartBarSquareIcon} from "react-native-heroicons/outline";
 import {GlobalStyles} from "../constants/styles";
@@ -17,6 +17,7 @@ import {UpcomingEvent} from "../components/upcomingEvent";
 import {GrowthUpcomingEvent} from "../components/Growth/GrowthUpcomingEvent";
 import {DUMMY_GROWTH} from "../constants/GrowthChartZScoreData/DUMMY_GROWTH";
 import GrowthDisplays from "../components/Growth/GrowthDisplays";
+import {NotificationGenerator} from "../components/NotificationGenerator";
 
 let baby = babyDetails[2];
 
@@ -31,7 +32,7 @@ export function GrowthDetailsScreen() {
     let growthDetails = useSelector(selectGrowth);
     const latestGrowthDetail = growthDetails[0];
 
-const navigation = useNavigation();
+    const navigation = useNavigation();
     return (
         <View className={"flex-1 bg-white "} style={{backgroundColor:"white"}}>
             <SafeAreaView className={"flex-1 relative"}>
@@ -104,24 +105,22 @@ const navigation = useNavigation();
 
                 {/*Side Button*/}
                 {/*<View  className={"absolute"}>*/}
-                    <TouchableOpacity
-                        className={"absolute bottom-24 right-5 rounded-full shadow-2xl p-1"}
-                        style={{backgroundColor:themeColors.btnColor,shadowColor: "#000"}}
-                        onPress={() => navigation.navigate('GrowthChart')}
-                    >
-                        <Image source={require("../assets/images/analysisIcon.png")} className={"w-12 h-12 rounded-full"}/>
-                        {/*<ChartBarSquareIcon   size="40" color="white" />*/}
-                    </TouchableOpacity>
+                <TouchableOpacity
+                    className={"absolute bottom-24 right-5 rounded-full shadow-2xl p-1"}
+                    style={{backgroundColor:themeColors.btnColor,shadowColor: "#000"}}
+                    onPress={() => navigation.navigate('GrowthChart')}
+                >
+                    <Image source={require("../assets/images/analysisIcon.png")} className={"w-12 h-12 rounded-full"}/>
+                    {/*<ChartBarSquareIcon   size="40" color="white" />*/}
+                </TouchableOpacity>
 
-                    <TouchableOpacity
-                        className={"absolute bottom-10 right-5 shadow-2xl rounded-full p-1"}
-                        style={{backgroundColor:themeColors.btnColor,shadowColor: "#000"}}
-                        onPress={() => navigation.navigate('GrowhtManage')}
-                    >
-                        <PlusSmallIcon size="40" color="white"  />
-                    </TouchableOpacity>
-                {/*</View>*/}
-
+                <TouchableOpacity
+                    className={"absolute bottom-10 right-5 shadow-2xl rounded-full p-1"}
+                    style={{backgroundColor:themeColors.btnColor,shadowColor: "#000"}}
+                    onPress={() => navigation.navigate('GrowhtManage')}
+                >
+                    <PlusSmallIcon size="40" color="white"  />
+                </TouchableOpacity>
             </SafeAreaView>
         </View>
     )

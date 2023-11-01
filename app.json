@@ -26,6 +26,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/assets/logoDesc.png",
+          "color": "#ffffff"
+        }
+      ]
+    ],
+    "permissions": ["CAMERA_ROLL", "AUDIO_RECORDING", "NOTIFICATIONS"]
   }
 }

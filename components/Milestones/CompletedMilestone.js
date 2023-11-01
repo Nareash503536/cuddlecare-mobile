@@ -70,11 +70,11 @@ export default function  CompletedMilestone({ id,milestone,description,date}) {
                     <Modal.Footer>
                         <DeleteBtn style={{paddingHorizontal:5}} mode="flat"
                                    flex="1" onPress={() => {
-                                       setShowModal(false);
-                                       setShowModal2(false);
+                            setShowModal(false);
+                            setShowModal2(false);
                             dispatch(deleteMilestone(id));
 
-                                   }}>
+                        }}>
                             Delete
                         </DeleteBtn>
                         <UpdateBtn flex="1" onPress={() => {
@@ -87,10 +87,12 @@ export default function  CompletedMilestone({ id,milestone,description,date}) {
     };
     // if(status){
     return (
-        <Pressable
+        <TouchableOpacity
             onPress={()=> setShowModal(true)}
             className={"pt-3"}>
+
             <View className={"flex-row rounded-xl p-3 shadow-2xl  mx-2 space-x-3"} style={{backgroundColor:"white",shadowColor: "#000"}}>
+
                 <View className={"flex justify-center flex-1"}>
                     <View><Text className={" text-gray-500  font-semibold"} style={{color:"gray"}}>{milestone}</Text></View>
 
@@ -103,9 +105,10 @@ export default function  CompletedMilestone({ id,milestone,description,date}) {
                         <Text className={"text-gray-500"} style={{color:"gray"}}>{getDateenUSFormat(date)}</Text>
                     </View>
                 </View>
-                <DataModal/>
+
             </View>
-        </Pressable>
+            <DataModal/>
+        </TouchableOpacity>
     )
 }
 

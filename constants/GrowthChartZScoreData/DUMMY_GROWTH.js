@@ -39,7 +39,7 @@ export const DUMMY_GROWTH =[
         height: 66.2,
         headCircumference: 42.2 ,
         description: "Recommended maintaining a consistent sleep schedule. Ensure baby is getting around 12-14 hours of sleep per day, including naps. Discuss strategies to address any sleep disturbances",
-        date: getFormattedDate(new Date(2022, 1, 24))
+        date: getFormattedDate(new Date(2023, 1, 24))
     },
     {
         id: 'e6',
