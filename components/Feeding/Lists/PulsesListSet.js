@@ -17,68 +17,49 @@ import dhal from "../../../assets/images/Food/grains/dhal.jpg"
 
 export const PulsesListSet = [{
     id: 33,
-    name: "Dhal",
-    image: dhal,
+    name: "Brown bean",
+    image: brownbean,
     category: "pulses"
 },{
     id: 34,
-    name: "Foxtail Millet",
-    image: barley,
-    category: "cereals",
+    name: "Chickpea",
+    image: checkpea,
+    category: "pulses",
 },{
     id: 35,
-    name: "Fruit Smoothies",
-    category: "fruits",
-    image: fruitSmoothies
+    name: "Dhal",
+    category: "pulses",
+    image: dhal
 },{
     id: 36,
-    name: "Wheat",
-    category: "cereals",
-    image: wheat
+    name: "Green gram",
+    category: "pulses",
+    image: greenGram
 }, {
     id: 37,
-    name: "Maize",
-    category: "cereals",
-    image: maize
+    name: "Kindey beans",
+    category: "pulses",
+    image: kindeyBeans
 },{
     id: 38,
-    name: "Mashed rice",
-    category: "rice",
-    image: rice
+    name: "Lentil",
+    category: "pulses",
+    image: lentil
 }, {
     id: 39,
-    name: "Mashed yam",
-    category: "vegetables",
-    image: mashedyam
+    name: "Lima beans",
+    category: "pulses",
+    image: limabeans
 }, {
     id:40,
-    name: "Millet",
-    category: "cereals",
-    image: millet
+    name: "Nuts",
+    category: "pulses",
+    image: nuts
 }
     , {
         id: 41,
-        name: "Oats",
-        category: "cereals",
-        image: oats
+        name: "Soya",
+        category: "pulses",
+        image: soya
     }
-    , {
-        id: 42,
-        name: "Porridge",
-        category: "ricePorridge",
-        image: porridge
-    }
-    , {
-        id: 43,
-        name: "Pumpkin puree",
-        category: "vegetables",
-        image: pumpkin
-    }
-    , {
-        id: 44,
-        name: "Potato puree",
-        category: "vegetables",
-        image:potato
-    }
-
 ]

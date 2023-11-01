@@ -1,84 +1,74 @@
 
-import barley from "../../../assets/images/Food/puree/barley.jpg";
-import foxtailMillet from "../../../assets/images/Food/puree/foxtail millet(thanahal).jpg";
-import fruitSmoothies from "../../../assets/images/Food/puree/fruitsmoothies.jpg";
-import maize from "../../../assets/images/Food/puree/maize.jpg";
-import mashedyam from "../../../assets/images/Food/puree/mashedyam.jpg";
-import millet from "../../../assets/images/Food/puree/millet.jpg";
-import oats from "../../../assets/images/Food/puree/oats.jpg";
-import porridge from "../../../assets/images/Food/puree/porridge.jpg";
-
-import pumpkin from "../../../assets/images/Food/puree/pumpkin.jpg";
-import potato from "../../../assets/images/Food/puree/potato.jpg";
-
-import rice from "../../../assets/images/Food/puree/rice.jpg";
-import wheat from "../../../assets/images/Food/puree/wheat.jpg";
-import apple from "../../../assets/images/Food/Fruits/apple.png"
+import apple from "../../../assets/images/Food/Fruits/apple.jpg";
+import bananaImage from "../../../assets/images/Food/Fruits/bananaImage.jpg";
+import grapesImage from "../../../assets/images/Food/Fruits/grapesImage.jpg";
+import kiwiImage from "../../../assets/images/Food/Fruits/kiwiImage.jpg";
+import mangoImage from "../../../assets/images/Food/Fruits/mangoImage.jpg";
+import orangeImage from "../../../assets/images/Food/Fruits/orangeImage.jpg";
+import peachImage from "../../../assets/images/Food/Fruits/peachImage.jpg";
+import pineappleImage from "../../../assets/images/Food/Fruits/pineappleImage.jpg";
+import strawberryImage from "../../../assets/images/Food/Fruits/strawberryImage.jpg";
+import watermelonImage from "../../../assets/images/Food/Fruits/watermelonImage.jpg";
 
 export const FruitListSet = [{
-    id: 21,
-    name: "banana",
-    image: maize,
-    category: "fruits"
-},{
-    id: 22,
-    name: "Foxtail Millet",
-    image: barley,
-    category: "cereals",
-},{
-    id: 23,
-    name: "Fruit Smoothies",
-    category: "fruits",
-    image: fruitSmoothies
-},{
-    id: 24,
-    name: "Wheat",
-    category: "cereals",
-    image: wheat
-}, {
-    id: 25,
-    name: "Maize",
-    category: "cereals",
-    image: maize
-},{
-    id:26,
-    name: "Mashed rice",
-    category: "rice",
-    image: rice
-}, {
-    id:27,
-    name: "Mashed yam",
-    category: "vegetables",
-    image: mashedyam
-}, {
-    id: 28,
-    name: "Millet",
-    category: "cereals",
-    image: millet
-}
-    , {
-        id: 29,
-        name: "Oats",
-        category: "cereals",
-        image: oats
-    }
-    , {
-        id: 30,
-        name: "Porridge",
-        category: "ricePorridge",
-        image: porridge
-    }
-    , {
-        id: 31,
-        name: "Pumpkin puree",
-        category: "vegetables",
-        image: pumpkin
-    }
-    , {
-        id: 32,
-        name: "Potato puree",
-        category: "vegetables",
-        image:potato
-    }
+                                 "id": 55,
+                                 "name": "Apple",
+                                 "category": "fruits",
+                                 "image": apple
+                             },
+                             {
+                                 "id": 56,
+                                 "name": "Orange",
+                                 "category": "fruits",
+                                 "image": orangeImage
+                             },
+                             {
+                                 "id": 57,
+                                 "name": "banana",
+                                 "category": "fruits",
+                                 "image": bananaImage
+                             },
+                             {
+                                 "id": 58,
+                                 "name": "Strawberry",
+                                 "category": "fruits",
+                                 "image": strawberryImage
+                             },
+                             {
+                                 "id": 59,
+                                 "name": "Grapes",
+                                 "category": "fruits",
+                                 "image": grapesImage
+                             },
+                             {
+                                 "id": 60,
+                                 "name": "Watermelon",
+                                 "category": "fruits",
+                                 "image": watermelonImage
+                             },
+                             {
+                                 "id": 61,
+                                 "name": "Mango",
+                                 "category": "fruits",
+                                 "image": mangoImage
+                             },
+                             {
+                                 "id": 62,
+                                 "name": "Pineapple",
+                                 "category": "fruits",
+                                 "image": pineappleImage
+                             },
+                             {
+                                 "id": 63,
+                                 "name": "Kiwi",
+                                 "category": "fruits",
+                                 "image": kiwiImage
+                             },
+                             {
+                                 "id": 64,
+                                 "name": "Peach",
+                                 "category": "fruits",
+                                 "image": peachImage
+                             }
 
 ]
