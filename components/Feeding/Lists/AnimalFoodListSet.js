@@ -6,31 +6,31 @@ import eggImage from "../../../assets/images/Food/puree/eggImage.jpg";
 import spratsImage from "../../../assets/images/Food/puree/spratsImage.jpg";
 
 export const AnimalFoodListSet = [{
-                                      "id": 45,
+                                      "id": 87,
                                       "name": "Fish",
                                       "category": "animalFood",
                                       "image": fishImage
                                   },
                                   {
-                                      "id": 46,
+                                      "id": 83,
                                       "name": "Chicken Breast",
                                       "category": "animalFood",
                                       "image": chickenBreastImage
                                   },
                                   {
-                                      "id": 47,
+                                      "id": 80,
                                       "name": "Shrimp",
                                       "category": "animalFood",
                                       "image": shrimpImage
                                   },
                                   {
-                                      "id": 48,
+                                      "id": 81,
                                       "name": "Egg",
                                       "category": "animalFood",
                                       "image": eggImage
                                   },
                                   {
-                                      "id": 49,
+                                      "id": 82,
                                       "name": "Sprats",
                                       "category": "animalFood",
                                       "image": spratsImage
