@@ -65,9 +65,6 @@ import {BottleFeedingTimeline} from "../components/Feeding/FeedingTimelines/Bott
 import {FoodFeedingTimeline} from "../components/Feeding/FeedingTimelines/FoodFeedingTimeline";
 import {ListScreen} from "../screens/ListScreen";
 import breastFeedingForm from "../components/Feeding/breastFeedingForm";
-
-import VaccinationDashboard from "../screens/Vaccination/VaccinationDashboard";
-
 import VaccinationDashboard from "../screens/Vaccination/VaccinationDashboard";
 
 const BottomTabs = createBottomTabNavigator();

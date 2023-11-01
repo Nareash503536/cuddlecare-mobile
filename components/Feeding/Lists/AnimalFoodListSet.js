@@ -1,9 +1,9 @@
 
-import fishImage from "../../../assets/images/Food/puree/fishImage.jpeg";
-import chickenBreastImage from "../../../assets/images/Food/puree/chickenBreastImage.jpg";
-import shrimpImage from "../../../assets/images/Food/puree/shrimpImage.jpg";
-import eggImage from "../../../assets/images/Food/puree/eggImage.jpg";
-import spratsImage from "../../../assets/images/Food/puree/spratsImage.jpg";
+import fishImage from "../../../assets/images/Food/Meat/fishImage.jpeg";
+import chickenBreastImage from "../../../assets/images/Food/Meat/chickenBreastImage.jpg";
+import shrimpImage from "../../../assets/images/Food/Meat/shrimpImage.jpg";
+import eggImage from "../../../assets/images/Food/Meat/eggImage.jpg";
+import spratsImage from "../../../assets/images/Food/Meat/spratsImage.jpg";
 
 export const AnimalFoodListSet = [{
                                       "id": 87,

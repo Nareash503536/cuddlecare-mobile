@@ -1,13 +1,13 @@
 
-import apple from "../../../assets/images/Food/Fruits/apple.jpg";
+import apple from "../../../assets/images/Food/Fruits/apple.png";
 import bananaImage from "../../../assets/images/Food/Fruits/bananaImage.jpg";
-import grapesImage from "../../../assets/images/Food/Fruits/grapesImage.jpg";
+import grapesImage from "../../../assets/images/Food/Fruits/grapesImage.jpeg";
 import kiwiImage from "../../../assets/images/Food/Fruits/kiwiImage.jpg";
 import mangoImage from "../../../assets/images/Food/Fruits/mangoImage.jpg";
 import orangeImage from "../../../assets/images/Food/Fruits/orangeImage.jpg";
 import peachImage from "../../../assets/images/Food/Fruits/peachImage.jpg";
-import pineappleImage from "../../../assets/images/Food/Fruits/pineappleImage.jpg";
-import strawberryImage from "../../../assets/images/Food/Fruits/strawberryImage.jpg";
+import pineappleImage from "../../../assets/images/Food/Fruits/pineappleImage.png";
+import strawberryImage from "../../../assets/images/Food/Fruits/strawberryImage.jpeg";
 import watermelonImage from "../../../assets/images/Food/Fruits/watermelonImage.jpg";
 
 export const FruitListSet = [{

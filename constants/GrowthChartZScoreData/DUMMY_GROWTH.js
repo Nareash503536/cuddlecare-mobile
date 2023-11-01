@@ -66,7 +66,7 @@ export const DUMMY_GROWTH =[
         date: getFormattedDate(new Date(2023, 4, 29))
     },
     {
-        id: 'e9',00
+        id: 'e9',
         weight:10.7,
         height: 72.1,
         headCircumference: 47.2,

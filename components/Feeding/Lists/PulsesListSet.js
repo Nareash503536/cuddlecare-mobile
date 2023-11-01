@@ -1,19 +1,13 @@
+import dhal from "../../../assets/images/Food/grains/dhal.jpg";
+import brownbean from "../../../assets/images/Food/grains/brownbean.jpg";
+import chickpea from "../../../assets/images/Food/grains/chickpea.jpg";
+import greenGram from "../../../assets/images/Food/grains/greenGram.jpg";
+import kindeyBeans from "../../../assets/images/Food/grains/kindneyBeans.jpg";
+import lentil from "../../../assets/images/Food/grains/lentil.jpg";
+import limabeans from "../../../assets/images/Food/grains/limabeans.jpg";
+import nuts from "../../../assets/images/Food/grains/nuts.jpg";
+import soya from "../../../assets/images/Food/grains/soya.jpg";
 
-import barley from "../../../assets/images/Food/puree/barley.jpg";
-import foxtailMillet from "../../../assets/images/Food/puree/foxtail millet(thanahal).jpg";
-import fruitSmoothies from "../../../assets/images/Food/puree/fruitsmoothies.jpg";
-import maize from "../../../assets/images/Food/puree/maize.jpg";
-import mashedyam from "../../../assets/images/Food/puree/mashedyam.jpg";
-import millet from "../../../assets/images/Food/puree/millet.jpg";
-import oats from "../../../assets/images/Food/puree/oats.jpg";
-import porridge from "../../../assets/images/Food/puree/porridge.jpg";
-
-import pumpkin from "../../../assets/images/Food/puree/pumpkin.jpg";
-import potato from "../../../assets/images/Food/puree/potato.jpg";
-
-import rice from "../../../assets/images/Food/puree/rice.jpg";
-import wheat from "../../../assets/images/Food/puree/wheat.jpg";
-import dhal from "../../../assets/images/Food/grains/dhal.jpg"
 
 export const PulsesListSet = [{
     id: 33,
@@ -23,7 +17,7 @@ export const PulsesListSet = [{
 },{
     id: 34,
     name: "Chickpea",
-    image: checkpea,
+    image: chickpea,
     category: "pulses",
 },{
     id: 35,
