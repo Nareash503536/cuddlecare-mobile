@@ -60,7 +60,7 @@ export const mainFeatures = [
 
     {
         name: 'Growth',
-        image: require('../assets/images/chart.png'),
+        image: require('../assets/images/growth.png'),
         location: 'GrowthDetails',
     },
 
@@ -71,14 +71,20 @@ export const mainFeatures = [
     },
 
     {
-        name: 'Immulization',
+        name: 'Immunization',
         image: require('../assets/images/syringe.png'),
         location: 'ImmunizationScreen',
     },
 
     {
         name: 'Expense',
-        image: require('../assets/images/symptom.png'),
+        image: require('../assets/images/expense.png'),
         location: 'Expense',
+    },
+
+    {
+        name: 'Milestones',
+        image: require('../assets/images/milestones.png'),
+        location: 'Milestones',
     },
 ]

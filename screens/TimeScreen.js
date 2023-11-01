@@ -10,6 +10,7 @@ import {SleepApi, SleepApiGetLast} from "../Api/SleepApi";
 import {AuthContext} from "../Context/AuthContext";
 import axios from "axios";
 import {BASE_URL} from "../config";
+import moment from "moment/moment";
 
 export function TimeScreen(){
     const {updateKeys} = React.useContext(AuthContext);
@@ -24,6 +25,9 @@ export function TimeScreen(){
     const [lastSleepTime, setLastSleepTime] = useState(null);
     const [sleepDuration, setSleepDuration] = useState(null);
     const [timeGap, setTimeGap] = useState(null);
+    const [sleepNotes, setSleepNotes] = useState('');
+    const [isCheckedNap, setIsCheckedNap] = useState(false);
+    const [isCheckedNight, setIsCheckedNight] = useState(false);
     const moment = require('moment');
     moment.suppressDeprecationWarnings = true;
     const navigation = useNavigation();
@@ -147,10 +151,27 @@ export function TimeScreen(){
         //TODO: Add logic to handle if the user sleeps for more than 24 hours
     };
 
+    const padTime = time => {
+        return String(time).padStart(2, '0');
+    };
+
+    const totalSleepTime = () => {
+        const startDateTime = moment(startDate + ' ' + startTime, 'MMM DD, YYYY h:mm A');
+        const endDateTime = moment(endDate + ' ' + endTime, 'MMM DD, YYYY h:mm A');
+        const elapsedTime = endDateTime - startDateTime;
+        const seconds = Math.floor((elapsedTime / 1000) % 60);
+        const minutes = Math.floor((elapsedTime / 1000 / 60) % 60);
+        const hours = Math.floor((elapsedTime / 1000 / 3600) % 24);
+        const duration = `${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}`;
+        return duration;
+    }
+
     const storeData = async (data) => {
+        const apiURL = BASE_URL + "/api/sleep/save";
         try {
             await updateKeys();
-            const response = await SleepApi(data);
+            const response = await axios.post(apiURL, data);
+            // const response = await SleepApi(data);
             console.log(response.data);
             navigation.navigate("SleepTimeline");
         } catch (error) {
@@ -168,15 +189,18 @@ export function TimeScreen(){
         const currentDateTime = moment();
         const currentDateTimeLocal = currentDateTime.add(5.5, 'hours');
 
-        const totalTimeSlept = calculateTotalTimeSlept();
+        const sleepDuration = totalSleepTime();
         console.log('Start Date:', sleepStartTime);
         console.log('Current Time:', currentDateTimeLocal);
         console.log('End Date:', sleepEndTime);
-        console.log('Total Time Slept:', totalTimeSlept);
+        console.log('Total Time Slept:', sleepDuration);
 
         const data = {
             sleepStartTime,
             sleepEndTime,
+            sleepDuration,
+            sleepNotes,
+            sleepType: isCheckedNap ? 'Nap' : 'Night Sleep'
         };
         storeData(data).then(r => console.log(r));
     };
@@ -186,7 +210,6 @@ export function TimeScreen(){
         const apiURL = BASE_URL + "/api/sleep/last-sleep/" + currentDate;
         try {
             await updateKeys();
-            // const response = await SleepApiGetLast();
             const response = await axios.get(apiURL, null);
             console.log(response.data);
             const sleepStartTime = response.data.sleepStartTime;
@@ -201,9 +224,9 @@ export function TimeScreen(){
                 hour12: true
             });
             if (response.data.sleepStartTime == null) {
-                setLastSleepTime("No data found");
+                setLastSleepTime("No Data Found for Today");
             }else {
-                setLastSleepTime(lastSleep?("Last Sleep at " + formattedTime):"No data found");
+                setLastSleepTime(lastSleep?("Last Sleep at " + formattedTime):"No Data Found for Today");
             }
 
             const totalSleepTime = response.data.sleepDuration;
@@ -223,7 +246,7 @@ export function TimeScreen(){
 
             const sleepEndTime = new Date(response.data.sleepEndTime);
             const currentTime = new Date();
-            const timeDifferenceInMillis = sleepEndTime - currentTime;
+            const timeDifferenceInMillis = currentTime - sleepEndTime;
             const timeDifferenceInHours = timeDifferenceInMillis / (1000 * 60 * 60);
             const timeDifferenceRounded = Math.round(timeDifferenceInHours);
             const timeDifference = () => {
@@ -239,6 +262,20 @@ export function TimeScreen(){
         }
     };
 
+    const toggleCheckboxNap = () => {
+        setIsCheckedNap(!isCheckedNap);
+        if (isCheckedNight) {
+            setIsCheckedNight(!isCheckedNight);
+        }
+    };
+
+    const toggleCheckboxNight = () => {
+        setIsCheckedNight(!isCheckedNight);
+        if (isCheckedNap) {
+            setIsCheckedNap(!isCheckedNap);
+        }
+    };
+
     return (
         <SafeAreaView>
             <SleepHeader screen={"Baby"} />
@@ -249,14 +286,16 @@ export function TimeScreen(){
                         <Text className={"text-2xl font-bold opacity-70"}>{lastSleepTime}</Text>
                         <Text className={"opacity-50"}>{timeGap}</Text>
                     </View>
-                    <View className={"flex flex-row items-center"}>
-                        <ClockIcon size="15" color="gray" />
-                        <Text className={"px-1"}>{sleepDuration}</Text>
-                    </View>
+                    {sleepDuration ? (
+                            <View className={"flex flex-row items-center"}>
+                                <ClockIcon size="15" color="gray" />
+                                <Text className={"px-1"}>{sleepDuration}</Text>
+                            </View> )
+                        : null}
                 </View>
             </View>
-            <View className={"mt-16"}>
-                <View className={"py-24"}>
+            <View>
+                <View className={"py-12"}>
                     <View className={"flex flex-row px-8 justify-between"}>
                         <View className={"w-2/5 border-b-2 border-primary m-2 mx-2"}>
                             <Pressable onPress={showStartDatePicker}>
@@ -322,7 +361,44 @@ export function TimeScreen(){
                         </View>
                     </View>
                 </View>
-                <Pressable className={"mt-8 py-2"} onPress={() => navigation.navigate("Sleeping")}>
+                <Text className={"text-center font-bold py-2"}>Select Sleep Type</Text>
+                <View className={"flex flex-row m-5 mt-4"}>
+                    <View className={"flex-1 mx-5"}>
+                        <Pressable onPress={toggleCheckboxNap}>
+                            {isCheckedNap ? (
+                                <View className={"border border-primary p-2 bg-primary"}>
+                                    <Text className={"text-center"} style={{color:"white"}}>Nap</Text>
+                                </View>
+                            ) : (
+                                <View className={"border border-primary p-2"}>
+                                    <Text className={"text-center text-primary"}>Nap</Text>
+                                </View>
+                            )}
+                        </Pressable>
+                    </View>
+                    <View className={"flex-1 mx-5"}>
+                        <Pressable onPress={toggleCheckboxNight}>
+                            {isCheckedNight ? (
+                                <View className={"border border-primary p-2 bg-primary"}>
+                                    <Text className={"text-center"} style={{color:"white"}}>Night Sleep</Text>
+                                </View>
+                            ) : (
+                                <View className={"border border-primary p-2"}>
+                                    <Text className={"text-center text-primary"}>Night Sleep</Text>
+                                </View>
+                            )}
+                        </Pressable>
+                    </View>
+                </View>
+                <View className={"m-4"}>
+                    <TextInput
+                        className={"border-primary rounded border h-20 p-1 my-1"}
+                        placeholder="Add a note (Optional)"
+                        value={sleepNotes}
+                        onChangeText={text => setSleepNotes(text)}
+                    />
+                </View>
+                <Pressable className={"py-2"} onPress={() => navigation.navigate("Sleeping")}>
                     <View className={"flex flex-row justify-center"}>
                         {/*<Icon name={""} />*/}
                         <Text className={"text-secondary"}>Start Timer</Text>

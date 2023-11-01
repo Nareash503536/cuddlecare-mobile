@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import { SafeAreaView, TouchableOpacity, Text } from 'react-native';
 import SymptomHeader from "../../components/Symptom/SymptomListScreen/SymptomHeader";
 import SymptomContainer from "../../components/Symptom/SymptomListScreen/SymptomContainer";
 import { PlusSmallIcon } from "react-native-heroicons/solid";
 import { themeColors } from "../../theme";
 import { useNavigation } from "@react-navigation/native";
-import { SymptomData } from '../../components/Symptom/SymptomData';
-import Timeline from 'react-native-timeline-flatlist';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, RefreshControl } from 'react-native';
+import { SymptomCalendar } from '../../components/Symptom/SymptomListScreen/SymptomCalendar';
+import { COLORS } from '../../constants/theme';
+import { ActivityIndicator } from 'react-native';
 
 const SymptomAddButton = () => {
 
@@ -24,39 +25,41 @@ const SymptomAddButton = () => {
     )
 }
 
+
+export const SymptomListContext = createContext();
+
 export const SymptomList = () => {
+    const [isLoading, setLoading] = useState(false);
 
     return (
-        <SafeAreaView>
-            <ScrollView>
-                <SymptomHeader />
-                <SymptomContainer />
-                <Timeline
-                    data={SymptomData}
-                    circleSize={40}
-                    circleColor='#477276'
-                    lineColor='#477276'
-                    timeContainerStyle={{ minWidth: 52}}
-                    timeStyle={{
-                        textAlign: 'center',
-                        backgroundColor: '#91C9CE',
-                        color: 'white', padding: 5,
-                        borderRadius: 13,
-                        marginBottom: 10,
-                        marginLeft: 10,
-                        marginRight: 10,
-                    }}
-                    descriptionStyle={{ color: 'gray', marginLeft: 10 }}
-                    titleStyle={{ color: '#477276', fontWeight: 'bold', bottom: 5, marginLeft: 10 }}
-                    options={{
-                        style: { paddingTop: 5 }
-                    }}
-                    isUsingFlatlist={true}
-                    innerCircle={'icon'}
-                />
-            </ScrollView>
-            <SymptomAddButton />
-
-        </SafeAreaView>
+        <SymptomListContext.Provider value={{
+            setLoading
+        }}>
+            {isLoading ? 
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                    {/* <LottieView source={animation.Spinner} autoPlay loop /> */}
+                    <ActivityIndicator size="large" color={COLORS.primary} />
+                </View> :
+                <SafeAreaView>
+                    <ScrollView
+                        refreshControl = {
+                            <RefreshControl
+                                refreshing={isLoading}
+                                onRefresh={() => {
+                                    setLoading(true);
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 2000);
+                                }}
+                            />
+                        }>
+                        <SymptomHeader />
+                        <SymptomContainer />
+                        <SymptomCalendar />
+                    </ScrollView>
+                    <SymptomAddButton />
+                </SafeAreaView>
+            }
+        </SymptomListContext.Provider>
     )
 }

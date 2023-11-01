@@ -8,13 +8,17 @@ import {useNavigation} from "@react-navigation/native";
 import Pagination,{Icon,Dot} from 'react-native-pagination';
 import {GlobalStyles} from "../../constants/styles";
 import axios from "axios";
+import {BASE_URL} from "../../config";
 
 
 
 export default function InfoBars({details , keyField ,category}) {
     let navigation = useNavigation();
     const [showButtons,setShowButtons]=useState(false);
+    const [id,setId]=useState('');
+
     const deleteExpense = async (expenseID) => {
+        console.log("delete expense",expenseID);
         setModalVisible(!modalVisible);
         const apiURL = BASE_URL + "/expenses/delete/"+expenseID;
         const response = await axios.delete(apiURL,null);
@@ -27,6 +31,11 @@ export default function InfoBars({details , keyField ,category}) {
     function hidebuttonHandle(itemId){
         console.log("hide btn")
         setShowButtons(prevState => ({ ...prevState, [itemId]: false }));
+    }
+    function handleDelete(itemId){
+        setModalVisible(true);
+        console.log("delete btn")
+        setId(itemId);
     }
 
 //     const renderPagination = (currentPage) => {
@@ -110,7 +119,7 @@ export default function InfoBars({details , keyField ,category}) {
                                                                className={"flex-row   absolute z-10 top-3  w-full h-full"}
                                                                onPress={() => setShowButtons(prevState => ({ ...prevState, [item[keyField]]: false }))}
                                     >
-                                        <TouchableOpacity className={"mr-3"}  onPress={() => setModalVisible(true)} >
+                                        <TouchableOpacity className={"mr-3"}  onPress={() => handleDelete(item.expenseID)} >
                                             <TrashIcon size="27" color="red" />
                                         </TouchableOpacity>
                                         <TouchableOpacity className={"ml-3"}  onPress={() => navigation.navigate('ExpenseForm',{Editdata:item,title:"Edit Expense"})}>
@@ -119,7 +128,7 @@ export default function InfoBars({details , keyField ,category}) {
                                     </TouchableOpacity>
                                 )
                             )}
-                            <TouchableOpacity onLongPress={() => setShowButtons(prevState => ({ ...prevState, [item[keyField]]: true }))}
+                            <TouchableOpacity onPress={() => setShowButtons(prevState => ({ ...prevState, [item[keyField]]: true }))}
 
                                               style={{...styles.btn}}
                                               className={"flex-row mt-4 justify-between"}>
@@ -174,7 +183,7 @@ export default function InfoBars({details , keyField ,category}) {
                                                 </Pressable>
                                                 <Pressable
                                                     style={styles.Button}
-                                                    onPress={() => (deleteExpense(item.expenseID))}>
+                                                    onPress={() => (deleteExpense(id))}>
                                                     <Text   style={{color:'white'}}>Delete</Text>
                                                 </Pressable>
                                             </View>

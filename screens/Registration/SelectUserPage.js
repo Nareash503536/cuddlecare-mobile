@@ -15,25 +15,28 @@ export function SelectUserPage() {
     return (
         <NativeBaseProvider>
             <SafeAreaView className={"flex-1 mt-6"}>
-                <Text className={"text-center text-xl font-bold"} style={{ color: COLORS.tertiary }}>
+                <Text className={"text-center text-3xl font-extrabold"} style={{ color: COLORS.tertiary }}>
                     Select a user to register
                 </Text>
                 <View className={"flex "}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         className={"p-2 ml-0 mt-14 mr-14 h-56 rounded-r-full justify-center align-middle"}
                         onPress={() => navigation.navigate("RegisterPageParent")}
-                        style={{ backgroundColor: COLORS.cardBackground ,
-                            shadowColor: '#000',
+                        style={{
                             shadowOffset: { width: 0, height: 4 },
                             shadowOpacity: 0.25,
                             shadowRadius: 4,
-                            elevation: 4,
+                            backgroundColor: "#fff",
+                            shadowColor: '#000',
+                            elevation: 20,
+                            borderRadius: 10,
+                            marginHorizontal: 20,
                         }}
                     >
-                        <Text className={"text-center text-3xl"} style={{color: COLORS.tertiary}}>
+                        <Text className={"text-center text-3xl"} style={{ color: COLORS.tertiary }}>
                             Parent
                         </Text>
-                        <Image 
+                        <Image
                             source={images.parent}
                             resizeMode="contain"
                             className={"h-28 w-52 mx-auto"}
@@ -44,12 +47,14 @@ export function SelectUserPage() {
                         className={"p-2 mr-0 mt-14 ml-14 h-56 rounded-l-full justify-center align-middle"}
                         onPress={() => navigation.navigate("RegisterPageCaregiver")}
                         style={{
-                            backgroundColor: COLORS.cardBackground, 
-                            shadowColor: '#000',
                             shadowOffset: { width: 0, height: 4 },
                             shadowOpacity: 0.25,
                             shadowRadius: 4,
-                            elevation: 4,
+                            backgroundColor: "#fff",
+                            shadowColor: '#000',
+                            elevation: 20,
+                            borderRadius: 10,
+                            marginHorizontal: 20,
                         }}
                     >
                         <Text className={"text-center text-3xl"} style={{ color: COLORS.tertiary }}>
@@ -59,7 +64,6 @@ export function SelectUserPage() {
                             source={images.caregiver}
                             resizeMode="contain"
                             className={"h-32 w-48 mx-auto"}
-                            style={{ backgroundColor: COLORS.cardBackground }}
                         />
                     </TouchableOpacity>
 

@@ -3,7 +3,6 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import SleepHeader from "../components/sleepHeader";
 import React, {useEffect} from "react";
 import {ClockIcon} from "react-native-heroicons/solid";
-import {SleepApiGetAll, SleepApiGetTotal} from "../Api/SleepApi";
 import { PieChart } from 'react-native-chart-kit';
 import {useNavigation} from "@react-navigation/native";
 import {AuthContext} from "../Context/AuthContext";
@@ -32,7 +31,8 @@ export function SleepTimelineScreen() {
                 setTotalSleep(0);
                 return;
             }else {
-                const totalMilliseconds = parseDurationToMilliseconds(response.data);
+                let totalMilliseconds = parseDurationToMilliseconds(response.data);
+                totalMilliseconds = totalMilliseconds - 5.5 * 60 * 60 * 1000;
                 setTotalSleep(totalMilliseconds);
             }
             // console.log(response.data);
@@ -50,7 +50,13 @@ export function SleepTimelineScreen() {
         const totalSeconds = totalMilliseconds / 1000;
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
-        return `${hours} hours and ${minutes} minutes`;
+        if (hours === 0) {
+            return `${minutes}` + " minutes";
+        }else if (hours === 1) {
+            return `${hours}` + " hour and " + `${minutes}` + " minutes";
+        } else {
+            return `${hours}` + " hours and " + `${minutes}` + " minutes";
+        }
     };
 
     const getAll = async () => {

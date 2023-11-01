@@ -41,7 +41,6 @@ export default function SelectDateTime() {
 
     const handleStartTimeConfirm = (time) => {
         let inputTime = time.toISOString().slice(11, 16);
-        //convert time to digital clock
         let hour = parseInt(inputTime.slice(0, 2));
         let minute = inputTime.slice(3, 5);
         if (hour > 12) {
@@ -70,11 +69,6 @@ export default function SelectDateTime() {
                 onPress={showStartDatePicker}
                 className={"border-b-2 pl-8"}
             >
-                {/* <TextInput
-                    value={startDate}
-                    placeholder="Date of check"
-                    editable={false}
-                /> */}
                 <Text className="opacity-50">
                     {startDate ? startDate.toString() : "Date of check"}
                 </Text>
@@ -93,11 +87,6 @@ export default function SelectDateTime() {
                 onPress={showStartTimePicker}
                 className="border-b-2 pl-8"
                 >
-                {/* <TextInput
-                    value={startTime.toString()}
-                    placeholder="Time of check"
-                    editable={false}
-                /> */}
                 <Text className="opacity-50">
                     {startTime ? startTime.toString() : "Time of check"}
                 </Text>
@@ -112,6 +101,7 @@ export default function SelectDateTime() {
                 onConfirm={handleStartTimeConfirm}
                 onCancel={hideStartTimePicker}
                 timeZoneOffsetInMinutes={0}
+                maximumDate={new Date(Date.now() - 86400000)}
             />
         </View>
     )

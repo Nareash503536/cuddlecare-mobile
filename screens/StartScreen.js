@@ -10,7 +10,7 @@ export function StartScreen() {
     let navigation = useNavigation();
     useEffect(() => {
         setTimeout(() => {
-            navigation.navigate("Home");
+            navigation.navigate("AppOverview");
         },2000);
     }, []);
 
@@ -21,7 +21,7 @@ export function StartScreen() {
                     <Image
                         source={images.appName}
                         resizeMode="contain"
-                        className={"mx-auto"}/>
+                        className={"mx-auto w-1/2"}/>
                     <Image
                         source={images.logo}
                         resizeMode="contain"

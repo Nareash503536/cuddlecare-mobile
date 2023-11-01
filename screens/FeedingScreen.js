@@ -9,12 +9,15 @@ import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs
 import {BreastFeeding} from "../components/Feeding/BreastFeeding";
 import {SolidFood} from "../components/Feeding/SolidFood";
 import {BottleFeeding} from "../components/Feeding/BottleFeeding";
+import Food from "../assets/images/Food/dairy-products.png";
+import ScreenHeader from "../components/ScreenHeader";
+import MealPlan from "../components/Feeding/Solidfoods/MealPlan";
 const Tab = createMaterialTopTabNavigator();
 
 export function FeedingScreen(){
     return(
-        <SafeAreaView className={"flex-1 relative mt-8"}>
-            <TopBar/>
+        <SafeAreaView className={"flex-1 relative"}>
+            <ScreenHeader screen={"Baby"} screenName={"Feeding Activity"} BabyName={'Chelsea'} image={Food} />
             <Tab.Navigator
                 initialRouteName="Feeding"
                 screenOptions={
@@ -47,6 +50,7 @@ export function FeedingScreen(){
                 <Tab.Screen name="Bfeeding" component={BreastFeeding} options={{tabBarLabel:"Breast"}}/>
                 <Tab.Screen name="BottleFeeding" component={BottleFeeding} options={{tabBarLabel:"Bottle"}}/>
                 <Tab.Screen name="Sfeeding" component={SolidFood} options={{tabBarLabel:"Solids"}}/>
+                {/*<Tab.Screen name="mealplan" component={MealPlan} options={{tabBarLabel:"Meal plan"}}/>*/}
             </Tab.Navigator>
 
         </SafeAreaView>

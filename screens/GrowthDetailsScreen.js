@@ -7,7 +7,7 @@ import {StatusBar} from "expo-status-bar";
 import {themeColors} from "../theme";
 import GrowthMeasurementList from "../components/Growth/GrowthMeasurementList";
 import {useDispatch, useSelector} from "react-redux";
-import {selectGrowth, setGrowth} from "../slices/growthSlice";
+import {selectBMIAndGrowthCategory, selectGrowth, setGrowth} from "../slices/growthSlice";
 import {dateDiff, getFormattedDate} from "../util/date";
 import {BellIcon, CalendarDaysIcon, ChartBarSquareIcon} from "react-native-heroicons/outline";
 import {GlobalStyles} from "../constants/styles";
@@ -17,6 +17,7 @@ import {UpcomingEvent} from "../components/upcomingEvent";
 import {GrowthUpcomingEvent} from "../components/Growth/GrowthUpcomingEvent";
 import {DUMMY_GROWTH} from "../constants/GrowthChartZScoreData/DUMMY_GROWTH";
 import GrowthDisplays from "../components/Growth/GrowthDisplays";
+import {NotificationGenerator} from "../components/NotificationGenerator";
 
 let baby = babyDetails[2];
 
@@ -31,9 +32,9 @@ export function GrowthDetailsScreen() {
     let growthDetails = useSelector(selectGrowth);
     const latestGrowthDetail = growthDetails[0];
 
-const navigation = useNavigation();
+    const navigation = useNavigation();
     return (
-        <View className={"flex-1 bg-white "}>
+        <View className={"flex-1 bg-white "} style={{backgroundColor:"white"}}>
             <SafeAreaView className={"flex-1 relative"}>
                 <StatusBar barStyle={"light"}/>
                 {/*Top bar*/}
@@ -64,32 +65,16 @@ const navigation = useNavigation();
                     {/*name and growth status*/}
                     <View className={"flex flex-1 pl-3 pt-2"}>
                         <View>
-                            <Text className={"text-gray-500 text-2xl font-semibold"} >{baby.name}</Text>
+                            <Text className={"text-gray-500 text-2xl font-semibold"} style={{color:"gray"}}>{baby.name}</Text>
                         </View>
                         <View className={"flex-row space-x-2"}>
-                            <Text className={"text-gray-500 font-bold"} >Age </Text>
-                            <Text className={"text-gray-500 text-sm"} >{dateDiff(baby.dob,(new Date()))}</Text>
+                            <Text className={"text-gray-500 font-bold"} style={{color:"gray"}}>Age </Text>
+                            <Text className={"text-gray-500 text-sm"} style={{color:"gray"}}>{dateDiff(baby.dob,(new Date()))}</Text>
                         </View>
                         <View className={"flex-row space-x-2"}>
-                            <Text className={"text-gray-500 font-bold"} >8 </Text>
-                            <Text className={"text-gray-500 text-sm"} >Measurements</Text>
+                            <Text className={"text-gray-500 font-bold"} style={{color:"gray"}}>8 </Text>
+                            <Text className={"text-gray-500 text-sm"} style={{color:"gray"}}>Measurements</Text>
                         </View>
-
-                        {/*<View className={"flex-row flex-1 justify-between space-x-1"} >*/}
-                        {/*    <View className={" flex px-5 py-1 items-center rounded-2xl"} style={{backgroundColor:themeColors.bgWhite(0.4)}} >*/}
-                        {/*        <Text className={"text-white"} >Weight</Text>*/}
-                        {/*        <Text className={"text-lg "} style={{color:themeColors.colorExtraDark}}>{baby.weight}kg</Text>*/}
-                        {/*    </View>*/}
-                        {/*    <View className={" flex px-5 py-1 items-center rounded-2xl"} style={{backgroundColor:themeColors.bgWhite(0.3)}} >*/}
-                        {/*        <Text className={"text-white"}>Size</Text>*/}
-                        {/*        <Text className={"text-lg "} style={{color:themeColors.colorExtraDark}}>{baby.height}cm</Text>*/}
-                        {/*    </View>*/}
-                        {/*    <View className={" flex px-5 py-1 items-center rounded-2xl"} style={{backgroundColor:themeColors.bgWhite(0.3)}} >*/}
-                        {/*        <Text className={"text-white"}>Age</Text>*/}
-                        {/*        <Text className={"text-lg"} style={{color:themeColors.colorExtraDark}} >{baby.year}y {baby.month}m</Text>*/}
-                        {/*    </View>*/}
-                        {/*</View>*/}
-
                     </View>
                 </View>
 
@@ -104,39 +89,38 @@ const navigation = useNavigation();
 
                 {/*<View*/}
                 <View className={"flex-row justify-between px-3 pt-3"}>
-                    <Text className={"font-semibold text-xl text-gray-500"} style={{letterSpacing:1,fontSize:16}} >
+                    <Text className={"font-semibold text-xl text-gray-500"} style={{letterSpacing:1,fontSize:16,color:"gray"}} >
                         Growth Measurements
                     </Text>
                     <TouchableOpacity>
-                        <Text className={"text-gray-500"} style={{letterSpacing:1,}} >
+                        <Text className={"text-gray-500"} style={{letterSpacing:1,color:"gray"}} >
                             See More
                             <ArrowRightIcon  size="16" color="gray" />
                         </Text>
                     </TouchableOpacity>
                 </View>
 
+                {/*Growth Measurement List*/}
                 <GrowthMeasurementList growthData={growthDetails} />
 
                 {/*Side Button*/}
                 {/*<View  className={"absolute"}>*/}
-                    <TouchableOpacity
-                        className={"absolute bottom-24 right-5 rounded-full shadow-2xl p-1"}
-                        style={{backgroundColor:themeColors.btnColor,shadowColor: "#000"}}
-                        onPress={() => navigation.navigate('GrowthChart')}
-                    >
-                        <Image source={require("../assets/images/analysisIcon.png")} className={"w-12 h-12 rounded-full"}/>
-                        {/*<ChartBarSquareIcon   size="40" color="white" />*/}
-                    </TouchableOpacity>
+                <TouchableOpacity
+                    className={"absolute bottom-24 right-5 rounded-full shadow-2xl p-1"}
+                    style={{backgroundColor:themeColors.btnColor,shadowColor: "#000"}}
+                    onPress={() => navigation.navigate('GrowthChart')}
+                >
+                    <Image source={require("../assets/images/analysisIcon.png")} className={"w-12 h-12 rounded-full"}/>
+                    {/*<ChartBarSquareIcon   size="40" color="white" />*/}
+                </TouchableOpacity>
 
-                    <TouchableOpacity
-                        className={"absolute bottom-10 right-5 shadow-2xl rounded-full p-1"}
-                        style={{backgroundColor:themeColors.btnColor,shadowColor: "#000"}}
-                        onPress={() => navigation.navigate('GrowhtManage')}
-                    >
-                        <PlusSmallIcon size="40" color="white"  />
-                    </TouchableOpacity>
-                {/*</View>*/}
-
+                <TouchableOpacity
+                    className={"absolute bottom-10 right-5 shadow-2xl rounded-full p-1"}
+                    style={{backgroundColor:themeColors.btnColor,shadowColor: "#000"}}
+                    onPress={() => navigation.navigate('GrowhtManage')}
+                >
+                    <PlusSmallIcon size="40" color="white"  />
+                </TouchableOpacity>
             </SafeAreaView>
         </View>
     )

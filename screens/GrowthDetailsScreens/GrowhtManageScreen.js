@@ -5,23 +5,37 @@ import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Button from "../../components/UI/Button";
 import {useNavigation} from "@react-navigation/native";
 import {themeColors} from "../../theme";
-import {useDispatch} from "react-redux";
-import {addGrowth} from "../../slices/growthSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {addGrowth, selectBMIAndGrowthCategory, selectGrowth, selectGrowthById} from "../../slices/growthSlice";
 import {storeGrowth} from "../../util/http";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ErrorOverlay from "../../components/UI/ErrorOverlay";
 import {ArrowLeftIcon} from "react-native-heroicons/outline";
+import {NotificationGenerator} from "../../components/NotificationGenerator";
 
 
 //generate array of objects including dummy values for growth
 
-export default function GrowhtManageScreen() {
+export default function GrowhtManageScreen({ route }) {
+    let selectedGrowth=[];
+    if(route.params) {
+        const {id} = route.params;
+        selectedGrowth = useSelector(state => selectGrowthById(state, id));
+    }
+
     let navigation = useNavigation();
     const dispatch = useDispatch();
     const [error, setError] = useState();
-    function deleteExpenseHandler() {
-        // expensesCtx.deleteExpense(editedExpenseId);
-        navigation.goBack();
+    const { scheduleNotificationGenerator } = NotificationGenerator();
+
+    const { bmi, growthCategory } = useSelector(selectBMIAndGrowthCategory);
+    function scheduleNotificationHandler() {
+        const data = {
+            title: 'Current BMI value' + bmi,
+            body: 'Current growth status is ' + growthCategory,
+            data: {username: 'Growth status is updated'}
+        }
+        scheduleNotificationGenerator(data);
     }
 
     function cancelHandler() {
@@ -30,8 +44,21 @@ export default function GrowhtManageScreen() {
 
     async function confirmHandler(growthData) {
         try{
-            const id = await storeGrowth(growthData);
+            // const id = await storeGrowth(growthData);
+            let id = Math.floor(Math.random() * 100) + 1;
             dispatch(addGrowth({...growthData,id:id}));
+            scheduleNotificationHandler()
+
+            //set the notification
+            const { bmi, growthCategory } = useSelector(selectBMIAndGrowthCategory);
+            const data = {
+                title: 'Current growth status'+ bmi,
+                body: 'Current growth status is '+ growthCategory,
+                data: { username: 'Growth status is updated' }
+            }
+            scheduleNotificationGenerator(data);
+
+
         }catch (error) {
             setError('Netword Error');
         }
@@ -54,6 +81,7 @@ export default function GrowhtManageScreen() {
                 > Growth Measurements</Text>
             </View>
             <GrowthForm
+                defaultValues={selectedGrowth}
                 onCancel={cancelHandler}
                 onSubmit={confirmHandler}
             />

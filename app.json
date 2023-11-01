@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-native-tailwindcss",
-    "slug": "react-native-tailwindcss",
+    "name": "CuddleCare",
+    "slug": "CuddleCare",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,6 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+     "plugins": ["expo-image-picker"],
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -25,6 +26,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/assets/logoDesc.png",
+          "color": "#ffffff"
+        }
+      ]
+    ],
+    "permissions": ["CAMERA_ROLL", "AUDIO_RECORDING", "NOTIFICATIONS"]
   }
 }

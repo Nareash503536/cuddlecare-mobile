@@ -7,9 +7,10 @@ export const themeColors = {
     bgDark: '#8c5319',
     text: '#3C2A21',
     btnColor:'#98CED4',
-    bgWhite: opasity => `rgba(255, 255, 255, ${opasity})`,
-    btnColorop: opasity => `rgba(152, 206, 212, ${opasity})`,
+    bgWhite: opacity => `rgba(255, 255, 255, ${opacity})`,
+    btnColorop: opacity => `rgba(152, 206, 212, ${opacity})`,
     colornormal:"#94CCD2",
     colorDark:'#7AABAF',
     colorExtraDark:"#477276",
+    colorDanger:"#E8ACA7"
 }

@@ -6,39 +6,93 @@ import React, { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Modal, Center, Button, FormControl, Input, VStack, HStack } from "native-base";
 import { symptomContext } from "../../../screens/Symptom/SymptomAdd";
-import { SymptomData } from "../SymptomData";
-import Timeline from 'react-native-timeline-flatlist'
+import SymptomsAPI from "../../../Api/SymptomsApi";
+import { AuthContext } from "../../../Context/AuthContext";
+import Toast from 'react-native-toast-message';
+
 
 export default function SymptomContainer() {
 
     const [symptomArray, setSymptomArray] = useState(Array(11).fill(false))
     const [showModal, setShowModal] = useState(false);
+    const { updateKeys } = useContext(AuthContext);
+    const navigation = useNavigation();
+
     const {
         startTime,
-        startDate
+        setStartTime,
+        startDate,
+        setStartDate,
+        setIsLoading
     } = useContext(symptomContext);
 
     const handleSaveSymptom = () => {
         setShowModal(true);
-        //for loop symptom Array
-        // for (let i = 0; i < symptomArray.length; i++) {
-        //     SymptomData.push(
-        //         {
-        //             date: { startDate },
-        //             time: { startTime },
-        //             //get respective symptom from SymptomSet
-        //             symptom: {symptom: SymptomSet[i].image}
-        //         }
-        //     )
-        // }
+    }
+
+    const saveSymptoms = async (date, time, additionalNotes, babyID) => {
+        let allFalse = true;
+        for (let i = 0; i < symptomArray.length; i++) {
+            if (symptomArray[i] === true) {
+                allFalse = false;
+                break;
+            }
+        }
+        if (allFalse) {
+            Toast.show({
+                type: "error",
+                text1: "No symptoms selected",
+                text2: "Please select at least one symptom",
+            })
+            return;
+        }
+        //Only allow past srilankan time
+        let now = new Date();
+        let nowSriLankan = new Date(now.getTime() + (330 * 60 * 1000));
+        let nowSriLankanString = nowSriLankan.toISOString();
+        let nowSriLankanDate = nowSriLankanString.split("T")[0];
+        let nowSriLankanTime = nowSriLankanString.split("T")[1].split(".")[0];
+        if (date > nowSriLankanDate || (date === nowSriLankanDate && time > nowSriLankanTime)) {
+            Toast.show({
+                type: "error",
+                text1: "Invalid date/time",
+                text2: "Future date/time is not allowed. Please select a past date/time.",
+            })
+            return;
+        }
+        setIsLoading(true);
+        await updateKeys();
+        let response = await SymptomsAPI().addSymptoms(
+            date, time, additionalNotes, symptomArray, babyID);
+        if (response === undefined)
+            Toast.show({
+                type: "error",
+                text1: "Error saving symptoms",
+                text2: "There was an error saving your symptoms. Please try again.",
+            })
+        else {
+            Toast.show({
+                type: "success",
+                text1: "Symptoms saved",
+                text2: "Your symptoms have been saved successfully",
+            })
+            console.log(response);
+        }
+        setShowModal(false);
+        setSymptomArray(Array(11).fill(false));
+        setIsLoading(false);
+        setStartDate("");
+        setStartTime("");
     }
 
     const Example = () => {
+        const [additionalNotes, setAdditionalNotes] = useState("");
+        const handleText = (text) => setAdditionalNotes(text);
         return <Center>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
                 <Modal.Content maxWidth="400px">
                     <Modal.CloseButton />
-                    <Modal.Header>Contact Us</Modal.Header>
+                    <Modal.Header>Update Symptoms</Modal.Header>
                     <Modal.Body>
                         <VStack space={2}>
                             <HStack alignItems="center" justifyContent="space-between">
@@ -47,12 +101,12 @@ export default function SymptomContainer() {
                             </HStack>
                             <HStack alignItems="center" justifyContent="space-between">
                                 <Text fontWeight="medium">Time of check</Text>
-                                {/*<Text color="blueGray.400">{startTime}</Text>*/}
+                                <Text color="blueGray.400">{startTime}</Text>
                             </HStack>
                         </VStack>
                         <FormControl>
                             <FormControl.Label>Additional notes</FormControl.Label>
-                            <Input />
+                            <Input value={additionalNotes} onChangeText={handleText} isRequired={true}/>
                         </FormControl>
                     </Modal.Body>
                     <Modal.Footer>
@@ -62,9 +116,7 @@ export default function SymptomContainer() {
                             }}>
                                 Cancel
                             </Button>
-                            <Button onPress={() => {
-                                setShowModal(false);
-                            }}>
+                            <Button onPress={() => saveSymptoms(startDate, startTime, additionalNotes, 1) }>
                                 Save
                             </Button>
                         </Button.Group>
@@ -143,7 +195,7 @@ export default function SymptomContainer() {
                     startTime === "" ? true : false
                 }
             >
-                <Text className="text-white font-extrabold text-lg">
+                <Text className="text-white font-extrabold text-lg" style={{ color: "#fff" }}>
                     Save
                 </Text>
             </TouchableOpacity>

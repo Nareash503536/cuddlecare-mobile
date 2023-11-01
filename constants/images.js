@@ -12,6 +12,7 @@ import getStartedBaby from "../assets/images/getstartedBaby.png";
 import verifyBaby from "../assets/images/verifyBaby.png"
 import sleeping from "../assets/images/sleeping.png"
 import sick from "../assets/images/sick.png"
+
 import abnormalBreathing from "../assets/images/BabySymptoms/abnormalBreathing.png";
 import cough from "../assets/images/BabySymptoms/cough.png";
 import fever from "../assets/images/BabySymptoms/fever.png";
@@ -27,21 +28,17 @@ import vomiting from "../assets/images/BabySymptoms/vomiting.png";
 import accept from "../assets/images/accept.png";
 import time from "../assets/images/time.png";
 import calendarInSymptoms from "../assets/images/calendarInSymptoms.png";
+import view from "../assets/images/view.png";
+import NoSymptomsFound from "../assets/images/NoSymptomsFound.png";
 
-import allergic from "../assets/images/Food/allergic.png";
-import liked_it from "../assets/images/Food/liked_it.png";
+import UserImage from "../assets/images/TestImages/user1.jpg";
+import Profile from "../assets/images/profile.png";
+import EditImage from "../assets/images/EditImage.png"
+import AddImage from "../assets/images/AddImage.jpg"
+import NoBabiesWarning from "../assets/images/NoBabiesWarning.png"
 
-import loved_it from "../assets/images/Food/loved_it.png";
-import hated_it from "../assets/images/Food/hated_it.png";
-import fruits from "../assets/images/Food/fruits.png";
-import puree from "../assets/images/Food/puree.png";
-import drinks from "../assets/images/Food/drinks.png";
-import dairyproducts from "../assets/images/Food/dairyproducts.png";
-import meat from "../assets/images/Food/meat.png";
-import vegetable from "../assets/images/Food/vegetable.png";
-import snacks from "../assets/images/Food/snacks.png";
-import grains from "../assets/images/Food/grains.png";
-
+import success from "../assets/images/success.png"
+import decline from "../assets/images/decline.png"
 
 export default {logo, 
                 appName, 
@@ -71,18 +68,13 @@ export default {logo,
                 accept,
                 time,
                 calendarInSymptoms,
-                allergic,
-                liked_it,
-                loved_it,
-                hated_it,
-                fruits,
-                puree,
-                drinks,
-                dairyproducts,
-                meat,
-                vegetable,
-                snacks,
-                grains
-
-
+                view,
+                NoSymptomsFound,
+                UserImage,
+                Profile,
+                EditImage,
+                AddImage,
+                NoBabiesWarning,
+                success,
+                decline
             };

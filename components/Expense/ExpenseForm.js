@@ -196,7 +196,7 @@ export default function ExpenseForm() {
                     lable={"Pick a Date"}
                     value={Editdata?getFormattedDate(new Date(Editdata.date)).toString():getFormattedDate(new Date())}
                     inputHandler={inputChangedHandler}
-                    name={'date'}
+                    name='date'
                 />
                 <Input
                     label="Notes"

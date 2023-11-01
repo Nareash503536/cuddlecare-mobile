@@ -7,7 +7,6 @@ import FilledButton from "../components/filledButton";
 import Icon from "react-native-vector-icons/FontAwesome";
 import SleepHeader from "../components/sleepHeader";
 import {ClockIcon} from "react-native-heroicons/solid";
-import {SleepApi, SleepApiGetLast} from "../Api/SleepApi";
 import {AuthContext} from "../Context/AuthContext";
 import {BASE_URL} from "../config";
 
@@ -20,13 +19,15 @@ export function SleepScreen() {
     const [endDate, setEndDate] = useState(null);
     const [totalTime, setTotalTime] = useState(null);
     const [isRunning, setIsRunning] = useState(false);
-    const [note, setNote] = useState('');
+    const [sleepNotes, setSleepNotes] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [countdown, setCountdown] = useState('00:00:00');
     const [sleepStartTime, setSleepStartTime] = useState(null);
     const [sleepEndTime, setSleepEndTime] = useState(null);
     const [lastSleepTime, setLastSleepTime] = useState(null);
     const [sleepDuration, setSleepDuration] = useState(null);
+    const [isCheckedNap, setIsCheckedNap] = useState(false);
+    const [isCheckedNight, setIsCheckedNight] = useState(false);
     const [timeGap, setTimeGap] = useState(null);
     const navigation = useNavigation();
 
@@ -64,6 +65,7 @@ export function SleepScreen() {
 
     const lastSleep = async () => {
         const currentDate = new Date().toISOString().slice(0, 10);
+        console.log("current " +currentDate);
         const apiURL = BASE_URL + "/api/sleep/last-sleep/" + currentDate;
         try {
             await updateKeys();
@@ -78,9 +80,9 @@ export function SleepScreen() {
                 hour12: true
             });
             if (response.data.sleepStartTime == null) {
-                setLastSleepTime("No data found");
+                setLastSleepTime("No Data Found for Today");
             }else {
-                setLastSleepTime(lastSleep?("Last Sleep at " + formattedTime):"No data found");
+                setLastSleepTime(lastSleep?("Last Sleep at " + formattedTime):"No Data Found for Today");
             }
             const totalSleepTime = response.data.sleepDuration;
             const [hoursStr, minutesStr, secondsStr] = totalSleepTime.split(':');
@@ -99,7 +101,7 @@ export function SleepScreen() {
 
             const sleepEndTime = new Date(response.data.sleepEndTime);
             const currentTime = new Date();
-            const timeDifferenceInMillis = sleepEndTime - currentTime;
+            const timeDifferenceInMillis = currentTime - sleepEndTime;
             const timeDifferenceInHours = timeDifferenceInMillis / (1000 * 60 * 60);
             const timeDifferenceRounded = Math.round(timeDifferenceInHours);
             const timeDifference = () => {
@@ -178,14 +180,15 @@ export function SleepScreen() {
             sleepStartTime,
             sleepEndTime,
             sleepDuration,
-            note,
+            sleepNotes,
+            sleepType: isCheckedNap ? "Nap" : "Night Sleep"
         };
         console.log(data);
         storeData(data).then(r => console.log(r));
         console.log(sleepStartTime);
         console.log(sleepEndTime);
         console.log(totalTime);
-        console.log(note);
+        console.log(sleepNotes);
         resetTimer();
     };
 
@@ -240,6 +243,20 @@ export function SleepScreen() {
         }
     };
 
+    const toggleCheckboxNap = () => {
+        setIsCheckedNap(!isCheckedNap);
+        if (isCheckedNight) {
+            setIsCheckedNight(!isCheckedNight);
+        }
+    };
+
+    const toggleCheckboxNight = () => {
+        setIsCheckedNight(!isCheckedNight);
+        if (isCheckedNap) {
+            setIsCheckedNap(!isCheckedNap);
+        }
+    };
+
     return (
         <SafeAreaView className={"flex-1 relative"}>
             <View>
@@ -251,10 +268,12 @@ export function SleepScreen() {
                             <Text className={"text-2xl font-bold opacity-70"}>{lastSleepTime}</Text>
                             <Text className={"opacity-50"}>{timeGap}</Text>
                         </View>
-                        <View className={"flex flex-row items-center"}>
-                            <ClockIcon size="15" color="gray" />
-                            <Text className={"px-1"}>{sleepDuration}</Text>
-                        </View>
+                        {sleepDuration ? (
+                            <View className={"flex flex-row items-center"}>
+                                <ClockIcon size="15" color="gray" />
+                                <Text className={"px-1"}>{sleepDuration}</Text>
+                            </View> )
+                            : null}
                     </View>
                 </View>
                 {renderTime()}
@@ -284,11 +303,40 @@ export function SleepScreen() {
                             <View className={"flex-1 justify-center"}>
                                 <View className={"m-4 rounded-3xl p-2 border border-primary"}>
                                     {/*<Text>Total Time Slept: {totalTime}</Text>*/}
+                                    <Text className={"text-center font-bold py-2"}>Select Sleep Type</Text>
+                                    <View className={"flex flex-row m-5 mt-4"}>
+                                        <View className={"flex-1 mx-5"}>
+                                            <Pressable onPress={toggleCheckboxNap}>
+                                                {isCheckedNap ? (
+                                                    <View className={"border border-primary p-2 bg-primary"}>
+                                                        <Text className={"text-center"} style={{color:"white"}}>Nap</Text>
+                                                    </View>
+                                                ) : (
+                                                    <View className={"border border-primary p-2"}>
+                                                        <Text className={"text-center text-primary"}>Nap</Text>
+                                                    </View>
+                                                )}
+                                            </Pressable>
+                                        </View>
+                                        <View className={"flex-1 mx-5"}>
+                                            <Pressable onPress={toggleCheckboxNight}>
+                                                {isCheckedNight ? (
+                                                    <View className={"border border-primary p-2 bg-primary"}>
+                                                        <Text className={"text-center"} style={{color:"white"}}>Night Sleep</Text>
+                                                    </View>
+                                                ) : (
+                                                    <View className={"border border-primary p-2"}>
+                                                        <Text className={"text-center text-primary"}>Night Sleep</Text>
+                                                    </View>
+                                                )}
+                                            </Pressable>
+                                        </View>
+                                    </View>
                                     <TextInput
-                                        className={"border-primary rounded-2xl border h-20 p-1 my-1"}
+                                        className={"border-primary rounded-2xl border h-20 p-1 my-1 mt-4"}
                                         placeholder="Add a note (Optional)"
-                                        value={note}
-                                        onChangeText={text => setNote(text)}
+                                        value={sleepNotes}
+                                        onChangeText={text => setSleepNotes(text)}
                                     />
                                     <FilledButton title={"Save"} onPress={saveTimerData} icon={"save"}/>
                                 </View>

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '../config';
 
-
 export default function AuthenticationAPI() {
 
     const isAuthenticated = async (email) => {

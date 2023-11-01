@@ -1,13 +1,13 @@
 import { TouchableOpacity } from "react-native";
 import { View, Text, Image } from "react-native";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Carousel, {Pagination} from "react-native-snap-carousel";
 import images from "../../../constants/images";
 import {COLORS} from "../../../constants/theme";
 
-export function ImageSlider () {  
+export function ImageSlider () {
     
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(1);
 
     Items = [{
         id: 1,
@@ -28,19 +28,26 @@ export function ImageSlider () {
         heading: "Community"
         }]
 
+    const changeImage = () => {
+        setActiveIndex((prevIndex) => (prevIndex + 1) % Items.length);
+    };
+
+    useEffect(() => {
+        const interval = setInterval(changeImage, 3000);
+    }, []);
+
     return (
-        <View
-        >
+        <View>
              <Carousel 
                 layout="default"
                 data={Items}
                 renderItem={({item}) => {
                     return (
-                        <View className="my-auto">
+                        <View className="flex items-center m-auto">
                             <Image
                                 source={item.image}
                                 resizeMode="contain"
-                                className={"w-48 h-48 mx-auto rounded-3xl"}
+                                className={"w-48 h-48 rounded-3xl mx-auto"}
                             />
                             {item.heading ? (
                                 <Text className={"font-bold text-center"}>{item.heading}</Text>
@@ -53,7 +60,9 @@ export function ImageSlider () {
                 }}
                 sliderWidth = {320}
                 itemWidth = {300}
-                onSnapToItem = {(index) => setActiveIndex(index)}
+                autoplay = {true}
+                loop = {true}
+                onSnapToItem = {index => setActiveIndex(index)}
              />
                 <Pagination
                     dotsLength={Items.length}
