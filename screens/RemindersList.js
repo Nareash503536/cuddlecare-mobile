@@ -24,7 +24,6 @@ import {AuthContext} from "../Context/AuthContext";
 import {BASE_URL} from "../config";
 import axios from "axios";
 import {getFormattedDate, getFormattedTime} from "../util/date";
-import SwipeableRow from "react-native-swipeable-row";
 // import {RemindersApiUpdate,RemindersApiDelete} from "../Api/RemindersAPI";
 import {faTrashAlt,faPencilAlt} from "@fortawesome/free-solid-svg-icons";
 import {useIsFocused} from "@react-navigation/core";

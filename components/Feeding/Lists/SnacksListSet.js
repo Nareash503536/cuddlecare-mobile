@@ -17,7 +17,7 @@ import nachos from "../../../assets/images/Food/Snacks/nachos.png"
 
 export const SnacksListSet = [{
     id: 'S1',
-    name: "Nachos",
+    name: "Potato chips",
     image: nachos,
     category: "snacks"
 },{

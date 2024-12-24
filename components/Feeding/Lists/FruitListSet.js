@@ -10,18 +10,19 @@ import pineappleImage from "../../../assets/images/Food/Fruits/pineappleImage.pn
 import strawberryImage from "../../../assets/images/Food/Fruits/strawberryImage.jpeg";
 import watermelonImage from "../../../assets/images/Food/Fruits/watermelonImage.jpg";
 
-export const FruitListSet = [{
-                                 "id": 55,
-                                 "name": "Apple",
-                                 "category": "fruits",
-                                 "image": apple
-                             },
+export const FruitListSet = [
                              {
-                                 "id": 56,
+                                 "id": 55,
                                  "name": "Orange",
                                  "category": "fruits",
                                  "image": orangeImage
                              },
+                            {
+                                "id": 56,
+                                "name": "Apple",
+                                "category": "fruits",
+                                "image": apple
+                            },
                              {
                                  "id": 57,
                                  "name": "banana",

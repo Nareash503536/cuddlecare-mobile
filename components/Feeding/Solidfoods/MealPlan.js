@@ -29,7 +29,7 @@ console.log(baby);
             const day = calculateAge(baby.dob);
 
             setBabyage(day);
-            const data = await CreateMealPlan(day);
+            const data = await CreateMealPlan(450);
 
             setMealsArray(data);
         }
@@ -135,7 +135,7 @@ console.log(baby);
 
     }
     function CreateMealPlan(Day){
-        console.log(Day,"days")
+        console.log(Day,"days in meal ")
         let mainmeal = []
         let extrameal = []
         let Notes = []
@@ -168,9 +168,9 @@ console.log(baby);
         }
 
         let randomSnacks =[]
-        const AllSnacks =SnacksListSet.filter(({category})=>category === "snacks")
+        const AllSnacks =SnacksListSet.filter(({category})=>category === "snacks");
         if (AllSnacks.length>0){
-            randomSnacks = AllSnacks[Math.floor(Math.random() * AllVegetable.length)];
+            randomSnacks = AllSnacks[Math.floor(Math.random() * AllSnacks.length)];
         }
 
         switch (true) {
